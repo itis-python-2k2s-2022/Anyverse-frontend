@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import {setToken} from "../components/Auth";
-import {useState} from "react";
+import React, {useState} from "react";
 
 
 export default function Registration() {
@@ -15,24 +15,43 @@ export default function Registration() {
     const [password_repeat, setPassword_repeat] = useState("");
     const [nickname, setNick] = useState("");
     const [email, setEmail] = useState("");
+    // const [image, setImage] = useState("");
 
 
     const login = () => {
+        let block = document.getElementsByName('errorblock')
+              block.innerHTML = 'pppp'
+
           axios
-            .post("http://127.0.0.1:8000/register", {
-              username: username,
-              password: password,
-              password_repeat: password_repeat,
-              usersurname: usersurname,
-              nickname: nickname,
-              email: email
+            .post("http://127.0.0.1:8000/auth/register", {
+
+                name: username,
+                password: password,
+                password_check: password_repeat,
+                surname: usersurname,
+                nickname: nickname,
+                email: email,
             })
+            // }, {
+            //     params: {
+            //     user_key_id: 9,
+            //     },
+            //     headers: {
+            //     'Content-Type': 'application/x-www-form-urlencoded'
+            //     }
+            // })
             .then(function (response) {
-              console.log(response.data.token, "response.data.token");
-              if (response.data.token) {
-                setToken(response.data.token);
-                navigate("/login");
-              }
+              console.log(response);
+
+
+              // console.log(response.data);
+              // console.log(response.statusText);
+              // console.log(response.headers);
+              // console.log(response.config);
+              // if (response.data.token) {
+              //   setToken(response.data.token);
+                navigate("/auth/login");
+              // }
             })
             .catch(function (error) {
               console.log(error, "error");
@@ -41,6 +60,7 @@ export default function Registration() {
 
   return (
     <div style={{ minHeight: 800, marginTop: 30 }}>
+        <h1 className="errorblock">Пока все хорошо)))</h1>
       <Form>
             <Form.Item
               name='name'
@@ -116,6 +136,17 @@ export default function Registration() {
                 placeholder='Password'
               />
             </Form.Item>
+
+           {/*<Form.Item*/}
+           {/*   name='image'*/}
+           {/*   onChange={(e) => setImage(e.target.value)}*/}
+           {/*   // rules={[makeRequiredFormFieldRule("Please enter password")]}*/}
+           {/* >*/}
+           {/*   <Input*/}
+           {/*     prefix={<LockOutlined className='site-form-item-icon' />}*/}
+           {/*     type='file'*/}
+           {/*   />*/}
+           {/* </Form.Item>*/}
 
             <Form.Item>
               <Button

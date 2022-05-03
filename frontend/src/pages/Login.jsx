@@ -8,7 +8,7 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   //check to see if the fields are not empty
@@ -16,12 +16,12 @@ export default function Login() {
 
       // make api call to our backend. we'll leave thisfor later
       axios
-        .post("http://127.0.0.1:8000/login", {
-          username: username,
+        .post("http://127.0.0.1:8000/auth/login", {
+          email: email,
           password: password,
         })
         .then(function (response) {
-          console.log(response.data.token, "response.data.token");
+          console.log(response);
           if (response.data.token) {
             setToken(response.data.token);
             navigate("/profile");
@@ -43,13 +43,13 @@ export default function Login() {
           <div>
             <Form>
               <Form.Item
-                name='name'
-                onChange={(e) => setUsername(e.target.value)}
+                name='email'
+                onChange={(e) => setEmail(e.target.value)}
               >
               {/*<label style={{ marginRight: 10 }}>Input Username</label>*/}
               <Input
                  prefix={<UserOutlined className='site-form-item-icon' />}
-                 placeholder='name' />
+                 placeholder='email' />
               </Form.Item>
               <Form.Item
                 name='password'

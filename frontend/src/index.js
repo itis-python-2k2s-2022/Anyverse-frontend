@@ -15,9 +15,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
             <Route path="/" element = {<Main />}/>
-            <Route path="/login" element = {<Login />}/>
+            <Route path="/auth/login" element = {<Login />}/>
             <Route path="/profile" element = {<Profile />}/>
-            <Route path="/register" element = {<Registration />}/>
+            <Route path="/auth/register" element = {<Registration />}/>
             <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

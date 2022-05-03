@@ -12,8 +12,8 @@ export default function NavbarElement() {
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">
-        <Nav.Link href="/login">Вход</Nav.Link>
-        <Nav.Link href="/register">Регистрация</Nav.Link>
+        <Nav.Link href="/auth/login">Вход</Nav.Link>
+        <Nav.Link href="/auth/register">Регистрация</Nav.Link>
       </Nav>
     </Navbar.Collapse>
   </Container>
