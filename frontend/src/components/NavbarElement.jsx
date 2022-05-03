@@ -14,6 +14,7 @@ export default function NavbarElement() {
       <Nav className="me-auto">
         <Nav.Link href="/auth/login">Вход</Nav.Link>
         <Nav.Link href="/auth/register">Регистрация</Nav.Link>
+        <Nav.Link href="/profile/get_profile_info">Профиль</Nav.Link>
       </Nav>
     </Navbar.Collapse>
   </Container>

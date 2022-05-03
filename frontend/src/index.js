@@ -8,6 +8,8 @@ import NoPage from "./pages/NoPage";
 import Registration from "./pages/Registration";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
+import EditPassword from "./pages/EditPassword";
+import ProfileEdit from "./pages/ProfileEdit";
 
 export default function App() {
   return (
@@ -16,7 +18,9 @@ export default function App() {
         <Route path="/" element={<Layout />}>
             <Route path="/" element = {<Main />}/>
             <Route path="/auth/login" element = {<Login />}/>
-            <Route path="/profile" element = {<Profile />}/>
+            <Route path="/profile/get_profile_info" element = {<Profile />}/>
+            <Route path="/edit_password" element = {<EditPassword />}/>
+            <Route path="/edit_profile" element = {<ProfileEdit />}/>
             <Route path="/auth/register" element = {<Registration />}/>
             <Route path="*" element={<NoPage />} />
         </Route>
