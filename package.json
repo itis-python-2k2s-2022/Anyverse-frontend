@@ -1,0 +1,8 @@
+{
+  "name": "Anyverse",
+  "version": "cd",
+  "main": "index.js",
+  "repository": "https://github.com/itis-python-2k2s-2022/Anyverse-frontend.git",
+  "author": "ASureeva <annasureeva3955@gmail.com>",
+  "license": "MIT"
+}
