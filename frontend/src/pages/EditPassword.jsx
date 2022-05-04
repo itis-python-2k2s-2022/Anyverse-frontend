@@ -19,16 +19,17 @@ export default function EditPassword() {
               block.innerHTML = 'pppp'
 
           axios
-            .post("http://127.0.0.1:8000/auth/register", {
+            .put("http://127.0.0.1:8000/profile/update_password_info", {
 
 
                 password: password,
                 password_check: password_repeat,
+                token: localStorage.getItem('token')
 
             })
             .then(function (response) {
               console.log(response);
-                navigate("profile/get_profile_info/");
+                navigate("/profile/get_profile_info/");
               // }
             })
             .catch(function (error) {

@@ -17,11 +17,11 @@ export const Profile_  = () => {
   };
 
     const password_edit= () => {
-    navigate("/edit_password");
+    navigate("/update_password_info");
   };
 
     const profile_edit= () => {
-    navigate("/edit_profile");
+    navigate("/update_profile_info");
   };
 
 

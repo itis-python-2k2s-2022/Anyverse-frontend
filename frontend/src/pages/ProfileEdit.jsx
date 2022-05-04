@@ -16,28 +16,20 @@ export default function ProfileEdit() {
 
 
     const save = () => {
-        let block = document.getElementsByName('errorblock')
-              block.innerHTML = 'pppp'
+
 
           axios
-            .post("http://127.0.0.1:8000/auth/register", {
+            .put("http://127.0.0.1:8000/profile/update_profile_info", {
 
                 name: username,
                 surname: usersurname,
                 nickname: nickname,
                 email: email,
+                token: localStorage.getItem('token')
             })
-            // }, {
-            //     params: {
-            //     user_key_id: 9,
-            //     },
-            //     headers: {
-            //     'Content-Type': 'application/x-www-form-urlencoded'
-            //     }
-            // })
             .then(function (response) {
               console.log(response);
-                navigate("profile/get_profile_info/");
+                navigate("/profile/get_profile_info/");
               // }
             })
             .catch(function (error) {

@@ -19,8 +19,8 @@ export default function App() {
             <Route path="/" element = {<Main />}/>
             <Route path="/auth/login" element = {<Login />}/>
             <Route path="/profile/get_profile_info" element = {<Profile />}/>
-            <Route path="/edit_password" element = {<EditPassword />}/>
-            <Route path="/edit_profile" element = {<ProfileEdit />}/>
+            <Route path="/update_password_info" element = {<EditPassword />}/>
+            <Route path="/update_profile_info" element = {<ProfileEdit />}/>
             <Route path="/auth/register" element = {<Registration />}/>
             <Route path="*" element={<NoPage />} />
         </Route>
