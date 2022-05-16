@@ -35,10 +35,10 @@ export const Profile_  = () => {
         .then(response => {
             console.log(response);
             const user = {
-                name: response.data.name,
-                nickname: response.data.nickname,
-                surname: response.data.surname,
-                        };
+                name: response.data.user.name,
+                nickname: response.data.user.nickname,
+                surname: response.data.user.surname,
+            };
             console.log(user.name)
             // const element = document.createElement(
             //     'h1',
@@ -48,12 +48,12 @@ export const Profile_  = () => {
 
             const block = document.getElementById("user_name")
             // block.append(element)
-            block.innerText = response.data.name
+            block.innerText = response.data.user.name
             // block.append(element)
             const block1 = document.getElementById("user_nickname")
-            block1.innerText = response.data.nickname
+            block1.innerText = response.data.user.nickname
             const block2 = document.getElementById("user_surname")
-            block2.innerText = response.data.surname
+            block2.innerText = response.data.user.surname
         })
           .catch(function (error) {
                 console.log(error, "error");
