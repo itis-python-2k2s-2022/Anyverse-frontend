@@ -4,41 +4,74 @@ import {fetchToken} from "../components/Auth";
 import {Profile_} from "../components/Profile_element";
 import Registration from "./Registration";
 import axios from "axios";
+import {useParams} from "react-router-dom";
+import {DefaultProfileElement} from "../components/DefaultProfileElement";
 
-export default function DefaultProfile() {
-     axios.get("http://127.0.0.1:8000/profile/get_profile_info/?nickname=nickename", {
+
+function DefaultProfile() {
+    const navigate = useNavigate();
+    const user = {
+        name: '',
+        nickname: '',
+        surname: '',
+    }
+    // const useParams = ReactRouterDOM.useParams;
+    const params = useParams();
+    const user_nickname = params.nickname;
+
+    const send_message= () => {
+    navigate("/chat/open_chat/nick/" + user_nickname);
+  };
+
+
+    axios.get("http://127.0.0.1:8000/profile/get_profile_info/" + user_nickname, {headers:
+            {token: localStorage.getItem('token')}
     })
+      // axios
+      //       .post("/profile/get_profile_info/", {
+      //           token: localStorage.getItem('token')
+      //       })
         .then(response => {
             console.log(response);
             const user = {
                 name: response.data.user.name,
                 nickname: response.data.user.nickname,
-                surname: response.data.user.surname,
-            };
-            console.log(user.name)
-
+                surname: response.data.user.surname
+            }
             const block = document.getElementById("user_name")
             // block.append(element)
-            block.innerText = response.data.user.name
+            block.innerText = user.name
             // block.append(element)
             const block1 = document.getElementById("user_nickname")
-            block1.innerText = response.data.user.nickname
+            block1.innerText = user.nickname
             const block2 = document.getElementById("user_surname")
-            block2.innerText = response.data.user.surname
+            block2.innerText = user.surname
+
+
         })
           .catch(function (error) {
                 console.log(error, "error");
             });
 
 
+
+
+    // console.log('lll' + this.props.location.query)
+    //  console.log('ll'+ this.props.match.params.nickname)
+     console.log(user_nickname)
+
+
+
   return (
-      <>
-          <h1>ИМЯ:</h1>
-          <div id="user_name"></div>
+      <><h1>ИМЯ:</h1>
+            <div id="user_name"></div>
           <h1>НИКНЕЙМ:</h1>
-          <div id="user_nickname"></div>
+             <div id="user_nickname"></div>
           <h1>ФАМИЛИЯ:</h1>
-            <div id="user_surname"></div>
+             <div id="user_surname"></div>
+          <button onClick={send_message}>Написать сообщение</button>
       </>
   );
 }
+
+export default DefaultProfile;

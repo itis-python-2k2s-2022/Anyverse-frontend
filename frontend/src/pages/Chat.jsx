@@ -1,35 +1,33 @@
 import React from 'react';
 import axios from "axios";
 import ChatElement from "../components/ChatElement";
+import {useParams} from "react-router-dom";
 
 
 function Chat() {
-    const object_chats = [];
+    const params = useParams();
+    const user_nickname = params.nickname;
 
-    axios.get("http://127.0.0.1:8000/chat/get_chats", {headers:
+    axios.get("http://127.0.0.1:8000/chat/open_chat/" + user_nickname, {headers:
             {token: localStorage.getItem('token')}
     })
         .then(response => {
             console.log(response);
-            const object_chats = response.data.chats
         })
         .catch(function (error) {
             console.log(error, "error");
         })
         .finally(response => {
-            const object_chats = response.data.chats
+            // const object_chats = response.data.chats
         });
 
 
 
     return (
         <div>
-            <h1>Чаты</h1>
-            <div>
-                {object_chats.map(function(object, i){
-                    <ChatElement obj={object} key={i} />;
-                })}
-            </div>
+            <p>Чат с </p>
+            {user_nickname}
+            <p>Тут нужно сделать чат</p>
         </div>
     );
 }
