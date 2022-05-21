@@ -4,6 +4,11 @@
   text-align: center;
 }
 
+/*#root {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -27,4 +32,25 @@ body {
 
 article h1 {
   margin: 1rem 0;
+}
+
+.post {
+  display: flex;
+  padding: 2%;
+  border: 2px solid #506e6e;
+  margin-top: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  width: 300px; /* Ширина слоя */
+  height: 200px; /* Высота слоя */
+  background: #fc0; /* Цвет фона */
+}
+.link a {
+  display: block; /* Ссылка как блочный элемент */
+  text-align: center; /* Выравнивание по центру */
+  height: 100%; /* Высота на весь слой */
+  color: #666; /* Цвет ссылки */
 }

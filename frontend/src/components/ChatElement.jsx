@@ -1,14 +1,24 @@
 import React from 'react';
+import "../styles/App.css"
 
 
-
-function ChatElement(props) {
-
+const ChatElement = (props) => {
+    console.log('lllll')
     return (
-      <>
-          <p>{props.obj}</p>
-          <p>lol</p>
-      </>
+        <a href={"/chat/open_chat/" + props.item.nickname}>
+            <div className="post" id={props.key}>
+                {console.log(';;;;;')}
+                <div className="post__content">
+                    <strong> </strong>
+                    <div>
+                        {props.item.nickname}
+                    </div>
+                    {/*<div>*/}
+                    {/*    {props.item}*/}
+                    {/*</div>*/}
+                </div>
+            </div>
+        </a>
     );
 }
 

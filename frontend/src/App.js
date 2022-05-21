@@ -4,9 +4,9 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
-import "./styles/App.css";
 import Registration from "./pages/Registration";
 import {Navbar} from "react-bootstrap";
+
 
 function App() {
   return (

@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from "axios";
+import ReactDOM from 'react-dom'
+// import  from "*.svg";
 import ChatElement from "../components/ChatElement";
 
 
@@ -12,20 +14,26 @@ function Chats() {
             {token: localStorage.getItem('token')}
     })
         .then(response => {
-            // console.log(response.data.chats[0]);
+            const element = document.getElementById('user_name');
+
+
              const listItems = response.data.chats.map((number) =>
-                 // number
-                 console.log(number)
-                 // <li>{number.name}</li>
+                 {console.log(number)
+                  const elements = document.getElementById("chats");
+                  const member_chat = document.createElement("div");
+                  member_chat.setAttribute('id', number.nickname)
+                  elements.append(member_chat)
+                 }
              );
-             const result = listItems.map((number) =>
-                 number
+             console.log(listItems)
+
+             response.data.chats.map((item) =>
+                 ReactDOM.hydrate(
+                     <ChatElement item={item} key={item.nickname}/>,
+                     document.getElementById(item.nickname)
+                 )
              );
-             console.log(result)
-            const object_chats = response.data.chats
-            const block = document.getElementById("user_name")
-            // block.append(element)
-            block.innerText = object_chats[0]
+
         })
         .catch(function (error) {
             console.log(error, "error");
@@ -34,23 +42,11 @@ function Chats() {
             const object_chats = response.data.chats
         });
 
-    // const numbers = [1, 2, 3, 4, 5];
-    // const listItems = object_chats.map((number) =>
-    //     <li>{number}</li>
-    // );
-
 
     return (
         <div>
             <h1>Чаты</h1>
-            {result}
-            <div id="user_name"></div>
-            {object_chats}
-            {/*<div>*/}
-            {/*    {object_chats.map(function(object_chats, i =1){*/}
-            {/*        return <ChatElement obj={object_chats} key={i} />;*/}
-            {/*    })}*/}
-            {/*</div>*/}
+            <div id="chats"></div>
         </div>
     );
 }

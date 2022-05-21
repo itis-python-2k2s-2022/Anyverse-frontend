@@ -32,12 +32,12 @@ export default function App() {
             <Route path="/chat/get_chats" element = {<Chats />}/>
 
             <Route path="*" element={<NoPage />} />
-            <Route path="default_profile/get_profile_info/nick" element={<DefaultProfile />}>
+            <Route path="default_profile/get_profile_info/" element={<DefaultProfile />}>
               {/*<Link to="/:nickname">Link</Link>*/}
               {/*<Route exact path="/:nickname" render={(props => <DefaultProfile{...props}/>)}/>*/}
               <Route path=":nickname" element={<DefaultProfile />}/>
             </Route>
-            <Route path="/chat/open_chat/nick" element = {<Chat />}>
+            <Route path="/chat/open_chat/" element = {<Chat />}>
                 <Route path=":nickname" element = {<Chat />}/>
             </Route>
         </Route>
