@@ -6,6 +6,7 @@ import Registration from "./Registration";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import {DefaultProfileElement} from "../components/DefaultProfileElement";
+import ButtonBeFriend from "../components/ButtonBeFriend";
 
 
 function DefaultProfile() {
@@ -20,13 +21,14 @@ function DefaultProfile() {
     const user_nickname = params.nickname;
 
     const send_message= () => {
-    navigate("/chat/open_chat/nick/" + user_nickname);
+    navigate("/chat/open_chat/" + user_nickname);
   };
 
-
-    axios.get("http://127.0.0.1:8000/profile/get_profile_info/" + user_nickname, {headers:
-            {token: localStorage.getItem('token')}
-    })
+    console.log(localStorage.getItem('token'))
+    axios.get("http://127.0.0.1:8000/profile/get_profile_info/" + user_nickname,
+        {headers:
+                {token: localStorage.getItem('token')}
+        })
       // axios
       //       .post("/profile/get_profile_info/", {
       //           token: localStorage.getItem('token')
@@ -53,15 +55,6 @@ function DefaultProfile() {
                 console.log(error, "error");
             });
 
-
-
-
-    // console.log('lll' + this.props.location.query)
-    //  console.log('ll'+ this.props.match.params.nickname)
-     console.log(user_nickname)
-
-
-
   return (
       <><h1>ИМЯ:</h1>
             <div id="user_name"></div>
@@ -70,6 +63,7 @@ function DefaultProfile() {
           <h1>ФАМИЛИЯ:</h1>
              <div id="user_surname"></div>
           <button onClick={send_message}>Написать сообщение</button>
+          <ButtonBeFriend nickname={user_nickname}/>
       </>
   );
 }
