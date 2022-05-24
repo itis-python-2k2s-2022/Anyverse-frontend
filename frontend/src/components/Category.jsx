@@ -24,6 +24,9 @@ export default function  Category() {
                     <Nav pullRight className="me-auto">
                         <Nav.Link href="/category/create_category">Создать категорию</Nav.Link>
                     </Nav>
+                     <Nav pullRight className="me-auto">
+                        <Nav.Link href="/category/search">Поиск по категориям</Nav.Link>
+                    </Nav>
                 </Navbar.Collapse>
               </Container>
             </Navbar>

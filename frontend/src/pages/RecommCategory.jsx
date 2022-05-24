@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import CategoryElement from "../components/CategoryElement";
 
 const RecommCategory = () => {
-axios.get("http://127.0.0.1:8000/category/get_recommended_categories",
+axios.get("http://127.0.0.1:8000/category_app/category/get_recommended_categories",
         {headers:
                 {token: localStorage.getItem('token')}
         })
@@ -35,8 +35,9 @@ axios.get("http://127.0.0.1:8000/category/get_recommended_categories",
     return (
         <div>
             <Category />
-            <div id="recomm"></div>
             <h1>Мои категории</h1>
+            <div id="recomm"></div>
+
         </div>
     );
 };

@@ -4,19 +4,46 @@ import {useParams} from "react-router-dom";
 import ButtonBeFriend from "../components/ButtonBeFriend";
 import {fetchToken} from "../components/Auth";
 import {Profile_} from "../components/Profile_element";
+import {useNavigate} from "react-router";
 
 const DefaultCategory = () => {
 
     const params = useParams();
     const category_id = params.category;
+
     const lable = ["Подписаться", "Отписаться"];
     const [mark, setMark] = useState(false)
+    const [flags, setFlags] = useState(false)
+
+    const navigate = useNavigate();
+
+    const addThread = () => {
+         navigate("/thread/create_thread");
+    }
+
+    const update = () => {
+        navigate("/category/update_category/" + category_id);
+    }
+
+    const deleteCategory = () => {
+        axios.delete("http://127.0.0.1:8000/category_app/category/delete_category/", { data:{
+            creator: localStorage.getItem('token'),
+            id: category_id,
+        }})
+        .then(response => {
+            console.log(response);
+            navigate("/category/my_category");
+        })
+          .catch(function (error) {
+                console.log(error, "error");
+            });
+    };
 
 
     const subscribe= () => {
-         setMark(true);
+        setMark(true);
         console.log(mark);
-        axios.post("http://127.0.0.1:8000/category/subscribe_to_category",
+        axios.post("http://127.0.0.1:8000/category_app/category/subscribe_to_category",
         {
             id: category_id,
             subscriber: localStorage.getItem('token')
@@ -30,13 +57,11 @@ const DefaultCategory = () => {
             });
 
     };
-    // setMark(true);
-    // console.log(mark);
 
     const unsubscribe= () => {
         setMark(false);
         console.log(mark);
-   axios.delete("http://127.0.0.1:8000/category/unsubscribe_from_category", { data:{
+        axios.delete("http://127.0.0.1:8000/category_app/category/unsubscribe_from_category", { data:{
             id: category_id,
             unsub: localStorage.getItem('token')
         }})
@@ -50,14 +75,13 @@ const DefaultCategory = () => {
     };
 
 
-    axios.get("http://127.0.0.1:8000/category/get_category/",
+    axios.get("http://127.0.0.1:8000/category_app/category/get_category/",
         {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
 
         .then(response => {
             console.log(response.data.is_subscriber);
-            // const mark = response.data.is_subscriber;
              setMark(response.data.is_subscriber);
-             console.log(mark);
+             setFlags(response.data.is_creator);
             const category_info = {
                 name: response.data.category.name,
                 description: response.data.category.description,
@@ -89,6 +113,15 @@ const DefaultCategory = () => {
              ) : (
                  <button onClick={subscribe}>Подписаться</button>
                 )}
+             <button onClick={addThread}>Создать новый пост</button>
+             {flags ? (
+                 <div>
+                    <button onClick={update}>Изменить категорию</button>
+                    <button onClick={deleteCategory}>Удалить категорию</button>
+                 </div>
+             ):(
+                 <></>
+             )}
             </>
     );
 };

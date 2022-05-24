@@ -7,7 +7,7 @@ import CategoryElement from "../components/CategoryElement";
 
 const CreatedCategories = () => {
 
-  axios.get("http://127.0.0.1:8000/category/get_created_categories",
+  axios.get("http://127.0.0.1:8000/category_app/category/get_created_categories",
         {headers:
                 {token: localStorage.getItem('token')}
         })
@@ -37,8 +37,8 @@ const CreatedCategories = () => {
     return (
         <div>
             <Category />
-            <div id="categories"></div>
             <h1>Мои категории</h1>
+            <div id="categories"></div>
         </div>
     );
 

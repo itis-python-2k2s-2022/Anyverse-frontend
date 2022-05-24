@@ -1,17 +1,18 @@
 import React from 'react';
 import "../styles/App.css"
-import {Form, Input} from "antd";
+import {Button, Form, Input} from "antd";
 import {UserOutlined} from "@ant-design/icons";
+import ReactDOM from "react-dom";
 
 
 const CategoryField = (props) => {
-    console.log('lllll')
     return (
         <div>
-        <h1>kkkkkk</h1>
+        <h1>{props.label}</h1>
          <Form.Item>
-             <Input name={"a" + props.id} type="text" id={props.id}/>
+             <Input id={props.id} name={"a" + props.id} type="text" id={props.id} placeholder={props.placeholder}/>
          </Form.Item>
+            <div id={props.id + "del"}></div>
         </div>
     );
 }
