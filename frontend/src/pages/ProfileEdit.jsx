@@ -19,8 +19,7 @@ export default function ProfileEdit() {
 
 
           axios
-            .put("http://127.0.0.1:8000/profile/update_profile_info", {
-
+            .put("http://localhost:8000/profile/update_profile_info", {
                 name: username,
                 surname: usersurname,
                 nickname: nickname,
