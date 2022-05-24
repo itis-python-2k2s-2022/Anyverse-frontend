@@ -7,7 +7,7 @@ const ButtonRequest = (props) => {
      const be_friend = async e => {
 
         axios
-            .post("http://127.0.0.1:8000/friendlist/friend_request_confirm",
+            .post("http://127.0.0.1:8000/user_app/friendlist/friend_request_confirm",
                 {
                 requester: props.nickname,
                 receiver: localStorage.getItem('token'),

@@ -9,11 +9,11 @@ const Friendlist = () => {
     const listItems = [];
     const result = [];
 
-    axios.get("http://127.0.0.1:8000/friendlist/get_friends", {headers:
+    axios.get("http://127.0.0.1:8000/user_app/friendlist/get_friends", {headers:
             {token: localStorage.getItem('token')}
     })
         .then(response => {
-             const listItems = response.data.chats.map((number) =>
+             const listItems = response.data.friends.map((number) =>
                  {console.log(number)
                   const elements = document.getElementById("friends");
                   const member_chat = document.createElement("div");
@@ -22,7 +22,7 @@ const Friendlist = () => {
                  }
              );
              console.log(listItems)
-             response.data.chats.map((item) =>
+             response.data.friends.map((item) =>
                  ReactDOM.hydrate(
                      <FriendlistElement item={item} flags={true} key={item.nickname}/>,
                      document.getElementById(item.nickname)
@@ -34,14 +34,14 @@ const Friendlist = () => {
             console.log(error, "error");
         })
         .finally(response => {
-            const object_chats = response.data.chats
+            const object_chats = response.data.friends
         });
 
-    axios.get("http://127.0.0.1:8000/friendlist/get_requests", {headers:
+    axios.get("http://127.0.0.1:8000/user_app/friendlist/get_requests", {headers:
             {token: localStorage.getItem('token')}
        })
         .then(response => {
-             const listItems = response.data.chats.map((number) =>
+             const listItems = response.data.requests.map((number) =>
                  {console.log(number)
                   const elements = document.getElementById("requests");
                   const member_chat = document.createElement("div");
@@ -50,7 +50,7 @@ const Friendlist = () => {
                  }
              );
              console.log(listItems)
-             response.data.chats.map((item) =>
+             response.data.requests.map((item) =>
                  ReactDOM.hydrate(
                      <FriendlistElement item={item} flags={false} key={item.nickname}/>,
                      document.getElementById(item.nickname)
@@ -62,7 +62,7 @@ const Friendlist = () => {
             console.log(error, "error");
         })
         .finally(response => {
-            const object_chats = response.data.chats
+            const object_chats = response.data.requests
         });
 
 

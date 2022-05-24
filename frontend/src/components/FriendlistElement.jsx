@@ -6,6 +6,7 @@ import {Button} from "antd";
 import axios from "axios";
 import ButtonBeFriend from "./ButtonBeFriend";
 import ButtonRequest from "./ButtonRequest";
+import ButtonDeleteFriend from "./ButtonDeleteFriend";
 
 
 const FriendlistElement = (props) => {
@@ -25,25 +26,28 @@ const FriendlistElement = (props) => {
         // }
     };
 
-
-    console.log('lllll')
     return (
         <div>
+            {console.log(props.flags)}
             {props.flags ? ( //this is my friend
-                  <a href={"default_profile/get_profile_info/" + props.item.nickname}>
-                            <div className="post" id={props.key}>
+                <div id={props.key}>
+                    <a href={"../default_profile/get_profile_info/" + props.item.nickname}>
+                            <div className="post">
                                 {console.log(';;;;;')}
                                 <div className="post__content">
                                     <strong> </strong>
                                     <div>
                                         {props.item.nickname}
                                     </div>
-                                     <ButtonBeFriend nickname={props.item.nickname}/>
+
                                 </div>
                             </div>
                         </a>
+                    <ButtonDeleteFriend nickname={props.item.nickname}/>
+                </div>
                 ) : ( // this is not my friend, but it wants to be friends with me
-                     <a href={"default_profile/get_profile_info/" + props.item.nickname}>
+                <div>
+                     <a href={"../default_profile/get_profile_info/" + props.item.nickname}>
                             <div className="post" id={props.key}>
                                 {console.log(';;;;;')}
                                 <div className="post__content">
@@ -51,17 +55,18 @@ const FriendlistElement = (props) => {
                                     <div>
                                         {props.item.nickname}
                                     </div>
-                                    <ButtonRequest
-                                        nickname={props.item.nickname}
-                                        confirm={true}
-                                        title={"согласиться на дружбу"}/>
-                                    <ButtonRequest
-                                        nickname={props.item.nickname}
-                                        confirm={false}
-                                        title={"отклонить дружбу"}/>
                                 </div>
                             </div>
                         </a>
+                    <ButtonRequest
+                        nickname={props.item.nickname}
+                        confirm={true}
+                        title={"согласиться на дружбу"}/>
+                    <ButtonRequest
+                        nickname={props.item.nickname}
+                        confirm={false}
+                        title={"отклонить дружбу"}/>
+                </div>
                 )}
         </div>
     );

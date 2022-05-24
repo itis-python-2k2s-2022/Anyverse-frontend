@@ -7,7 +7,7 @@ const ButtonBeFriend = (props) => {
      const be_friend = async e => {
 
         axios
-            .post("http://127.0.0.1:8000/friendlist/send_friend_request",
+            .post("http://127.0.0.1:8000/user_app/friendlist/send_friend_request",
                 {
                 requester: localStorage.getItem('token'),
                 receiver: props.nickname,

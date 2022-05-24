@@ -21,6 +21,10 @@ import CreatedCategories from "./pages/CreatedCategories";
 import AddCategory from "./pages/AddCategory";
 import DefaultCategory from "./pages/DefaultCategory";
 import RecommCategory from "./pages/RecommCategory";
+import AddThread from "./pages/AddThread";
+import SearchCategory from "./pages/SearchCategory";
+import UpdateCategory from "./pages/UpdateCategory";
+import SearchFriend from "./pages/SearchFriend";
 
 export default function App() {
   return (
@@ -35,6 +39,7 @@ export default function App() {
             <Route path="/auth/register" element = {<Registration />}/>
             <Route path="/chat/get_chats" element = {<Chats />}/>
             <Route path="/friendlist/get_friends" element = {<Friendlist/>}/>
+            <Route path="/search_friend" element = {<SearchFriend/>}/>
             <Route path="*" element={<NoPage />} />
             <Route path="default_profile/get_profile_info/" element={<DefaultProfile />}>
               <Route path=":nickname" element={<DefaultProfile />}/>
@@ -44,11 +49,17 @@ export default function App() {
             </Route>
             <Route path="/category/subscriptions" element={<AllCategory/>}/>
             <Route path="/category/my_category" element={<CreatedCategories/>}/>
+            <Route path="/category/update_category" element={<UpdateCategory/>}>
+                   <Route path=":category" element={<UpdateCategory/>}/>
+            </Route>
             <Route path="/category/create_category" element={<AddCategory/>}/>
+            <Route path="/category/search" element={<SearchCategory/>}/>
             <Route path="/category/recommended_categories" element={<RecommCategory/>}/>
             <Route path="/category/" element = {<DefaultCategory />}>
                 <Route path=":category" element = {<DefaultCategory />}/>
+                <Route path=":category" element = {<DefaultCategory />}/>
             </Route>
+            <Route path="/thread/create_thread" element={<AddThread/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
