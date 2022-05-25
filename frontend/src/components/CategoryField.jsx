@@ -1,8 +1,6 @@
 import React from 'react';
 import "../styles/App.css"
-import {Button, Form, Input} from "antd";
-import {UserOutlined} from "@ant-design/icons";
-import ReactDOM from "react-dom";
+import {Form, Input} from "antd";
 
 
 const CategoryField = (props) => {

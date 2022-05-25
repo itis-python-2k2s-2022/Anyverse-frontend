@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, Form, Input} from "antd";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router";
@@ -81,7 +81,7 @@ const AddThread = () => {
             console.log("title" + element)
             const el_title = form.elements.namedItem("title" + element).value
             const el_answer = form.elements.namedItem("answer" + element).value
-            if (el_title != "" && (el_answer != "")){
+            if (el_title !== "" && (el_answer !== "")){
                 additional_fields[el_title] =  el_answer
             }
         });

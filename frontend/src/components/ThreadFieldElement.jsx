@@ -1,10 +1,6 @@
 import React from 'react';
 import "../styles/App.css"
-import {Button, Form, Input, Col, Row,} from "antd";
-import {UserOutlined} from "@ant-design/icons";
-import ReactDOM from "react-dom";
-import {fetchToken} from "./Auth";
-import {Profile_} from "./Profile_element";
+import {Form, Input, Col, Row,} from "antd";
 
 
 const ThreadFieldElement = (props) => {

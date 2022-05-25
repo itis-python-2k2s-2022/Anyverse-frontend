@@ -1,21 +1,13 @@
 import React from 'react';
 import { useNavigate } from "react-router";
-import {fetchToken} from "../components/Auth";
-import {Profile_} from "../components/Profile_element";
-import Registration from "./Registration";
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import {DefaultProfileElement} from "../components/DefaultProfileElement";
 import ButtonBeFriend from "../components/ButtonBeFriend";
 
 
 function DefaultProfile() {
     const navigate = useNavigate();
-    const user = {
-        name: '',
-        nickname: '',
-        surname: '',
-    }
+
     // const useParams = ReactRouterDOM.useParams;
     const params = useParams();
     const user_nickname = params.nickname;

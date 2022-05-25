@@ -1,14 +1,10 @@
 import React from 'react';
 import axios from "axios";
 import ReactDOM from 'react-dom'
-// import  from "*.svg";
 import ChatElement from "../components/ChatElement";
 
 
-function Chats() {
-    const object_chats = [];
-    const listItems = [];
-    const result = [];
+function Chats() {;
 
     axios.get("http://127.0.0.1:8000/user_app/chat/get_chats", {headers:
             {token: localStorage.getItem('token')}

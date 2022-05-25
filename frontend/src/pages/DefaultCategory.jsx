@@ -1,9 +1,6 @@
 import React,  { useState }  from 'react';
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import ButtonBeFriend from "../components/ButtonBeFriend";
-import {fetchToken} from "../components/Auth";
-import {Profile_} from "../components/Profile_element";
 import {useNavigate} from "react-router";
 
 const DefaultCategory = () => {
@@ -11,7 +8,6 @@ const DefaultCategory = () => {
     const params = useParams();
     const category_id = params.category;
 
-    const lable = ["Подписаться", "Отписаться"];
     const [mark, setMark] = useState(false)
     const [flags, setFlags] = useState(false)
 

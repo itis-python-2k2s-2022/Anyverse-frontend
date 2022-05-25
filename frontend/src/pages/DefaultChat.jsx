@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef, Component } from "react";
-// import "./App.css";
-import Main from "./Main";
+import React, { Component } from "react";
 import Chat from "../components/Chat";
 
 

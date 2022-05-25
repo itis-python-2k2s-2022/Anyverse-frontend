@@ -12,7 +12,7 @@ const AllCategory = () => {
         })
         .then(response => {
             console.log(response);
-            const listItems = response.data.categories.map((number) =>
+            response.data.categories.map((number) =>
             {console.log(number)
                 const elements = document.getElementById("sub");
                   const member_category = document.createElement("div");
@@ -34,7 +34,9 @@ const AllCategory = () => {
         <div>
             <Category/>
             <h1>Подписки</h1>
-            <div id="sub"></div>
+            <div id="sub">
+
+            </div>
         </div>
     );
 };

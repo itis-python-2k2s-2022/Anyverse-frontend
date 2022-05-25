@@ -45,7 +45,7 @@ const AddCategory = () => {
          // );
         elem_list.map((element) => {
             const el_value = form.elements.namedItem("a" + element).value
-            if (el_value != ""){
+            if (el_value !== ""){
                 additional_fields.push(el_value)
             }
         });
