@@ -10,7 +10,7 @@ function Chats() {
     const listItems = [];
     const result = [];
 
-    axios.get("http://127.0.0.1:8000/chat/get_chats", {headers:
+    axios.get("http://127.0.0.1:8000/user_app/chat/get_chats", {headers:
             {token: localStorage.getItem('token')}
     })
         .then(response => {

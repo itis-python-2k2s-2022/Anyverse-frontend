@@ -18,7 +18,7 @@ const DefaultCategory = () => {
     const navigate = useNavigate();
 
     const addThread = () => {
-         navigate("/thread/create_thread");
+         navigate("/thread/create_thread/" + category_id);
     }
 
     const update = () => {
@@ -93,6 +93,30 @@ const DefaultCategory = () => {
             block1.innerText = category_info.description
             const block2 = document.getElementById("category_subscriptions")
             block2.innerText = category_info.subscriptions
+
+
+        })
+          .catch(function (error) {
+                console.log(error, "error");
+            });
+
+        axios.get("http://127.0.0.1:8000/category_app/thread/get_category_threads",
+        {headers: { token: localStorage.getItem('token')}, params: {category_id: category_id}})
+        .then(response => {
+            console.log(response.data);
+             // setMark(response.data.is_subscriber);
+            //  setFlags(response.data.is_creator);
+            // const category_info = {
+            //     name: response.data.category.name,
+            //     description: response.data.category.description,
+            //     subscriptions: response.data.category.subscriptions
+            // }
+            // const block = document.getElementById("category_name")
+            // block.innerText = category_info.name
+            // const block1 = document.getElementById("category_description")
+            // block1.innerText = category_info.description
+            // const block2 = document.getElementById("category_subscriptions")
+            // block2.innerText = category_info.subscriptions
 
 
         })

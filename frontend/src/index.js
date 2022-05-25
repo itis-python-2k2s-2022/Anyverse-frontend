@@ -59,7 +59,9 @@ export default function App() {
                 <Route path=":category" element = {<DefaultCategory />}/>
                 <Route path=":category" element = {<DefaultCategory />}/>
             </Route>
-            <Route path="/thread/create_thread" element={<AddThread/>}/>
+            <Route path="/thread/create_thread" element={<AddThread/>}>
+                 <Route path=":category" element={<AddThread/>}/>
+            </Route>
         </Route>
       </Routes>
     </BrowserRouter>
