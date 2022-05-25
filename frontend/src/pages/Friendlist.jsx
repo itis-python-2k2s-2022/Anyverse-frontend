@@ -5,9 +5,6 @@ import ReactDOM from 'react-dom'
 import FriendlistElement from "../components/FriendlistElement"
 
 const Friendlist = () => {
-    const object_chats = [];
-    const listItems = [];
-    const result = [];
 
     axios.get("http://127.0.0.1:8000/user_app/friendlist/get_friends", {headers:
             {token: localStorage.getItem('token')}
@@ -34,7 +31,6 @@ const Friendlist = () => {
             console.log(error, "error");
         })
         .finally(response => {
-            const object_chats = response.data.friends
         });
 
     axios.get("http://127.0.0.1:8000/user_app/friendlist/get_requests", {headers:
@@ -62,7 +58,6 @@ const Friendlist = () => {
             console.log(error, "error");
         })
         .finally(response => {
-            const object_chats = response.data.requests
         });
 
 

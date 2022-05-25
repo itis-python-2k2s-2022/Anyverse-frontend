@@ -2,7 +2,6 @@ import React from 'react';
 import axios from "axios";
 import Category from "../components/Category";
 import ReactDOM from "react-dom";
-import ChatElement from "../components/ChatElement";
 import CategoryElement from "../components/CategoryElement";
 
 const CreatedCategories = () => {
@@ -14,7 +13,7 @@ const CreatedCategories = () => {
         .then(response => {
             console.log(response.data.categories);
 
-             const listItems = response.data.categories.map((number) =>
+             response.data.categories.map((number) =>
                  {console.log(number)
                   const elements = document.getElementById("categories");
                   const member_category = document.createElement("div");

@@ -3,11 +3,6 @@ import axios from 'axios';
 import { useNavigate } from "react-router";
 
 export const Profile_  = () => {
-    const user = {
-        name: '',
-        nickname: '',
-        surname: ''
-    };
 
     const navigate = useNavigate();
 

@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Layout from "./pages/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/Login"
@@ -8,7 +8,6 @@ import Chats from "./pages/Chats";
 import NoPage from "./pages/NoPage";
 import DefaultProfile from "./pages/DefaultProfile";
 import Friendlist from "./pages/Friendlist";
-import Category from "./components/Category";
 import Registration from "./pages/Registration";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
@@ -16,7 +15,6 @@ import EditPassword from "./pages/EditPassword";
 import ProfileEdit from "./pages/ProfileEdit";
 import DefaultChat from "./pages/DefaultChat";
 import AllCategory from "./pages/AllCategory";
-import CategoryLayout from "./pages/CategoryLayout";
 import CreatedCategories from "./pages/CreatedCategories";
 import AddCategory from "./pages/AddCategory";
 import DefaultCategory from "./pages/DefaultCategory";
@@ -59,7 +57,9 @@ export default function App() {
                 <Route path=":category" element = {<DefaultCategory />}/>
                 <Route path=":category" element = {<DefaultCategory />}/>
             </Route>
-            <Route path="/thread/create_thread" element={<AddThread/>}/>
+            <Route path="/thread/create_thread" element={<AddThread/>}>
+                 <Route path=":category" element={<AddThread/>}/>
+            </Route>
         </Route>
       </Routes>
     </BrowserRouter>

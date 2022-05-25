@@ -1,9 +1,7 @@
 import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
-import {setToken} from "../components/Auth";
 import React, {useState} from "react";
 
 

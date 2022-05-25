@@ -1,10 +1,6 @@
 import React from 'react';
 import "../styles/App.css"
-import {fetchToken} from "./Auth";
-import {Profile_} from "./Profile_element";
-import {Button} from "antd";
 import axios from "axios";
-import ButtonBeFriend from "./ButtonBeFriend";
 import ButtonRequest from "./ButtonRequest";
 import ButtonDeleteFriend from "./ButtonDeleteFriend";
 

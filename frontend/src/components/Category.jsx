@@ -1,7 +1,5 @@
 import React from 'react';
-import axios from "axios";
 import { Navbar, Nav, Container} from 'react-bootstrap';
-import {fetchToken} from "./Auth";
 
 
 export default function  Category() {

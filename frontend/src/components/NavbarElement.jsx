@@ -1,8 +1,6 @@
 import React from "react";
-import { useState } from "react";
 import { Navbar, Nav, Container} from 'react-bootstrap';
 import {fetchToken} from "./Auth";
-import {Profile_} from "./Profile_element";
 
 
 export default function NavbarElement() {

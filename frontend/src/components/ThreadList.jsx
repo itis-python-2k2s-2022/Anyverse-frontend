@@ -1,18 +1,16 @@
 import React from 'react';
 import axios from "axios";
-import Category from "../components/Category";
 import ReactDOM from "react-dom";
-import CategoryElement from "../components/CategoryElement";
+import CategoryElement from "./CategoryElement";
 
-const AllCategory = () => {
-
-    axios.get("http://127.0.0.1:8000/category_app/category/get_subscriptions",
+const ThreadList = (props) => {
+      axios.get("http://127.0.0.1:8000/tread/get_category_threads",
         {headers:
-                {token: localStorage.getItem('token')}
+                {token: localStorage.getItem('token')}, params:{category_id: props.id_category}
         })
         .then(response => {
             console.log(response);
-            response.data.categories.map((number) =>
+            const listItems = response.data.categories.map((number) =>
             {console.log(number)
                 const elements = document.getElementById("sub");
                   const member_category = document.createElement("div");
@@ -29,16 +27,12 @@ const AllCategory = () => {
           .catch(function (error) {
                 console.log(error, "error");
             });
-
     return (
         <div>
-            <Category/>
-            <h1>Подписки</h1>
-            <div id="sub">
 
-            </div>
+
         </div>
     );
 };
 
-export default AllCategory;
+export default ThreadList;

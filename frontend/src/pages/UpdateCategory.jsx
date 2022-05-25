@@ -75,10 +75,9 @@ const UpdateCategory = () => {
          const form = document.forms.fields;
          const name_category = form.elements.name.value;
          const description = form.elements.description.value;
-
          elem_list.map((element) => {
             const el_value = form.elements.namedItem("a" + element).value
-            if (el_value != ""){
+            if (el_value !== ""){
                 result_list.push(el_value)
             }
         });
