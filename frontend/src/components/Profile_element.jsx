@@ -23,10 +23,6 @@ export const Profile_  = () => {
     axios.get("http://127.0.0.1:8000/profile/get_profile_info/", {params:
             {token: localStorage.getItem('token')}
     })
-      // axios
-      //       .post("/profile/get_profile_info/", {
-      //           token: localStorage.getItem('token')
-      //       })
         .then(response => {
             console.log(response);
             const user = {
@@ -35,11 +31,6 @@ export const Profile_  = () => {
                 surname: response.data.user.surname,
             };
             console.log(user.name)
-            // const element = document.createElement(
-            //     'h1',
-            //     {className: 'info'},
-            //     response.data.name
-            // );
 
             const block = document.getElementById("user_name")
             // block.append(element)

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, {useState} from "react";
+import AuthButton from "../components/AuthButton";
 
 
 export default function Registration() {
@@ -126,7 +127,6 @@ export default function Registration() {
             <Form.Item
               name='password2'
               onChange={(e) => setPassword_repeat(e.target.value)}
-              // rules={[makeRequiredFormFieldRule("Please enter password")]}
             >
               <Input
                 prefix={<LockOutlined className='site-form-item-icon' />}
@@ -134,17 +134,6 @@ export default function Registration() {
                 placeholder='Password'
               />
             </Form.Item>
-
-           {/*<Form.Item*/}
-           {/*   name='image'*/}
-           {/*   onChange={(e) => setImage(e.target.value)}*/}
-           {/*   // rules={[makeRequiredFormFieldRule("Please enter password")]}*/}
-           {/* >*/}
-           {/*   <Input*/}
-           {/*     prefix={<LockOutlined className='site-form-item-icon' />}*/}
-           {/*     type='file'*/}
-           {/*   />*/}
-           {/* </Form.Item>*/}
 
             <Form.Item>
               <Button
@@ -157,6 +146,7 @@ export default function Registration() {
               </Button>
             </Form.Item>
           </Form>
+        <AuthButton/>
     </div>
   );
 }

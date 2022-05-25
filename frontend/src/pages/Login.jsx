@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { fetchToken } from "../components/Auth";
 import { Button, Form, Input } from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import AuthButton from "../components/AuthButton";
 
 
 export default function Login() {
@@ -76,6 +77,7 @@ export default function Login() {
                             </Button>
                         </Form.Item>
                     </Form>
+                    <AuthButton/>
                 </div>
                 )}
             </div>
