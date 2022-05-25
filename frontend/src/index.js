@@ -6,6 +6,7 @@ import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import Chats from "./pages/Chats";
 import NoPage from "./pages/NoPage";
+import AddTread from "./pages/AddThread";
 import DefaultProfile from "./pages/DefaultProfile";
 import Friendlist from "./pages/Friendlist";
 import Registration from "./pages/Registration";
@@ -23,6 +24,9 @@ import AddThread from "./pages/AddThread";
 import SearchCategory from "./pages/SearchCategory";
 import UpdateCategory from "./pages/UpdateCategory";
 import SearchFriend from "./pages/SearchFriend";
+import DefaultThread from "./pages/DefaultThread";
+import GetAuth from "./pages/GetAuth";
+import UpdateThread from "./pages/UpdateThread";
 
 export default function App() {
   return (
@@ -35,6 +39,7 @@ export default function App() {
             <Route path="/update_password_info" element = {<EditPassword />}/>
             <Route path="/update_profile_info" element = {<ProfileEdit />}/>
             <Route path="/auth/register" element = {<Registration />}/>
+            <Route path="/auth/oauth" element={<GetAuth/>}/>
             <Route path="/chat/get_chats" element = {<Chats />}/>
             <Route path="/friendlist/get_friends" element = {<Friendlist/>}/>
             <Route path="/search_friend" element = {<SearchFriend/>}/>
@@ -59,6 +64,12 @@ export default function App() {
             </Route>
             <Route path="/thread/create_thread" element={<AddThread/>}>
                  <Route path=":category" element={<AddThread/>}/>
+            </Route>
+            <Route path="/thread/" element={<DefaultThread/>}>
+                 <Route path=":thread" element={<DefaultThread/>}/>
+            </Route>
+            <Route path="/thread/update" element={<UpdateThread/>}>
+                 <Route path=":thread" element={<UpdateThread/>}/>
             </Route>
         </Route>
       </Routes>

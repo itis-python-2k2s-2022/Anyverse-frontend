@@ -2,6 +2,9 @@ import React,  { useState }  from 'react';
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import {useNavigate} from "react-router";
+import ReactDOM from "react-dom";
+import CategoryElement from "../components/CategoryElement";
+import TreadElement from "../components/TreadElement";
 
 const DefaultCategory = () => {
 
@@ -99,22 +102,18 @@ const DefaultCategory = () => {
         axios.get("http://127.0.0.1:8000/category_app/thread/get_category_threads",
         {headers: { token: localStorage.getItem('token')}, params: {category_id: category_id}})
         .then(response => {
-            console.log(response.data);
-             // setMark(response.data.is_subscriber);
-            //  setFlags(response.data.is_creator);
-            // const category_info = {
-            //     name: response.data.category.name,
-            //     description: response.data.category.description,
-            //     subscriptions: response.data.category.subscriptions
-            // }
-            // const block = document.getElementById("category_name")
-            // block.innerText = category_info.name
-            // const block1 = document.getElementById("category_description")
-            // block1.innerText = category_info.description
-            // const block2 = document.getElementById("category_subscriptions")
-            // block2.innerText = category_info.subscriptions
-
-
+            console.log(response);
+            // const thread_list = response.data.threads;
+            const thread_list = response.data.threads.map((item) =>
+                // console.log(item.is_creator+"llll")
+                 <TreadElement
+                     flag={item.is_creator}
+                     item={item.thread}/>
+             );
+            ReactDOM.render(
+                     thread_list,
+                     document.getElementById("tread_")
+                 )
         })
           .catch(function (error) {
                 console.log(error, "error");
@@ -123,11 +122,14 @@ const DefaultCategory = () => {
     return (
             <>
                 <h1>категория:</h1>
-            <div id="category_name"></div>
+            <div id="category_name">
+            </div>
           <h1>Описание:</h1>
-             <div id="category_description"></div>
+             <div id="category_description">
+             </div>
           <h1>Подписчики:</h1>
-             <div id="category_subscriptions"></div>
+             <div id="category_subscriptions">
+             </div>
              {mark ? (
                   <button onClick={unsubscribe}>Отписаться</button>
              ) : (
@@ -142,6 +144,8 @@ const DefaultCategory = () => {
              ):(
                  <></>
              )}
+                <div id="tread_">
+                </div>
             </>
     );
 };

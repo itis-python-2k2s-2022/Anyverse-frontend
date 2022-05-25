@@ -1,16 +1,29 @@
 import React from 'react';
+import ButtonDeleteThread from "./ButtonDeleteThread";
 
 const TreadElement = (props) => {
+    const update = () => {
+        window.location.replace("/thread/update/" +  props.item._id);
+    };
     return (
-        <div>
-            <div className="post" id={props.item.name}>
+        <div id={props.item._id}>
+        <a href={"/thread/" + props.item._id}>
+            <div className="post" >
                 <div className="post__content">
-                    <strong> </strong>
                     <div>
                         {props.item.name}
                     </div>
                 </div>
             </div>
+        </a>
+            {props.flag ? ( //this is my friend
+                <div>
+                    <ButtonDeleteThread id={props.item._id}/>
+                    <button onClick={update}>Изменить пост</button>
+                </div>
+                ) : (
+                    <></>
+            )}
         </div>
     );
 };
