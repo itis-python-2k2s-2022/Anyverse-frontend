@@ -47,6 +47,10 @@ const AddThread = () => {
         });
 
     function create(e) {
+        const someFile = document.getElementById("upload_file").files[0]
+        console.log(someFile)
+        const formData = new FormData();
+        formData.append('file', someFile)
         const form = document.forms.fields;
         const name_category = form.elements.name.value;
         const description = form.elements.description.value;
@@ -69,7 +73,18 @@ const AddThread = () => {
             })
             .then(function (response) {
                 console.log(response);
-                navigate("/category/" + category_id);
+                  console.log(response);
+            const thread = response.data.thread_id
+            axios
+             .put("http://localhost:8000/category_app/thread/update_thread_image/" + thread,  formData)
+            .then(function (response) {
+              console.log(response);
+              navigate("/category/subscriptions");
+            })
+            .catch(function (error) {
+              console.log(error, "error");
+            });
+
             })
             .catch(function (error) {
                 console.log(error, "error");
@@ -94,6 +109,9 @@ const AddThread = () => {
                     Создать
                 </Button>
             </Form>
+            <form id="fileinfo">
+                <input type="file" id="upload_file" name="file" accept="image/png, image/jpg, image/jpeg" multiple />
+            </form>
         </div>
     );
 };

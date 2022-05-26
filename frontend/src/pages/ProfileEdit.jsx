@@ -1,11 +1,15 @@
-import { Button, Form, Input } from "antd";
+import {  Upload, message, Button, Form, Input } from "antd";
 import { useNavigate } from "react-router";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, {useState} from "react";
-
+import {useParams} from "react-router-dom";
+import ReactDOM from "react-dom";
+import App from "../index";
 
 export default function ProfileEdit() {
+    const params = useParams();
+    const nick = params.nickname;
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [usersurname, setUsersurname] = useState("");
@@ -14,7 +18,20 @@ export default function ProfileEdit() {
 
 
     const save = () => {
-
+        const form_file = document.forms.namedItem("fileinfo");
+        const someFile = document.getElementById("upload_file").files[0]
+        console.log(someFile)
+        const formData = new FormData();
+        formData.append('file', someFile)
+        console.log(nick + "lll")
+         axios
+            .put("http://localhost:8000/profile/update_image_info/" + nick, formData)
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error, "error");
+            });
 
           axios
             .put("http://localhost:8000/profile/update_profile_info", {
@@ -91,7 +108,6 @@ export default function ProfileEdit() {
               />
             </Form.Item>
 
-
             <Form.Item>
               <Button
                 type='primary'
@@ -103,6 +119,10 @@ export default function ProfileEdit() {
               </Button>
             </Form.Item>
           </Form>
+        <form id="fileinfo">
+              <input type="file" id="upload_file" name="file" accept="image/png, image/jpg, image/jpeg" multiple />
+              {/*<Button>Click to Upload</Button>*/}
+        </form>
     </div>
   );
 }

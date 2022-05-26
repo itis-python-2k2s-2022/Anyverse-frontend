@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import ReactDOM from "react-dom";
 import CategoryField from "../components/CategoryField";
 import ButtonDeleteField from "../components/ButtonDeleteField";
+import {useNavigate} from "react-router";
 
 let count = 0;
 let elem_list = [];
@@ -13,6 +14,8 @@ let result_list = [];
 let id_category = ""
 
 const UpdateCategory = () => {
+
+    const navigate = useNavigate();
     const params = useParams();
     const category_id = params.category;
 
@@ -72,6 +75,10 @@ const UpdateCategory = () => {
     }
 
     const update = () => {
+        const someFile = document.getElementById("upload_file").files[0]
+        console.log(someFile)
+        const formData = new FormData();
+        formData.append('file', someFile)
          const form = document.forms.fields;
          const name_category = form.elements.name.value;
          const description = form.elements.description.value;
@@ -91,6 +98,16 @@ const UpdateCategory = () => {
         })
         .then(response => {
             console.log(response);
+            const category = response.data.category_id
+            axios
+             .put("http://localhost:8000/category_app/category/update_category_image/" + category,  formData)
+            .then(function (response) {
+              console.log(response);
+              navigate("/category/subscriptions");
+            })
+            .catch(function (error) {
+              console.log(error, "error");
+            });
         })
           .catch(function (error) {
                 console.log(error, "error");
@@ -120,6 +137,9 @@ const UpdateCategory = () => {
             <div id="fields">
 
             </div>
+            <form id="fileinfo">
+                <input type="file" id="upload_file" name="file" accept="image/png, image/jpg, image/jpeg" multiple />
+            </form>
         </div>
     );
 };

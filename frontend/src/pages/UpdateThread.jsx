@@ -6,6 +6,7 @@ import Category from "../components/Category";
 import {Button, Form, Input} from "antd";
 import {useParams} from "react-router-dom";
 import ThreadFieldElement from "../components/ThreadFieldElement";
+import {useNavigate} from "react-router";
 
 const { TextArea } = Input;
 let count = 0;
@@ -17,6 +18,7 @@ let category_id = "";
 let additional_fields = {}
 
 const UpdateThread = () => {
+    const navigate = useNavigate();
     const params = useParams();
     const thread_id = params.thread;
 
@@ -72,6 +74,10 @@ const UpdateThread = () => {
         });
 
         const updateThread = () => {
+            const someFile = document.getElementById("upload_file").files[0]
+            console.log(someFile)
+            const formData = new FormData();
+            formData.append('file', someFile)
             const form = document.forms.fields;
             const name_thread  = form.elements.name.value;
             const description = form.elements.description.value;
@@ -99,6 +105,16 @@ const UpdateThread = () => {
         })
         .then(response => {
             console.log(response);
+            axios
+             .put("http://localhost:8000/category_app/thread/update_thread_image/" + thread_id,  formData)
+            .then(function (response) {
+              console.log(response);
+              navigate("/category/" + category_id);
+            })
+            .catch(function (error) {
+              console.log(error, "error");
+            });
+
         })
           .catch(function (error) {
                 console.log(error, "error");
@@ -123,6 +139,9 @@ const UpdateThread = () => {
                     обновить
                 </Button>
             </Form>
+             <form id="fileinfo">
+                <input type="file" id="upload_file" name="file" accept="image/png, image/jpg, image/jpeg" multiple />
+             </form>
         </div>
     );
 };

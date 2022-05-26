@@ -37,7 +37,9 @@ export default function App() {
             <Route path="/auth/login" element = {<Login />}/>
             <Route path="/profile/get_profile_info" element = {<Profile />}/>
             <Route path="/update_password_info" element = {<EditPassword />}/>
-            <Route path="/update_profile_info" element = {<ProfileEdit />}/>
+            <Route path="/update_profile_info" element = {<ProfileEdit />}>
+                <Route path=":nickname" element={<ProfileEdit/>}/>
+            </Route>
             <Route path="/auth/register" element = {<Registration />}/>
             <Route path="/auth/oauth" element={<GetAuth/>}/>
             <Route path="/chat/get_chats" element = {<Chats />}/>
