@@ -25,6 +25,10 @@ const DefaultThread = () => {
         {headers: { token: localStorage.getItem('token'),
                           thread_id: thread_id}})
         .then(response => {
+            const image_thread = document.createElement("img")
+            image_thread.src = "http://127.0.0.1:8000/" + response.data.thread.image
+            const img_mom = document.getElementById("image");
+            img_mom.append(image_thread);
             document.getElementById("thread_name").innerText  = response.data.thread.name
             document.getElementById("thread_description").innerText  = response.data.thread.description
             category_id = response.data.thread.category
@@ -95,6 +99,8 @@ const DefaultThread = () => {
 
     return (
         <div>
+            <div id="image">
+            </div>
             <div id="name">
             </div>
             <div name="name" id="thread_name" >

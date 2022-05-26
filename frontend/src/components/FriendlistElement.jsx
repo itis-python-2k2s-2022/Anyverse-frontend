@@ -32,10 +32,10 @@ const FriendlistElement = (props) => {
                                 {console.log(';;;;;')}
                                 <div className="post__content">
                                     <strong> </strong>
+                                    <img src={"http://127.0.0.1:8000/" + props.item.image}/>
                                     <div>
                                         {props.item.nickname}
                                     </div>
-
                                 </div>
                             </div>
                         </a>
@@ -48,6 +48,7 @@ const FriendlistElement = (props) => {
                                 {console.log(';;;;;')}
                                 <div className="post__content">
                                     <strong> </strong>
+                                     <img src={"http://127.0.0.1:8000/" + props.item.image}/>
                                     <div>
                                         {props.item.nickname}
                                     </div>
