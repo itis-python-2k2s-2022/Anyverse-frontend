@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import "antd/dist/antd.less";
+import "antd/dist/antd.css";
 import Layout from "./pages/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/Login"
