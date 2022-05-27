@@ -5,8 +5,8 @@ import {Button} from "antd";
 const ButtonDeleteComment = (props) => {
     const del_comment = async e => {
         axios
-            .delete("http://127.0.0.1:8000/category_app/comment/delete_comments",
-                { data: {thread_id: props.id, creator: localStorage.getItem('token')}})
+            .delete("http://127.0.0.1:8000/category_app/comment/delete_comment",
+                { data: {comment_id: props.id, creator: localStorage.getItem('token')}})
             .then(function (response) {
                 console.log(response);
                 const el_user = document.getElementById(props.id)
@@ -23,7 +23,7 @@ const ButtonDeleteComment = (props) => {
                 htmlType='submit'
                 className='rounded-md bg-blue-300 p-1'
                 onClick={del_comment}>
-                Удалить пост
+                Удалить комментарий
             </Button>
         </div>
     );

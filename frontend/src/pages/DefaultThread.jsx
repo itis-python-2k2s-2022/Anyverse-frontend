@@ -8,6 +8,7 @@ import Category from "../components/Category";
 import {Button, Form, Input} from "antd";
 import TreadOpenElement from "../components/TreadOpenElement";
 import CommentElement from "../components/CommentElement";
+import RatingElement from "../components/RatingElement";
 
 let length_fields = 0;
 const { TextArea } = Input;
@@ -70,6 +71,7 @@ const DefaultThread = () => {
             })
             .then(function (response) {
                 console.log(response);
+                form.elements.comment.value = ""
             })
             .catch(function (error) {
                 console.log(error, "error");
@@ -79,18 +81,19 @@ const DefaultThread = () => {
           axios.get("http://127.0.0.1:8000/category_app/comment/get_thread_comments",
         {headers: { token: localStorage.getItem('token'), thread_id: thread_id}})
         .then(response => {
-            console.log(response);
+            console.log(response.data.comments);
             // const thread_list = response.data.threads;
-            const thread_list = response.data.threads.map((item) =>
-                // console.log(item.is_creator+"llll")
+            const thread_list = response.data.comments.map((item) =>
+                // console.log(item)
                  <CommentElement
                      flag={item.is_creator}
-                     comment={item}
-                     id={item.thread}/>
+                     user={item.creator.nickname}
+                     comment={item.text}
+                     id={item._id}/>
              );
             ReactDOM.render(
                      thread_list,
-                     document.getElementById("tread_")
+                     document.getElementById("comment_list")
                  )
         })
           .catch(function (error) {
@@ -109,6 +112,7 @@ const DefaultThread = () => {
             </div>
             <div id="fields">
             </div>
+            <RatingElement thread_id={"dfgdrfgddrg"}/>
             <Form id="fields" name="fields">
                 <Form.Item  label="написать комментарий" placeholder="">
                     <TextArea name="comment" autoSize={{ minRows: 3, maxRows: 5 }} id="thread_comment"/>
@@ -118,7 +122,7 @@ const DefaultThread = () => {
                     Отправить
                 </Button>
             </Form>
-            <div name="comment_list">
+            <div id="comment_list">
 
             </div>
         </div>

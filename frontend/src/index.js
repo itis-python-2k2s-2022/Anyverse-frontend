@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import "antd/dist/antd.less";
 import Layout from "./pages/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/Login"
@@ -27,6 +28,7 @@ import SearchFriend from "./pages/SearchFriend";
 import DefaultThread from "./pages/DefaultThread";
 import GetAuth from "./pages/GetAuth";
 import UpdateThread from "./pages/UpdateThread";
+import UpdateComment from "./components/UpdateComment";
 
 export default function App() {
   return (
@@ -72,6 +74,9 @@ export default function App() {
             </Route>
             <Route path="/thread/update" element={<UpdateThread/>}>
                  <Route path=":thread" element={<UpdateThread/>}/>
+            </Route>
+            <Route path="/comment/update/" element={<UpdateComment/>}>
+                <Route path=":comment" element={<UpdateComment/>}/>
             </Route>
         </Route>
       </Routes>
