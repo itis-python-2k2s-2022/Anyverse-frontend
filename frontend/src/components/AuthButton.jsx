@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from "antd";
 
 const AuthButton = () => {
     const google_auth = () => {
@@ -6,9 +7,14 @@ const AuthButton = () => {
     }
 
     return (
-        <div>
-            <button onClick={google_auth}>Войти с помощью google</button>
-        </div>
+            <Button
+                type='primary'
+                htmlType='submit'
+                className='rounded-md bg-blue-300'
+                onClick={google_auth}
+            >
+                Войти с помощью Google
+            </Button>
     );
 };
 

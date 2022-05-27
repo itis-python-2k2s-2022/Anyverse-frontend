@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import StarRating from 'react-bootstrap-star-rating';
 import { render } from 'react-dom';
 import axios from "axios";
 import { Col, Button, InputNumber, Row, Slider } from 'antd';

@@ -4,6 +4,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import React, {useState} from "react";
 import AuthButton from "../components/AuthButton";
+import {Container} from "react-bootstrap";
 
 
 export default function Registration() {
@@ -14,13 +15,12 @@ export default function Registration() {
     const [password_repeat, setPassword_repeat] = useState("");
     const [nickname, setNick] = useState("");
     const [email, setEmail] = useState("");
+
+    const [formErrors, setFormErrors] = useState("");
     // const [image, setImage] = useState("");
 
 
     const login = () => {
-        let block = document.getElementsByName('errorblock')
-              block.innerHTML = 'pppp'
-
           axios
             .post("http://127.0.0.1:8000/auth/register", {
 
@@ -54,99 +54,116 @@ export default function Registration() {
             })
             .catch(function (error) {
               console.log(error, "error");
+              if (error) {
+                  setFormErrors(error.response.data.response_message);
+              }
             });
       };
 
   return (
-    <div style={{ minHeight: 800, marginTop: 30 }}>
-        <h1 className="errorblock">Пока все хорошо)))</h1>
-      <Form>
+    <Container>
+        <p className={'fs-3 text-center'}>Регистрация</p>
+      <Form
+          name={'registrationForm'}
+          layout={'vertical'}
+          initialValues={{ remember: true }}
+          onFinish={login}
+          autoComplete="off"
+      >
             <Form.Item
               name='name'
-              onChange={(e) => setUsername(e.target.value)}
+              label={'Имя:'}
               rules={[
-                // makeRequiredFormFieldRule("Please enter email"),
-                { type: "string" },
+                {required: true, message: 'Пожалуйста, заполните это поле!'},
+                {type: "string", message: "Это поле может содержать только буквы" },
               ]}
             >
               <Input
+                onChange={(e) => setUsername(e.target.value)}
                 prefix={<UserOutlined className='site-form-item-icon' />}
-                placeholder='name'
               />
             </Form.Item>
             <Form.Item
               name='surname'
-              onChange={(e) => setUsersurname(e.target.value)}
+              label={'Фамилия:'}
               rules={[
-                // makeRequiredFormFieldRule("Please enter email"),
-                { type: "string" },
+                {required: true, message: 'Пожалуйста, заполните это поле!'},
+                {type: "string", message: "Это поле может содержать только буквы" },
               ]}
             >
               <Input
+                onChange={(e) => setUsersurname(e.target.value)}
                 prefix={<UserOutlined className='site-form-item-icon' />}
-                placeholder='surname'
               />
             </Form.Item>
             <Form.Item
               name='nickname'
-              onChange={(e) => setNick(e.target.value)}
+              label={'Никнейм:'}
               rules={[
-                // makeRequiredFormFieldRule("Please enter email"),
-                { type: "string" },
+                {required: true, message: 'Пожалуйста, заполните это поле!'},
+                {type: "string", message: "Это поле может содержать только буквы" },
               ]}
             >
               <Input
+                onChange={(e) => setNick(e.target.value)}
                 prefix={<UserOutlined className='site-form-item-icon' />}
-                placeholder='nickname'
               />
             </Form.Item>
             <Form.Item
               name='email'
-              onChange={(e) => setEmail(e.target.value)}
+              label={"Email:"}
               rules={[
-                // makeRequiredFormFieldRule("Please enter email"),
-                { type: "email" },
+                {required: true, message: 'Пожалуйста, заполните это поле!'},
+                {type: "email", message: "Некорректно введен email!"},
               ]}
             >
               <Input
+                onChange={(e) => setEmail(e.target.value)}
                 prefix={<UserOutlined className='site-form-item-icon' />}
-                placeholder='Email'
               />
             </Form.Item>
             <Form.Item
               name='password'
-              onChange={(e) => setPassword(e.target.value)}
-              // rules={[makeRequiredFormFieldRule("Please enter password")]}
+              label={"Пароль:"}
+              rules={[
+                {required: true, message: 'Пожалуйста, заполните это поле!'},
+              ]}
             >
               <Input
+                onChange={(e) => setPassword(e.target.value)}
                 prefix={<LockOutlined className='site-form-item-icon' />}
                 type='password'
-                placeholder='Password'
               />
             </Form.Item>
             <Form.Item
               name='password2'
-              onChange={(e) => setPassword_repeat(e.target.value)}
+              label={"Повторите пароль:"}
+              rules={[
+                {required: true, message: 'Пожалуйста, заполните это поле!'},
+              ]}
             >
               <Input
+                onChange={(e) => setPassword_repeat(e.target.value)}
                 prefix={<LockOutlined className='site-form-item-icon' />}
                 type='password'
-                placeholder='Password'
               />
             </Form.Item>
-
+          {formErrors && (
+                <p className='pb-2' style={{ color: 'red' }}>
+                  {formErrors}
+                </p>
+              )}
             <Form.Item>
               <Button
                 type='primary'
                 htmlType='submit'
-                className='rounded-md bg-blue-300 p-1'
-                onClick={login}
+                className='rounded-md bg-blue-300'
               >
                 Зарегестрироваться
               </Button>
             </Form.Item>
           </Form>
         <AuthButton/>
-    </div>
+    </Container>
   );
 }

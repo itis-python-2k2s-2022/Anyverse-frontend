@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from 'prop-types';
 import { fetchToken } from "../components/Auth";
 import { Button, Form, Input } from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import AuthButton from "../components/AuthButton";
+import {Container} from "react-bootstrap";
 
 
 export default function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [formErrors, setFormErrors] = useState("");
 
 
     //check to see if the fields are not empty
@@ -23,56 +25,71 @@ export default function Login() {
                 email: email,
                 password: password,
             })
-            .then(function (response) {
+            .then((response) => {
                 console.log(response);
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token)
                     navigate("/profile/get_profile_info");
                 }
             })
-            .catch(function (error) {
-                console.log(error, "error");
+            .catch((error) => {
+                console.log(error.response.data.response_message);
+                if (error) {
+                    setFormErrors(error.response.data.response_message);
+                }
             });
         // }
     };
 
     return (
-        <div style={{minHeight: 800, marginTop: 30}}>
-            <h1>login page</h1>
-            <div style={{marginTop: 30}}>
+        <Container>
+            <p className="fs-3 text-center">Вход</p>
                 {fetchToken() ? (
-                  <p>you are logged in</p>
+                  <p className="fs-4 text-center">Вы уже авторизованы</p>
                 ) : (
                 <div>
-                    <Form>
+                    <Form
+                      name={'loginForm'}
+                      layout={'vertical'}
+                      initialValues={{ remember: true }}
+                      onFinish={login}
+                      autoComplete="off"
+                    >
                         <Form.Item
                             name='email'
-                            onChange={(e) => setEmail(e.target.value)}
+                            label={'Email: '}
+                            rules={[
+                                {required: true, message: 'Пожалуйста, введите email!'},
+                                {type: "email", message: "Некорректно введен email!"}
+                            ]}
                         >
-                            {/*<label style={{ marginRight: 10 }}>Input Username</label>*/}
                             <Input
                                 onChange={e => setEmail(e.target.value)}
                                 prefix={<UserOutlined className='site-form-item-icon'/>}
-                                placeholder='email'/>
+                            />
                         </Form.Item>
                         <Form.Item
                             name='password'
-                            onChange={(e) => setPassword(e.target.value)}
+                            label={'Пароль: '}
+                            rules={[{required: true, message: 'Пожалуйста, введите пароль!'}]}
                         >
-                            {/*<label style={{ marginRight: 10 }}>Input Password</label>*/}
                             <Input
                                 onChange={e => setPassword(e.target.value)}
                                 prefix={<LockOutlined className='site-form-item-icon'/>}
                                 type='password'
-                                placeholder='Password'
                             />
                         </Form.Item>
+                        {formErrors && (
+                            <p className='pb-2' style={{ color: 'red' }}>
+                              {formErrors}
+                            </p>
+                          )}
                         <Form.Item>
                             <Button
                                 type='primary'
                                 htmlType='submit'
-                                className='rounded-md bg-blue-300 p-1'
-                                onClick={login}>
+                                className='rounded-md bg-blue-300'
+                            >
                                 Войти
                             </Button>
                         </Form.Item>
@@ -80,7 +97,6 @@ export default function Login() {
                     <AuthButton/>
                 </div>
                 )}
-            </div>
-        </div>
+        </Container>
     );
 }
