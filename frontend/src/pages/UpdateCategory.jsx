@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
-import Category from "../components/Category";
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, Upload} from "antd";
 import {useParams} from "react-router-dom";
 import ReactDOM from "react-dom";
 import CategoryField from "../components/CategoryField";
-import ButtonDeleteField from "../components/ButtonDeleteField";
 import {useNavigate} from "react-router";
+import {PlusOutlined, UploadOutlined} from "@ant-design/icons";
 
 let count = 0;
 let elem_list = [];
@@ -18,6 +17,8 @@ const UpdateCategory = () => {
     const navigate = useNavigate();
     const params = useParams();
     const category_id = params.category;
+
+    const [file, setFile] = useState(null);
 
     axios.get("http://127.0.0.1:8000/category_app/category/get_category_settings",
 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
@@ -42,10 +43,6 @@ const UpdateCategory = () => {
                     document.getElementById(String(length_fields)+"div")
                 );
                 document.getElementById(String(length_fields)).value = element;
-                ReactDOM.hydrate(
-                    <ButtonDeleteField count={count} id={String(length_fields )} list={elem_list}/>,
-                    document.getElementById(String(length_fields )+"del")
-                );
                 length_fields += 1;
             })
             count = length_fields;
@@ -62,23 +59,13 @@ const UpdateCategory = () => {
         member_chat.setAttribute('id', String(count) + "div");
         elements.append(member_chat);
         ReactDOM.hydrate(
-            <CategoryField id={String(count)}
-                           label={"Ваше новое поле"}
-                           placeholder={"введите название поля"}/>,
+            <CategoryField id={String(count)} />,
             document.getElementById(String(count)+"div")
-        );
-        ReactDOM.hydrate(
-            <ButtonDeleteField count={count} id={String(count)} list={elem_list}/>,
-            document.getElementById(String(count)+"del")
         );
         count += 1
     }
 
     const update = () => {
-        const someFile = document.getElementById("upload_file").files[0]
-        console.log(someFile)
-        const formData = new FormData();
-        formData.append('file', someFile)
          const form = document.forms.fields;
          const name_category = form.elements.name.value;
          const description = form.elements.description.value;
@@ -98,16 +85,20 @@ const UpdateCategory = () => {
         })
         .then(response => {
             console.log(response);
-            const category = response.data.category_id
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file.fileList[0].originFileObj)
+                const category = response.data.category_id
             axios
              .put("http://localhost:8000/category_app/category/update_category_image/" + category,  formData)
             .then(function (response) {
               console.log(response);
-              navigate("/category/subscriptions");
             })
             .catch(function (error) {
               console.log(error, "error");
             });
+            }
+            navigate("/category/subscriptions");
         })
           .catch(function (error) {
                 console.log(error, "error");
@@ -117,29 +108,67 @@ const UpdateCategory = () => {
 
     return (
         <div>
-            <Category/>
-            <Form id="fields" name="fields">
-                <Form.Item  label="Название категории">
+            <Form
+                id="fields"
+                name="fields"
+                layout={"horizontal"}
+                initialValues={{ remember: true }}
+                onFinish={update}
+                autoComplete="off"
+            >
+                <Form.Item
+                    name={"category_name"}
+                    label="Название категории"
+                    rules={[
+                        {required: true, message: 'Пожалуйста, заполните это поле!'},
+                      ]}
+                >
                     <Input id="name" name="name" placeholder=""/>
                 </Form.Item>
-                <Form.Item  label="Описание категории">
+                <Form.Item
+                    name={"description"}
+                    label="Описание категории"
+                    rules={[
+                        {required: true, message: 'Пожалуйста, заполните это поле!'},
+                      ]}
+                >
                     <Input id="description" placeholder="" name="description"/>
                 </Form.Item>
-                <Button
-                onClick={add}>
-                Добавить поле
-                </Button>
-                <Button
-                    onClick={update}>
-                    Сохранить
-                </Button>
+                <Form.Item
+                    name={"fileinfo"}
+                    label={"Фото:"}
+                    valuePropName={"fileList"}
+                    getValueFromEvent={setFile}
+                  >
+                    <Upload
+                        id={"category_img"}
+                        name="file"
+                        listType="picture"
+                        maxCount={1}
+                        accept="image/png, image/jpg, image/jpeg"
+                        beforeUpload={() => false}
+                    >
+                      <Button icon={<UploadOutlined />}>
+                          Нажмите, чтобы загрузить файл
+                      </Button>
+                    </Upload>
+                </Form.Item>
+                <div id={"new-fields"} />
+                <Form.Item>
+                    <Button type="dashed" onClick={add} block icon={<PlusOutlined />}>
+                        Добавить поле
+                    </Button>
+                </Form.Item>
+                <Form.Item>
+                    <Button
+                        type='primary'
+                        htmlType='submit'
+                        className='rounded-md bg-blue-300'
+                    >
+                        Сохранить
+                    </Button>
+                </Form.Item>
             </Form>
-            <div id="fields">
-
-            </div>
-            <form id="fileinfo">
-                <input type="file" id="upload_file" name="file" accept="image/png, image/jpg, image/jpeg" multiple />
-            </form>
         </div>
     );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from "axios";
-import Category from "../components/Category";
 import ReactDOM from "react-dom";
 import CategoryElement from "../components/CategoryElement";
+
 
 const CreatedCategories = () => {
 
@@ -35,9 +35,8 @@ const CreatedCategories = () => {
 
     return (
         <div>
-            <Category />
             <h1>Мои категории</h1>
-            <div id="categories"></div>
+            <div id="categories"> </div>
         </div>
     );
 

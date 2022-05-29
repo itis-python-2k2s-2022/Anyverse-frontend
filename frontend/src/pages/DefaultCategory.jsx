@@ -5,6 +5,7 @@ import {useNavigate} from "react-router";
 import ReactDOM from "react-dom";
 import CategoryElement from "../components/CategoryElement";
 import TreadElement from "../components/TreadElement";
+import {Avatar, Card, Space} from "antd";
 
 const DefaultCategory = () => {
 
@@ -78,7 +79,6 @@ const DefaultCategory = () => {
         {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
 
         .then(response => {
-            console.log(response.data.is_subscriber);
              setMark(response.data.is_subscriber);
              setFlags(response.data.is_creator);
             const category_info = {
@@ -92,7 +92,8 @@ const DefaultCategory = () => {
             block1.innerText = category_info.description
             const block2 = document.getElementById("category_subscriptions")
             block2.innerText = category_info.subscriptions
-
+            const block3 = document.getElementById("category_photo")
+            block3.src = "http://127.0.0.1:8000/" + category_info.image
 
         })
           .catch(function (error) {
@@ -121,31 +122,51 @@ const DefaultCategory = () => {
 
     return (
             <>
-                <h1>категория:</h1>
-            <div id="category_name">
-            </div>
-          <h1>Описание:</h1>
-             <div id="category_description">
-             </div>
-          <h1>Подписчики:</h1>
-             <div id="category_subscriptions">
-             </div>
-             {mark ? (
-                  <button onClick={unsubscribe}>Отписаться</button>
-             ) : (
-                 <button onClick={subscribe}>Подписаться</button>
-                )}
-             <button onClick={addThread}>Создать новый пост</button>
-             {flags ? (
-                 <div>
-                    <button onClick={update}>Изменить категорию</button>
-                    <button onClick={deleteCategory}>Удалить категорию</button>
-                 </div>
-             ):(
-                 <></>
-             )}
-                <div id="tread_">
-                </div>
+                <Card
+                    id={"category_card"}
+                    actions={[
+                        <div>
+                            {mark ? (
+                              <div onClick={unsubscribe}>Отписаться</div>
+                         ) : (
+                             <div onClick={subscribe}>Подписаться</div>
+                            )}
+                        </div>,
+                        <div onClick={addThread}>Создать новый пост</div>,
+                        <div>
+                        {flags && (<div onClick={update}>Изменить категорию</div>)}
+                        </div>,
+                        <div>
+                        {flags && (<div onClick={deleteCategory}>Удалить категорию</div>)}
+                        </div>,
+                    ]}
+                >
+                    <div className={"row"}>
+                        <div className={"col-4"}>
+                            <Avatar
+                              size={300}
+                              shape={"square"}
+                              id={"category_photo"}
+                            />
+                        </div>
+                        <div className={"col-8"}>
+                            <p className={"fs-3 bold text-center"} id={"category_name"}/>
+                            <div>
+                                <Space>
+                                    <p className={"fs-4 text-center bold"}>Описание: </p>
+                                    <p className={"fs-5 text-center"} id={"category_description"}/>
+                                </Space>
+                            </div>
+                            <div>
+                                <Space>
+                                    <p className={"fs-4 text-center bold"}>Подписчики: </p>
+                                    <p className={"fs-5 text-center"} id={"category_subscriptions"}/>
+                                </Space>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
+                <div id="tread_"> </div>
             </>
     );
 };

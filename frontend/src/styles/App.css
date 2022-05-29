@@ -36,7 +36,7 @@ article h1 {
 
 .post {
   display: flex;
-  padding: 2%;
+  padding: 1%;
   border: 2px solid #506e6e;
   margin-top: 15px;
   justify-content: space-between;

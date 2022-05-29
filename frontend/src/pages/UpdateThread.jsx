@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 import TreadElement from "../components/TreadElement";
 import ReactDOM from "react-dom";
-import Category from "../components/Category";
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, Space, Upload} from "antd";
 import {useParams} from "react-router-dom";
 import ThreadFieldElement from "../components/ThreadFieldElement";
 import {useNavigate} from "react-router";
+import {UploadOutlined} from "@ant-design/icons";
 
 const { TextArea } = Input;
 let count = 0;
@@ -21,6 +21,8 @@ const UpdateThread = () => {
     const navigate = useNavigate();
     const params = useParams();
     const thread_id = params.thread;
+
+    const [file, setFile] = useState(null);
 
     axios.get("http://127.0.0.1:8000/category_app/thread/get_thread",
         {headers: { token: localStorage.getItem('token'),
@@ -38,19 +40,7 @@ const UpdateThread = () => {
             axios.get("http://127.0.0.1:8000/category_app/category/get_category_settings",
                 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
                 .then(response => {
-                    // console.log(additional_fields)
                     fields = response.data.category.additional_fields
-                    // console.log(fields)
-                    // for (var element in fields) {
-                    //      ReactDOM.hydrate(
-                    //          <ThreadFieldElement id={fields[element]}
-                    //                              label={element}
-                    //                              value={additional_fields[fields[element]]}
-                    //                              placeholder={additional_fields[fields[element]]}/>,
-                    //          document.getElementById(String(length_fields)+"div")
-                    //      );
-                    //      console.log(additional_fields[fields[element]])
-                    // }
                      for (var element in fields) {
                          elem_list.push(length_fields)
                          const elements = document.getElementById("fields");
@@ -74,10 +64,6 @@ const UpdateThread = () => {
         });
 
         const updateThread = () => {
-            const someFile = document.getElementById("upload_file").files[0]
-            console.log(someFile)
-            const formData = new FormData();
-            formData.append('file', someFile)
             const form = document.forms.fields;
             const name_thread  = form.elements.name.value;
             const description = form.elements.description.value;
@@ -88,60 +74,98 @@ const UpdateThread = () => {
                     result_list[fields[element]] = el_value
                     // result_list.push(el_value)
                 }
-            };
-         axios.put("http://127.0.0.1:8000/category_app/thread/update_thread",
-        {
-            thread_id: thread_id,
-            creator_id: localStorage.getItem('token'),
-            name: name_thread,
-            description: description,
-            additional_fields:  result_list
-  //           "thread_id": "string",
-  // "creator_id": "string",
-  // "name": "string",
-  // "description": "string",
-  // "image": "string",
-  // "additional_fields": {}
-        })
-        .then(response => {
-            console.log(response);
-            axios
-             .put("http://localhost:8000/category_app/thread/update_thread_image/" + thread_id,  formData)
-            .then(function (response) {
-              console.log(response);
-              navigate("/category/" + category_id);
+            }
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file.fileList[0].originFileObj)
+                axios
+                    .put("http://localhost:8000/category_app/thread/update_thread_image/" + thread_id, formData)
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error, "error");
+                    })
+            }
+         axios
+             .put("http://127.0.0.1:8000/category_app/thread/update_thread",
+            {
+                thread_id: thread_id,
+                creator_id: localStorage.getItem('token'),
+                name: name_thread,
+                description: description,
+                additional_fields:  result_list
             })
-            .catch(function (error) {
-              console.log(error, "error");
-            });
+            .then(response => {
+                console.log(response);
+                navigate("/category/" + category_id);
 
-        })
-          .catch(function (error) {
-                console.log(error, "error");
-            });
-         result_list = []
+            })
+              .catch(function (error) {
+                    console.log(error, "error");
+                });
+             result_list = []
     }
 
     return (
          <div>
-            <Category/>
-            <div id="name">
-            </div>
-            <Form id="fields" name="fields">
-                 <Form.Item  label="Название поста" placeholder="">
+             <Space>
+                <p className={"fs-4 text-center"}>Изменить пост </p>
+                <p className={"fs-4 text-center strong"} id={"name"}/>
+            </Space>
+            <Form
+                id="fields"
+                name="fields"
+                layout={"vertical"}
+                initialValues={{ remember: true }}
+                onFinish={updateThread}
+                autoComplete="off"
+            >
+                 <Form.Item
+                     name={"thread"}
+                     label={"Название поста"}
+                     rules={[
+                        {required: true, message: 'Пожалуйста, заполните это поле!'},
+                      ]}
+                 >
                     <Input name="name" id="thread_name"/>
                 </Form.Item>
-                <Form.Item  label="Описание поста" placeholder="">
+                <Form.Item
+                    name={"description"}
+                    label="Описание поста"
+                    rules={[
+                        {required: true, message: 'Пожалуйста, заполните это поле!'},
+                      ]}
+                >
                     <TextArea name="description" autoSize={{ minRows: 3, maxRows: 5 }} id="thread_description"/>
                 </Form.Item>
+                <Form.Item
+                    name={"fileinfo"}
+                    label={"Фото:"}
+                    valuePropName={"fileList"}
+                    getValueFromEvent={setFile}
+                  >
+                    <Upload
+                        id={"upload_file"}
+                        name="file"
+                        listType="picture"
+                        maxCount={1}
+                        accept="image/png, image/jpg, image/jpeg"
+                        beforeUpload={() => false}
+                    >
+                      <Button icon={<UploadOutlined />}>
+                          Нажмите, чтобы загрузить файл
+                      </Button>
+                    </Upload>
+                </Form.Item>
                 <Button
-                    onClick={updateThread}>
-                    обновить
+                    type='primary'
+                    htmlType='submit'
+                    className='rounded-md bg-blue-300'
+                >
+                    Сохранить изменения
                 </Button>
             </Form>
-             <form id="fileinfo">
-                <input type="file" id="upload_file" name="file" accept="image/png, image/jpg, image/jpeg" multiple />
-             </form>
         </div>
     );
 };

@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import axios from "axios";
-import PropTypes from 'prop-types';
 import { fetchToken } from "../components/Auth";
 import { Button, Form, Input } from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
@@ -42,10 +41,10 @@ export default function Login() {
     };
 
     return (
-        <Container>
-            <p className="fs-3 text-center">Вход</p>
+        <>
+            <p className={"fs-3 text-center"}>Вход</p>
                 {fetchToken() ? (
-                  <p className="fs-4 text-center">Вы уже авторизованы</p>
+                  <p className={"fs-4 text-center"}>Вы уже авторизованы</p>
                 ) : (
                 <div>
                     <Form
@@ -97,6 +96,6 @@ export default function Login() {
                     <AuthButton/>
                 </div>
                 )}
-        </Container>
+        </>
     );
 }

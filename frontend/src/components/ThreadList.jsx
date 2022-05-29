@@ -3,6 +3,7 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import CategoryElement from "./CategoryElement";
 
+
 const ThreadList = (props) => {
       axios.get("http://127.0.0.1:8000/tread/get_category_threads",
         {headers:
@@ -28,10 +29,9 @@ const ThreadList = (props) => {
                 console.log(error, "error");
             });
     return (
-        <div>
+        <>
 
-
-        </div>
+        </>
     );
 };
 

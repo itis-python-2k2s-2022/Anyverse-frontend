@@ -12,7 +12,7 @@ export default function EditPassword() {
     const [password, setPassword] = useState("");
     const [password_repeat, setPassword_repeat] = useState("");
 
-
+    const [formErrors, setFormErrors] = useState("");
 
     const save = () => {
         let block = document.getElementsByName('errorblock')
@@ -34,45 +34,63 @@ export default function EditPassword() {
             })
             .catch(function (error) {
               console.log(error, "error");
+              if (error) {
+                  setFormErrors(error.response.data.response_message);
+              }
             });
       };
 
   return (
-    <div style={{ minHeight: 800, marginTop: 30 }}>
-      <Form>
+    <>
+        <p className={'fs-3 text-center'}>Изменить пароль</p>
+      <Form
+        name={'registrationForm'}
+        layout={'vertical'}
+        initialValues={{ remember: true }}
+        onFinish={save}
+        autoComplete="off"
+      >
             <Form.Item
               name='password'
-              onChange={(e) => setPassword(e.target.value)}
-              // rules={[makeRequiredFormFieldRule("Please enter password")]}
+              label={"Пароль:"}
+              rules={[
+                {required: true, message: 'Пожалуйста, заполните это поле!'},
+              ]}
             >
               <Input
+                onChange={(e) => setPassword(e.target.value)}
                 prefix={<LockOutlined className='site-form-item-icon' />}
                 type='password'
-                placeholder='Password'
               />
             </Form.Item>
             <Form.Item
               name='password2'
-              onChange={(e) => setPassword_repeat(e.target.value)}
-              // rules={[makeRequiredFormFieldRule("Please enter password")]}
+              label={"Повторите пароль:"}
+              rules={[
+                {required: true, message: 'Пожалуйста, заполните это поле!'},
+              ]}
             >
               <Input
+                onChange={(e) => setPassword_repeat(e.target.value)}
                 prefix={<LockOutlined className='site-form-item-icon' />}
                 type='password'
-                placeholder='Password'
               />
             </Form.Item>
+          {formErrors && (
+                <p className='pb-2' style={{ color: 'red' }}>
+                  {formErrors}
+                </p>
+              )}
             <Form.Item>
               <Button
                 type='primary'
                 htmlType='submit'
-                className='rounded-md bg-blue-300 p-1'
-                onClick={save}
+                className='rounded-md bg-blue-300'
               >
                 Проверить и сохранить пароль
               </Button>
             </Form.Item>
           </Form>
-    </div>
+    </>
   );
 }

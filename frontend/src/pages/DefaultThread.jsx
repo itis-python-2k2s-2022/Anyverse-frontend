@@ -1,14 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 import TreadElement from "../components/TreadElement";
 import ReactDOM from "react-dom";
 import {useParams} from "react-router-dom";
 import ThreadFieldElement from "../components/ThreadFieldElement";
-import Category from "../components/Category";
-import {Button, Form, Input} from "antd";
+import {Avatar, Button, Card, Col, Form, Input, Rate, Row, Space} from "antd";
 import TreadOpenElement from "../components/TreadOpenElement";
 import CommentElement from "../components/CommentElement";
-import RatingElement from "../components/RatingElement";
 
 let length_fields = 0;
 const { TextArea } = Input;
@@ -22,14 +20,31 @@ const DefaultThread = () => {
     const params = useParams();
     const thread_id = params.thread;
 
+    const [currentValue, setCurrentValue] = useState(0)
+
+    const change = (value, e) => {
+        console.log(value)
+        setCurrentValue(value)
+   axios
+       .put("http://127.0.0.1:8000/category_app/rating/update_rating",
+                {
+                    thread: thread_id,
+                    creator: localStorage.getItem('token'),
+                    rating: value
+                })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error, "error");
+            });
+    }
+
          axios.get("http://127.0.0.1:8000/category_app/thread/get_thread",
         {headers: { token: localStorage.getItem('token'),
                           thread_id: thread_id}})
         .then(response => {
-            const image_thread = document.createElement("img")
-            image_thread.src = "http://127.0.0.1:8000/" + response.data.thread.image
-            const img_mom = document.getElementById("image");
-            img_mom.append(image_thread);
+            document.getElementById("thread_photo").src = "http://127.0.0.1:8000/" + response.data.thread.image;
             document.getElementById("thread_name").innerText  = response.data.thread.name
             document.getElementById("thread_description").innerText  = response.data.thread.description
             category_id = response.data.thread.category
@@ -102,23 +117,57 @@ const DefaultThread = () => {
 
     return (
         <div>
-            <div id="image">
-            </div>
-            <div id="name">
-            </div>
-            <div name="name" id="thread_name" >
-            </div>
-            <div name="description" id="thread_description">
-            </div>
-            <div id="fields">
-            </div>
-            <RatingElement thread_id={"dfgdrfgddrg"}/>
-            <Form id="fields" name="fields">
-                <Form.Item  label="написать комментарий" placeholder="">
-                    <TextArea name="comment" autoSize={{ minRows: 3, maxRows: 5 }} id="thread_comment"/>
+            <Card
+                id={"thread_card"}
+            >
+                <div className={"row"}>
+                    <div className={"col-4"}>
+                        <Avatar
+                          size={300}
+                          shape={"square"}
+                          id={"thread_photo"}
+                        />
+                    </div>
+                    <div className={"col-8"}>
+                        <p className={"fs-3 text-center"} id={"thread_name"}/>
+                        <Space>
+                            <p className={"fs-4"}>Описание: </p>
+                            <p className={"fs-5"} id={"thread_description"}/>
+                        </Space>
+                        <div id="fields">
+                        </div>
+                    </div>
+                </div>
+                <div className={"row"} style={{textAlign: "center", marginTop: 1}}>
+                    <div id="rating">
+                        <Rate onChange={value => change(value)} value={currentValue} />
+                    </div>
+                </div>
+            </Card>
+            <p/>
+            <Form
+                id="fields"
+                name="fields"
+                layout={"vertical"}
+                initialValues={{ remember: true }}
+                autoComplete="off"
+            >
+                <Form.Item
+                    name={"thread_comment"}
+                    label={"Ваш комментарий: "}
+                    rules={[
+                        {required: true, message: 'Пожалуйста, напишите комментарий!'},
+                    ]}
+                >
+                    <TextArea
+                        name="comment"
+                        autoSize={{ minRows: 3, maxRows: 5 }}
+                        id="thread_comment"
+                    />
                 </Form.Item>
                 <Button
-                    onClick={send}>
+                    onClick={send}
+                >
                     Отправить
                 </Button>
             </Form>

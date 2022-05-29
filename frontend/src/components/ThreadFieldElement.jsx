@@ -6,9 +6,18 @@ import {Form, Input, Col, Row,} from "antd";
 const ThreadFieldElement = (props) => {
     return (
         <div>
-            <h1 name={"title" + props.id} >{ props.label}</h1>
-            <Form.Item>
-                <Input id={props.id} name={"answer" + props.id} type="text" placeholder={props.placeholder}/>
+            <Form.Item
+                label={props.label}
+                rules={[
+                    {required: true, message: 'Пожалуйста, заполните это поле!'},
+                  ]}
+            >
+                <Input
+                    id={props.id}
+                    name={"answer" + props.id}
+                    type="text"
+                    placeholder={"Ваши мысли"}
+                />
             </Form.Item>
         </div>
     );

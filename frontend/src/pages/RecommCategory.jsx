@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from "axios";
-import Category from "../components/Category";
 import ReactDOM from "react-dom";
 import CategoryElement from "../components/CategoryElement";
 
@@ -34,9 +33,8 @@ axios.get("http://127.0.0.1:8000/category_app/category/get_recommended_categorie
 
     return (
         <div>
-            <Category />
             <h1>Мои категории</h1>
-            <div id="recomm"></div>
+            <div id="recomm"> </div>
 
         </div>
     );

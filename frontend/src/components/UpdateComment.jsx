@@ -4,7 +4,8 @@ import axios from "axios";
 const { TextArea } = Input;
 
 const UpdateComment = (props) => {
-    const send = () => {
+
+    const send = async e => {
         const form = document.forms.comm;
         const name_category = form.elements.comment.value;
          axios
@@ -23,15 +24,34 @@ const UpdateComment = (props) => {
     }
     return (
         <div id={props.id + "del"}>
-              <Form id="comm" name="comm">
-            <Form.Item  label="исправить комментарий" placeholder="">
-                    <TextArea name="comment" autoSize={{ minRows: 3, maxRows: 5 }} id="thread" defaultValue={props.text}/>
-                </Form.Item>
-                <Button
-                    onClick={send}>
-                    Сохранить
-                </Button>
-              </Form>
+          <Form
+              id="comm"
+              name="comm"
+              layout={'vertical'}
+              initialValues={{ remember: true }}
+              onFinish={send}
+              autoComplete="off"
+          >
+            <Form.Item
+                name={"fix_comm"}
+                label="Исправить комментарий"
+                rules={[
+                    {required: true, message: 'Пожалуйста, введите комментарий!'},
+                ]}
+            >
+                <TextArea
+                    name="comment"
+                    autoSize={{ minRows: 3, maxRows: 5 }}
+                    id="thread"
+                    defaultValue={props.text}
+                />
+            </Form.Item>
+            <Button
+                htmlType='submit'
+            >
+                Сохранить
+            </Button>
+          </Form>
         </div>
     );
 };

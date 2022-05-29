@@ -1,6 +1,6 @@
 import React from 'react';
 import {fetchToken} from "../components/Auth";
-import {Profile_} from "../components/Profile_element";
+import {Profile_} from "../components/ProfileElement";
 
 export default function Profile() {
   // const navigate = useNavigate();

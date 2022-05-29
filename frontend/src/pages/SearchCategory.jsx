@@ -1,9 +1,9 @@
 import React from 'react';
-import Category from "../components/Category";
 import axios from "axios";
 import ReactDOM from "react-dom";
 import CategoryElement from "../components/CategoryElement";
 import {Button, Form, Input} from "antd";
+
 
 const SearchCategory = () => {
     function search(e) {
@@ -37,7 +37,6 @@ const SearchCategory = () => {
 
     return (
         <div>
-            <Category/>
             <Form id="form_search" name="form_search">
                 <Form.Item  label="Искать">
                     <Input name="search"/>
@@ -48,7 +47,7 @@ const SearchCategory = () => {
                 </Button>
            </Form>
              <div id="result_search">
-                 <div id="category_list"></div>
+                 <div id="category_list"> </div>
              </div>
         </div>
     );

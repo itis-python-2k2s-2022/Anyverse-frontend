@@ -1,11 +1,10 @@
 import {  Upload, message, Button, Form, Input } from "antd";
 import { useNavigate } from "react-router";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import {LockOutlined, UploadOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "axios";
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
-import ReactDOM from "react-dom";
-import App from "../index";
+
 
 export default function ProfileEdit() {
     const params = useParams();
@@ -16,14 +15,14 @@ export default function ProfileEdit() {
     const [nickname, setNick] = useState("");
     const [email, setEmail] = useState("");
 
+    const [formErrors, setFormErrors] = useState("");
+    const [file, setFile] = useState(null);
 
     const save = () => {
-        const form_file = document.forms.namedItem("fileinfo");
-        const someFile = document.getElementById("upload_file").files[0]
-        console.log(someFile)
-        const formData = new FormData();
-        formData.append('file', someFile)
-        console.log(nick + "lll")
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file.fileList[0].originFileObj)
+            console.log(nick + "lll")
          axios
             .put("http://localhost:8000/profile/update_image_info/" + nick, formData)
             .then(function (response) {
@@ -32,6 +31,7 @@ export default function ProfileEdit() {
             .catch(function (error) {
               console.log(error, "error");
             });
+        }
 
           axios
             .put("http://localhost:8000/profile/update_profile_info", {
@@ -48,81 +48,108 @@ export default function ProfileEdit() {
             })
             .catch(function (error) {
               console.log(error, "error");
+              if (error) {
+                  setFormErrors(error.response.data.response_message);
+              }
             });
       };
 
   return (
-    <div style={{ minHeight: 800, marginTop: 30 }}>
-        <h1 className="errorblock">Пока все хорошо)))</h1>
-      <Form>
-            <Form.Item
-              name='name'
-              onChange={(e) => setUsername(e.target.value)}
-              rules={[
-                // makeRequiredFormFieldRule("Please enter email"),
-                { type: "string" },
-              ]}
+    <>
+        <p className={'fs-3 text-center'}>Редактировать профиль</p>
+      <Form
+        name={'registrationForm'}
+        layout={'vertical'}
+        initialValues={{ remember: true }}
+        onFinish={save}
+        autoComplete="off"
+      >
+        <Form.Item
+          name='name'
+          label={'Имя:'}
+          rules={[
+            {required: true, message: 'Пожалуйста, заполните это поле!'},
+            {type: "string", message: "Это поле может содержать только буквы" },
+          ]}
+        >
+          <Input
+            onChange={(e) => setUsername(e.target.value)}
+            prefix={<UserOutlined className='site-form-item-icon' />}
+          />
+        </Form.Item>
+        <Form.Item
+          name='surname'
+          label={'Фамилия:'}
+          rules={[
+            {required: true, message: 'Пожалуйста, заполните это поле!'},
+            {type: "string", message: "Это поле может содержать только буквы" },
+          ]}
+        >
+          <Input
+            onChange={(e) => setUsersurname(e.target.value)}
+            prefix={<UserOutlined className='site-form-item-icon' />}
+          />
+        </Form.Item>
+        <Form.Item
+          name='nickname'
+          label={'Никнейм:'}
+          rules={[
+            {required: true, message: 'Пожалуйста, заполните это поле!'},
+            {type: "string", message: "Это поле может содержать только буквы" },
+          ]}
+        >
+          <Input
+            onChange={(e) => setNick(e.target.value)}
+            prefix={<UserOutlined className='site-form-item-icon' />}
+          />
+        </Form.Item>
+        <Form.Item
+          name='email'
+          label={"Email:"}
+          rules={[
+            {required: true, message: 'Пожалуйста, заполните это поле!'},
+            {type: "email", message: "Некорректно введен email!"},
+          ]}
+        >
+          <Input
+            onChange={(e) => setEmail(e.target.value)}
+            prefix={<UserOutlined className='site-form-item-icon' />}
+          />
+        </Form.Item>
+          {formErrors && (
+            <p className='pb-2' style={{ color: 'red' }}>
+              {formErrors}
+            </p>
+          )}
+          <Form.Item
+            name={"fileinfo"}
+            label={"Фото:"}
+            valuePropName={"fileList"}
+            getValueFromEvent={setFile}
+          >
+            <Upload
+                id={"upload_file"}
+                name="file"
+                listType="picture"
+                maxCount={1}
+                accept="image/png, image/jpg, image/jpeg"
+                beforeUpload={() => false}
             >
-              <Input
-                prefix={<UserOutlined className='site-form-item-icon' />}
-                placeholder='name'
-              />
-            </Form.Item>
-            <Form.Item
-              name='surname'
-              onChange={(e) => setUsersurname(e.target.value)}
-              rules={[
-                // makeRequiredFormFieldRule("Please enter email"),
-                { type: "string" },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className='site-form-item-icon' />}
-                placeholder='surname'
-              />
-            </Form.Item>
-            <Form.Item
-              name='nickname'
-              onChange={(e) => setNick(e.target.value)}
-              rules={[
-                // makeRequiredFormFieldRule("Please enter email"),
-                { type: "string" },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className='site-form-item-icon' />}
-                placeholder='nickname'
-              />
-            </Form.Item>
-            <Form.Item
-              name='email'
-              onChange={(e) => setEmail(e.target.value)}
-              rules={[
-                // makeRequiredFormFieldRule("Please enter email"),
-                { type: "email" },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className='site-form-item-icon' />}
-                placeholder='Email'
-              />
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                type='primary'
-                htmlType='submit'
-                className='rounded-md bg-blue-300 p-1'
-                onClick={save}
-              >
-                Проверить и сохранить
+              <Button icon={<UploadOutlined />}>
+                  Нажмите, чтобы загрузить файл
               </Button>
-            </Form.Item>
-          </Form>
-        <form id="fileinfo">
-              <input type="file" id="upload_file" name="file" accept="image/png, image/jpg, image/jpeg" multiple />
-              {/*<Button>Click to Upload</Button>*/}
-        </form>
-    </div>
+            </Upload>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            type='primary'
+            htmlType='submit'
+            className='rounded-md bg-blue-300'
+          >
+            Проверить и сохранить
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 }
