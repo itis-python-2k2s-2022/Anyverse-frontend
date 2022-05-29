@@ -10,13 +10,14 @@ let count = 0;
 
 const DefaultChat = (props) => {
 
-    // for (const element in props.messages){
-    //         var messages = document.getElementById('messages')
-    //     var message = document.createElement('div')
-    //     var content = document.createTextNode(props.messages.message)
-    //     message.appendChild(content)
-    //     messages.appendChild(message)
-    // }
+    for (const element in props.messages){
+            var messages = document.getElementById("old_m")
+        console.log(messages)
+        var message = document.createElement('div')
+        message.innerText = props.messages[element].message
+        // message.appendChild(content)
+        messages.appendChild(message)
+    }
 
     var ws = new WebSocket("ws://localhost:8000/ws/" + props.chat_id);
 
@@ -64,7 +65,7 @@ const DefaultChat = (props) => {
 
             </div>
             <h1>WebSocket Chat</h1>
-            <Form action="">
+            <Form action="" className="flex-end">
                 <Input type="text" id="messageText" autoComplete="off"/>
                 <Button onClick={sendMessage}>Send</Button>
             </Form>
