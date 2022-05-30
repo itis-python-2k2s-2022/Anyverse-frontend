@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import {Button, Form, Input, message} from "antd";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -20,8 +20,6 @@ export default function EditPassword() {
 
           axios
             .put("http://127.0.0.1:8000/profile/update_password_info", {
-
-
                 password: password,
                 password_check: password_repeat,
                 token: localStorage.getItem('token')
@@ -30,6 +28,7 @@ export default function EditPassword() {
             .then(function (response) {
               console.log(response);
                 navigate("/profile/get_profile_info/");
+                message.success(response.data.response_message);
               // }
             })
             .catch(function (error) {

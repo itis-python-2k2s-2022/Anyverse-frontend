@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
-import {Button, Form, Input, Upload} from "antd";
+import {Button, Form, Input, message, Upload} from "antd";
 import {useParams} from "react-router-dom";
 import ReactDOM from "react-dom";
 import CategoryField from "../components/CategoryField";
@@ -25,21 +25,16 @@ const UpdateCategory = () => {
         .then(response => {
             let length_fields = 0;
             id_category = response.data.category._id;
-            document.getElementById("name").placeholder = response.data.category.name
-            document.getElementById("name").value = response.data.category.name
-            document.getElementById("description").placeholder = response.data.category.description
-            document.getElementById("description").value = response.data.category.description
+            document.getElementById("category_name").defaultValue = response.data.category.name
+            document.getElementById("category_description").defaultValue = response.data.category.description
             response.data.category.additional_fields.map((element) => {
                 elem_list.push(length_fields)
                 const elements = document.getElementById("fields");
                 const member_chat = document.createElement("div");
-                member_chat.setAttribute('id', String(length_fields ) + "div");
+                member_chat.setAttribute('id', String(length_fields) + "div");
                 elements.append(member_chat);
                 ReactDOM.hydrate(
-                    <CategoryField id={length_fields }
-                                   label={"Ваше поле"}
-                                   value={element}
-                                   placeholder={element}/>,
+                    <CategoryField id={length_fields} defaultValue={element.name}/>,
                     document.getElementById(String(length_fields)+"div")
                 );
                 document.getElementById(String(length_fields)).value = element;
@@ -99,6 +94,7 @@ const UpdateCategory = () => {
             });
             }
             navigate("/category/subscriptions");
+            message.success(response.data.response_message);
         })
           .catch(function (error) {
                 console.log(error, "error");
@@ -117,13 +113,17 @@ const UpdateCategory = () => {
                 autoComplete="off"
             >
                 <Form.Item
-                    name={"category_name"}
+                    name={"name"}
                     label="Название категории"
                     rules={[
                         {required: true, message: 'Пожалуйста, заполните это поле!'},
                       ]}
                 >
-                    <Input id="name" name="name" placeholder=""/>
+                    <Input
+                        id="category_name"
+                        placeholder={"Название"}
+                        type={"text"}
+                    />
                 </Form.Item>
                 <Form.Item
                     name={"description"}
@@ -132,7 +132,11 @@ const UpdateCategory = () => {
                         {required: true, message: 'Пожалуйста, заполните это поле!'},
                       ]}
                 >
-                    <Input id="description" placeholder="" name="description"/>
+                    <Input
+                        id="category_description"
+                        placeholder={"Описание"}
+                        type={"text"}
+                    />
                 </Form.Item>
                 <Form.Item
                     name={"fileinfo"}

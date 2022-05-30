@@ -10,8 +10,6 @@ const CategoryField = (props) => {
         element.remove();
         const index = props.list.indexOf(props.id)
         props.list.splice(index, 1)
-        console.log(index)
-        console.log(props)
     }
 
     return (
@@ -27,6 +25,7 @@ const CategoryField = (props) => {
                          id={props.id}
                          name={"a" + props.id}
                          type="text"
+                         defaultValue={props.defaultValue}
                          placeholder={"Введите название"}
                      />
                      <Button

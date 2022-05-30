@@ -23,7 +23,7 @@ const AddCategory = () => {
         member_chat.setAttribute('id', String(count) + "div");
         elements.append(member_chat);
         ReactDOM.hydrate(
-            <CategoryField id={String(count)} />,
+            <CategoryField id={String(count)} defaultValue={""}/>,
             document.getElementById(String(count)+"div")
         );
         count += 1

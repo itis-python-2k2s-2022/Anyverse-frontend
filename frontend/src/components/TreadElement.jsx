@@ -34,6 +34,7 @@ const TreadElement = (props) => {
             id={props.item._id}
             title={props.item.name}
             type={"inner"}
+            style={{marginTop: 16, marginRight: "15%", marginLeft: "15%"}}
             extra={
                 <>
                 {props.flag && (
@@ -45,16 +46,18 @@ const TreadElement = (props) => {
                 </>
                 }
         >
-        {/*<a href={"/thread/" + props.item._id}>*/}
             <div onClick={move}>
-                <Space>
-                    <Avatar shape="square" size={64} src={"http://127.0.0.1:8000/" + props.item.image} />
-                    <div>
-                        {props.item.description}
+                <div className={"row"}>
+                    <div className={"col-3"}>
+                        <Avatar shape="square" size={200} src={"http://127.0.0.1:8000/" + props.item.image} />
                     </div>
-                </Space>
+                    <div className={"col-9"}>
+                        <div>
+                            {props.item.description}
+                        </div>
+                    </div>
+                </div>
             </div>
-        {/*</a>*/}
         </Card>
         </>
     );

@@ -34,7 +34,7 @@ const AddThread = () => {
                 member_chat.setAttribute('id', String(length_fields ) + "div");
                 elements.append(member_chat);
                 ReactDOM.hydrate(
-                    <ThreadFieldElement id={length_fields} label={element}/>,
+                    <ThreadFieldElement id={length_fields} label={element} defaultValue={''}/>,
                     document.getElementById(String(length_fields)+"div")
                 );
                 length_fields += 1;

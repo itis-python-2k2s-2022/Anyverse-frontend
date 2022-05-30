@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, message} from "antd";
 import axios from "axios";
 const { TextArea } = Input;
 
@@ -17,6 +17,7 @@ const UpdateComment = (props) => {
                 const comment = document.getElementById(props.id +"text")
                 comment.innerText = name_category;
                 el_user.remove()
+                message.success(response.data.response_message);
             })
             .catch(function (error) {
                 console.log(error, "error");

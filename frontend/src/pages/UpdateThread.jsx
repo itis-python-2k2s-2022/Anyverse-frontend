@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from "axios";
 import TreadElement from "../components/TreadElement";
 import ReactDOM from "react-dom";
-import {Button, Form, Input, Space, Upload} from "antd";
+import {Button, Form, Input, Space, Upload, message} from "antd";
 import {useParams} from "react-router-dom";
 import ThreadFieldElement from "../components/ThreadFieldElement";
 import {useNavigate} from "react-router";
@@ -28,30 +28,27 @@ const UpdateThread = () => {
         {headers: { token: localStorage.getItem('token'),
                           thread_id: thread_id}})
         .then(response => {
-            document.getElementById("thread_name").placeholder = response.data.thread.name
-            document.getElementById("thread_name").value = response.data.thread.name
-            document.getElementById("thread_description").placeholder = response.data.thread.description
-            document.getElementById("thread_description").value = response.data.thread.description
-            category_id = response.data.thread.category
+            category_id = response.data.thread.category;
             // console.log(response.data.thread)
             const additional = JSON.stringify(response.data.thread)
             additional_fields = JSON.parse(additional);
             // console.log(additional_fields)
+            document.getElementById("thread_name").defaultValue = response.data.thread.name;
+            document.getElementById("thread_description").defaultValue = response.data.thread.description;
             axios.get("http://127.0.0.1:8000/category_app/category/get_category_settings",
                 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
                 .then(response => {
                     fields = response.data.category.additional_fields
                      for (var element in fields) {
                          elem_list.push(length_fields)
-                         const elements = document.getElementById("fields");
+                         const elements = document.getElementById("new-fields");
                          const member_chat = document.createElement("div");
                          member_chat.setAttribute('id', String(length_fields) + "div");
                          elements.append(member_chat);
                            ReactDOM.hydrate(
                              <ThreadFieldElement id={element}
                                                  label={fields[element]}
-                                                 value={additional_fields[fields[element]]}
-                                                 placeholder={additional_fields[fields[element]]}/>,
+                                                 defaultValue={additional_fields[fields[element]]}/>,
                              document.getElementById(String(length_fields) + "div"));
                            document.getElementById(String(length_fields)).value = additional_fields[fields[element]];
                            length_fields += 1;
@@ -99,7 +96,8 @@ const UpdateThread = () => {
             .then(response => {
                 console.log(response);
                 navigate("/category/" + category_id);
-
+                message.success(response.data.response_message);
+                // alert(response.data.response_message)
             })
               .catch(function (error) {
                     console.log(error, "error");
@@ -122,23 +120,35 @@ const UpdateThread = () => {
                 autoComplete="off"
             >
                  <Form.Item
-                     name={"thread"}
+                     name={"name_form"}
                      label={"Название поста"}
                      rules={[
                         {required: true, message: 'Пожалуйста, заполните это поле!'},
                       ]}
                  >
-                    <Input name="name" id="thread_name"/>
+                    <Input
+                        name="name"
+                        id="thread_name"
+                        type={"text"}
+                        placeholder={"Название поста"}
+                    />
                 </Form.Item>
                 <Form.Item
-                    name={"description"}
+                    name={"description_form"}
                     label="Описание поста"
                     rules={[
                         {required: true, message: 'Пожалуйста, заполните это поле!'},
                       ]}
                 >
-                    <TextArea name="description" autoSize={{ minRows: 3, maxRows: 5 }} id="thread_description"/>
+                    <TextArea
+                        name="description"
+                        autoSize={{ minRows: 3, maxRows: 5 }}
+                        id="thread_description"
+                        type={"text"}
+                        placeholder={"Описание поста"}
+                    />
                 </Form.Item>
+                <div id={"new-fields"} />
                 <Form.Item
                     name={"fileinfo"}
                     label={"Фото:"}

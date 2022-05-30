@@ -4,6 +4,8 @@ import {LockOutlined, UploadOutlined, UserOutlined} from "@ant-design/icons";
 import axios from "axios";
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
+import ReactDOM from "react-dom";
+import ThreadFieldElement from "../components/ThreadFieldElement";
 
 
 export default function ProfileEdit() {
@@ -18,20 +20,38 @@ export default function ProfileEdit() {
     const [formErrors, setFormErrors] = useState("");
     const [file, setFile] = useState(null);
 
+     axios.get("http://127.0.0.1:8000/profile/get_profile_info/", {params:
+            {token: localStorage.getItem('token')}
+    })
+        .then(response => {
+            setUsername(response.data.user.name)
+            setUsersurname(response.data.user.surname)
+            setNick(response.data.user.nickname)
+            setEmail(response.data.user.email)
+            document.getElementById("profile_name").defaultValue = username
+            document.getElementById("profile_surname").defaultValue = usersurname
+            document.getElementById("profile_nickname").defaultValue = nickname
+            document.getElementById("profile_email").defaultValue = email
+        })
+        .catch(function (error) {
+            console.log(error, "error");
+        });
+
+
     const save = () => {
-        if (file) {
-            const formData = new FormData();
-            formData.append('file', file.fileList[0].originFileObj)
-            console.log(nick + "lll")
-         axios
-            .put("http://localhost:8000/profile/update_image_info/" + nick, formData)
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error, "error");
-            });
-        }
+        // if (file) {
+        //     const formData = new FormData();
+        //     formData.append('file', file.fileList[0].originFileObj)
+        //     console.log(nick + "lll")
+        //  axios
+        //     .put("http://localhost:8000/profile/update_image_info/" + nick, formData)
+        //     .then(function (response) {
+        //       console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //       console.log(error, "error");
+        //     });
+        // }
 
           axios
             .put("http://localhost:8000/profile/update_profile_info", {
@@ -44,6 +64,7 @@ export default function ProfileEdit() {
             .then(function (response) {
               console.log(response);
                 navigate("/profile/get_profile_info/");
+                message.success(response.data.response_message);
               // }
             })
             .catch(function (error) {
@@ -75,6 +96,8 @@ export default function ProfileEdit() {
           <Input
             onChange={(e) => setUsername(e.target.value)}
             prefix={<UserOutlined className='site-form-item-icon' />}
+            defaultValue={username}
+            id={"profile_name"}
           />
         </Form.Item>
         <Form.Item
@@ -88,6 +111,8 @@ export default function ProfileEdit() {
           <Input
             onChange={(e) => setUsersurname(e.target.value)}
             prefix={<UserOutlined className='site-form-item-icon' />}
+            defaultValue={usersurname}
+            id={"profile_surname"}
           />
         </Form.Item>
         <Form.Item
@@ -101,6 +126,8 @@ export default function ProfileEdit() {
           <Input
             onChange={(e) => setNick(e.target.value)}
             prefix={<UserOutlined className='site-form-item-icon' />}
+            defaultValue={nickname}
+            id={"profile_nickname"}
           />
         </Form.Item>
         <Form.Item
@@ -114,6 +141,8 @@ export default function ProfileEdit() {
           <Input
             onChange={(e) => setEmail(e.target.value)}
             prefix={<UserOutlined className='site-form-item-icon' />}
+            defaultValue={email}
+            id={"profile_email"}
           />
         </Form.Item>
           {formErrors && (
@@ -121,25 +150,25 @@ export default function ProfileEdit() {
               {formErrors}
             </p>
           )}
-          <Form.Item
-            name={"fileinfo"}
-            label={"Фото:"}
-            valuePropName={"fileList"}
-            getValueFromEvent={setFile}
-          >
-            <Upload
-                id={"upload_file"}
-                name="file"
-                listType="picture"
-                maxCount={1}
-                accept="image/png, image/jpg, image/jpeg"
-                beforeUpload={() => false}
-            >
-              <Button icon={<UploadOutlined />}>
-                  Нажмите, чтобы загрузить файл
-              </Button>
-            </Upload>
-        </Form.Item>
+        {/*  <Form.Item*/}
+        {/*    name={"fileinfo"}*/}
+        {/*    label={"Фото:"}*/}
+        {/*    valuePropName={"fileList"}*/}
+        {/*    getValueFromEvent={setFile}*/}
+        {/*  >*/}
+        {/*    <Upload*/}
+        {/*        id={"upload_file"}*/}
+        {/*        name="file"*/}
+        {/*        listType="picture"*/}
+        {/*        maxCount={1}*/}
+        {/*        accept="image/png, image/jpg, image/jpeg"*/}
+        {/*        beforeUpload={() => false}*/}
+        {/*    >*/}
+        {/*      <Button icon={<UploadOutlined />}>*/}
+        {/*          Нажмите, чтобы загрузить файл*/}
+        {/*      </Button>*/}
+        {/*    </Upload>*/}
+        {/*</Form.Item>*/}
         <Form.Item>
           <Button
             type='primary'

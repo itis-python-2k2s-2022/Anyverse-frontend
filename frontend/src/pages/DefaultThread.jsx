@@ -102,7 +102,7 @@ const DefaultThread = () => {
                 // console.log(item)
                  <CommentElement
                      flag={item.is_creator}
-                     user={item.creator.nickname}
+                     user={item.creator}
                      comment={item.text}
                      id={item._id}/>
              );

@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import UpdateComment from "./UpdateComment";
-import {Card, Button} from "antd";
+import {Card, Button, Avatar, Space} from "antd";
 import axios from "axios";
 
 const CommentElement = (props) => {
+    const goToUser = () => {
+        window.location.replace("/default_profile/get_profile_info/" + props.user.nickname)
+    }
+
     const update = () => {
           ReactDOM.render(
                     <UpdateComment text={props.comment} id={props.id}/>,
@@ -31,8 +35,18 @@ const CommentElement = (props) => {
         <>
             <Card
                 id={props.id}
-                title={props.user}
                 type={"inner"}
+                style={{marginTop: 16}}
+                title={
+                    <Space onClick={goToUser}>
+                        <Avatar
+                          src={props.user.image}
+                          size={50}
+                          onClick={goToUser}
+                        />
+                        <p className={"fs-5"}>{props.user.nickname}</p>
+                    </Space>
+                }
                 extra={
                     <>
                     {props.flag && (

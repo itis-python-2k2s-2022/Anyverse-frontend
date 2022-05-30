@@ -42,7 +42,6 @@ const DefaultCategory = () => {
 
     const subscribe= () => {
         setMark(true);
-        console.log(mark);
         axios.post("http://127.0.0.1:8000/category_app/category/subscribe_to_category",
         {
             id: category_id,
@@ -60,7 +59,6 @@ const DefaultCategory = () => {
 
     const unsubscribe= () => {
         setMark(false);
-        console.log(mark);
         axios.delete("http://127.0.0.1:8000/category_app/category/unsubscribe_from_category", { data:{
             id: category_id,
             unsub: localStorage.getItem('token')
