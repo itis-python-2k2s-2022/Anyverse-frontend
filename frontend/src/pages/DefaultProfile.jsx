@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router";
+import {Button} from "antd";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import ButtonBeFriend from "../components/ButtonBeFriend";
@@ -49,12 +50,17 @@ function DefaultProfile() {
 
   return (
       <><h1>ИМЯ:</h1>
-            <div id="user_name"></div>
+            <div id="user_name">
+            </div>
           <h1>НИКНЕЙМ:</h1>
-             <div id="user_nickname"></div>
+             <div id="user_nickname">
+             </div>
           <h1>ФАМИЛИЯ:</h1>
-             <div id="user_surname"></div>
-          <button onClick={send_message}>Написать сообщение</button>
+             <div id="user_surname">
+             </div>
+          <a href={"/chat/open_chat/" + user_nickname}>
+              <Button>Написать сообщение</Button>
+          </a>
           <ButtonBeFriend nickname={user_nickname}/>
       </>
   );

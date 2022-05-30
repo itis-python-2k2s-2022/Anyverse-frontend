@@ -51,6 +51,17 @@ const DefaultChat = (props) => {
         messages.appendChild(message)
     };
 
+    ws.addEventListener('close', (event) => {
+  console.log('The connection has been closed successfully.');
+});
+
+
+    // ws.onclose = function (event) {
+    //     ws.send('ты лох')
+    //     console.log("lllll")
+    //     window.location.reload()
+    // }
+
     function sendMessage(e) {
         var input = document.getElementById("messageText")
         post_message(input.value)
