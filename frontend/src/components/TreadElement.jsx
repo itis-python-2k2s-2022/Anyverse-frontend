@@ -2,6 +2,8 @@ import React from 'react';
 import {Avatar, Button, Card, Space} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import axios from "axios";
+import {MessageOutlined} from '@ant-design/icons';
+import { Rate } from 'antd';
 
 
 const TreadElement = (props) => {
@@ -56,6 +58,10 @@ const TreadElement = (props) => {
                             {props.item.description}
                         </div>
                     </div>
+                    <Space>
+                        <MessageOutlined/> {props.item.comments}
+                        <Rate disabled defaultValue={props.item.rating}/>
+                        </Space>
                 </div>
             </div>
         </Card>
