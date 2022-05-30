@@ -1,5 +1,6 @@
 import React from 'react';
 import "../styles/App.css"
+import {Avatar} from "antd";
 
 
 const ChatElement = (props) => {
@@ -8,14 +9,14 @@ const ChatElement = (props) => {
         <a href={"/chat/open_chat/" + props.item.nickname}>
             <div className="post" id={props.key}>
                 {console.log(';;;;;')}
+                <Avatar shape="square" size={64} src={"http://127.0.0.1:8000/" + props.item.image} />
                 <div className="post__content">
-                    <strong> </strong>
                     <div>
                         {props.item.nickname}
                     </div>
-                    {/*<div>*/}
-                    {/*    {props.item}*/}
-                    {/*</div>*/}
+                </div>
+                <div>
+                    {props.item.last_message}
                 </div>
             </div>
         </a>

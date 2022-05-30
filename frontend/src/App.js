@@ -30,6 +30,7 @@ import {Container} from "react-bootstrap";
 import "antd/dist/antd.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecommFriends from "./pages/RecommFriends";
+import OpenChat from "./pages/OpenChat";
 
 
 function App() {
@@ -57,8 +58,8 @@ function App() {
               <Route path="default_profile/get_profile_info/" element={<DefaultProfile />}>
                 <Route path=":nickname" element={<DefaultProfile />}/>
               </Route>
-              <Route path="/chat/open_chat/" element = {<DefaultChat />}>
-                  <Route path=":nickname" element = {<DefaultChat />}/>
+              <Route path="/chat/open_chat/" element = {<OpenChat />}>
+                  <Route path=":nickname" element = {<OpenChat />}/>
               </Route>
               <Route path="/category/subscriptions" element={<AllCategory/>}/>
               <Route path="/category/my_category" element={<CreatedCategories/>}/>

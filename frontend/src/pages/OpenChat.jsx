@@ -26,7 +26,13 @@ const OpenChat = () => {
             });
 
     return (
-        <div id="my_chat">
+        <div>
+            <div id="my_chat">
+
+            </div>
+            <div id="old_m">
+
+            </div>
         </div>
     );
 };
