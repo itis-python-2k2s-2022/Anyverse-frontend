@@ -31,6 +31,7 @@ import "antd/dist/antd.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecommFriends from "./pages/RecommFriends";
 import OpenChat from "./pages/OpenChat";
+import Comment from "./pages/Comment";
 
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
               <Route path="/recommended_friends" element={<RecommFriends/>}/>
               <Route path="/search_friend" element = {<SearchFriend/>}/>
               <Route path="*" element={<NoPage />} />
-              <Route path="default_profile/get_profile_info/" element={<DefaultProfile />}>
+              <Route path="default_profile/get_profile_info/" element={<DefaultProfile/>}>
                 <Route path=":nickname" element={<DefaultProfile />}/>
               </Route>
               <Route path="/chat/open_chat/" element = {<OpenChat />}>
@@ -85,6 +86,7 @@ function App() {
               <Route path="/comment/update/" element={<UpdateComment/>}>
                   <Route path=":comment" element={<UpdateComment/>}/>
               </Route>
+              <Route path="/lol/" element={<Comment/>}/>
             </Routes>
           </Container>
         </Router>

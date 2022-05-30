@@ -78,7 +78,7 @@ const AddThread = () => {
                           console.log(error, "error");
                         });
                 }
-                navigate("/category/subscriptions");
+                navigate("/category/" + category_id);
             })
             .catch(function (error) {
                 console.log(error, "error");

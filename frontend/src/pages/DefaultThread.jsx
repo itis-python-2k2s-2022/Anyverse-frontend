@@ -7,6 +7,7 @@ import ThreadFieldElement from "../components/ThreadFieldElement";
 import {Avatar, Button, Card, Col, Form, Input, Rate, Row, Space} from "antd";
 import TreadOpenElement from "../components/TreadOpenElement";
 import CommentElement from "../components/CommentElement";
+import data from "bootstrap/js/src/dom/data";
 
 let length_fields = 0;
 const { TextArea } = Input;
@@ -21,6 +22,10 @@ const DefaultThread = () => {
     const thread_id = params.thread;
 
     const [currentValue, setCurrentValue] = useState(0)
+
+    const returnBack = (e) => {
+
+    }
 
     const change = (value, e) => {
         console.log(value)
@@ -68,6 +73,12 @@ const DefaultThread = () => {
                              document.getElementById(String(length_fields) + "div"));
                            length_fields += 1;
                      }})
+                ReactDOM.hydrate(
+                    <a href={"/category/" + category_id}>
+                        <Button>Вернуться к категории</Button>
+                    </a>,
+                    document.getElementById("return_button")
+                )
                     // fields.map((element) =>
                 .catch(function (error) {console.log(error, "error");});
         })
@@ -87,6 +98,7 @@ const DefaultThread = () => {
             .then(function (response) {
                 console.log(response);
                 form.elements.comment.value = ""
+                window.location.reload()
             })
             .catch(function (error) {
                 console.log(error, "error");
@@ -97,8 +109,7 @@ const DefaultThread = () => {
         {headers: { token: localStorage.getItem('token'), thread_id: thread_id}})
         .then(response => {
             console.log(response.data.comments);
-            // const thread_list = response.data.threads;
-            const thread_list = response.data.comments.map((item) =>
+            const thread_list = response.data.comments.reverse().map((item) =>
                 // console.log(item)
                  <CommentElement
                      flag={item.is_creator}
@@ -144,6 +155,9 @@ const DefaultThread = () => {
                     </div>
                 </div>
             </Card>
+            <p/>
+            <div id={"return_button"}>
+            </div>
             <p/>
             <Form
                 id="fields"
