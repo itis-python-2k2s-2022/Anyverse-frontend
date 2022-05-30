@@ -13,6 +13,7 @@ import {Profile_} from "../components/ProfileElement";
 let count = 0;
 
 const DefaultChat = (props) => {
+    const [me, setMe] = useState(false)
     const [data, setData] = useState(props.messages);
     // console.log(props.messages)
     // for (const element in props.messages){
@@ -44,7 +45,8 @@ const DefaultChat = (props) => {
     console.log(data)
 
     ws.onmessage = function (event) {
-        setData(data.concat({_id: count, message: event.data, from_user: true}))
+        setMe(true)
+        setData(data.concat({_id: count, message: event.data, from_user: me}))
         // var messages = document.getElementById('messages')
         // var message = document.createElement('div')
         // var content = document.createTextNode(event.data)
