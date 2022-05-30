@@ -5,7 +5,6 @@ import React from "react";
 const ButtonDeleteFriend = (props) => {
 
      const del_friend = async e => {
-
         axios
             .delete("http://127.0.0.1:8000/user_app/friendlist/delete_friend",
                 { data: {
@@ -20,6 +19,7 @@ const ButtonDeleteFriend = (props) => {
             .catch(function (error) {
                 console.log(error, "error");
             });
+        window.location.reload()
      };
 
     return (

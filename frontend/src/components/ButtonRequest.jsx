@@ -19,6 +19,7 @@ const ButtonRequest = (props) => {
             .catch(function (error) {
                 console.log(error, "error");
             });
+        window.location.reload()
     };
 
      console.log('lllll')

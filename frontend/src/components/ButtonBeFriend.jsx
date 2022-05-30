@@ -18,6 +18,7 @@ const ButtonBeFriend = (props) => {
             .catch(function (error) {
                 console.log(error, "error");
             });
+        window.location.reload()
     };
 
      console.log('lllll')
@@ -28,7 +29,7 @@ const ButtonBeFriend = (props) => {
                 htmlType='submit'
                 className='rounded-md bg-blue-300 p-1'
                 onClick={be_friend}>
-                Добавить в друзья
+                {props.label}
             </Button>
         </div>
     );
