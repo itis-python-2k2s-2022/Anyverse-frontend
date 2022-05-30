@@ -1,6 +1,6 @@
 import React from 'react';
 import {Space, Avatar} from "antd";
-import {UserOutlined} from "@ant-design/icons";
+import {UserOutlined, TeamOutlined } from "@ant-design/icons";
 
 
 const CategoryElement = (props) => {
@@ -15,6 +15,9 @@ const CategoryElement = (props) => {
                     />
                     <div>
                         {props.item.name}
+                    </div>
+                    <div>
+                        <TeamOutlined /> {props.item.subscriptions}
                     </div>
                 </Space>
             </div>
