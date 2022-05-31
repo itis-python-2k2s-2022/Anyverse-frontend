@@ -49,7 +49,7 @@ export const Profile_  = () => {
             block1.innerText = response.data.user.nickname
             const block2 = document.getElementById("user_surname")
             block2.innerText = response.data.user.surname;
-            setSrcImage(response.data.user.url);
+            setSrcImage(response.data.user.image);
             // ReactDOM.hydrate(
             //      <Avatar
             //               size={300}

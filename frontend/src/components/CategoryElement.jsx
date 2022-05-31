@@ -4,6 +4,7 @@ import {UserOutlined, TeamOutlined } from "@ant-design/icons";
 
 
 const CategoryElement = (props) => {
+    console.log(props)
       return (
         <a
             href={"/category/" + props.item._id}

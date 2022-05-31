@@ -23,26 +23,30 @@ const AddThread = () => {
     const category_id = params.category;
 
     const [file, setFile] = useState(null);
+    const [exist, setExist] = useState(true)
     const [formErrors, setFormErrors] = useState("");
 
     axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_category_settings`,
 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
         .then(response => {
-            fields = response.data.category.additional_fields
-            document.getElementById("category_name").innerText = response.data.category.name
-            response.data.category.additional_fields.map((element) => {
-                elem_list.push(length_fields)
-                const elements = document.getElementById("new-fields");
-                const member_chat = document.createElement("div");
-                member_chat.setAttribute('id', String(length_fields ) + "div");
-                elements.append(member_chat);
-                ReactDOM.hydrate(
-                    <ThreadFieldElement id={length_fields} label={element} defaultValue={''}/>,
-                    document.getElementById(String(length_fields)+"div")
-                );
-                length_fields += 1;
-            })
-            count = length_fields;
+            if (exist) {
+                setExist(false)
+                fields = response.data.category.additional_fields
+                document.getElementById("category_name").innerText = response.data.category.name
+                response.data.category.additional_fields.map((element) => {
+                    elem_list.push(length_fields)
+                    const elements = document.getElementById("new-fields");
+                    const member_chat = document.createElement("div");
+                    member_chat.setAttribute('id', String(length_fields) + "div");
+                    elements.append(member_chat);
+                    ReactDOM.hydrate(
+                        <ThreadFieldElement id={length_fields} label={element} defaultValue={''}/>,
+                        document.getElementById(String(length_fields) + "div")
+                    );
+                    length_fields += 1;
+                })
+                count = length_fields;
+            }
         })
         .catch(function (error) {
             console.log(error, "error");

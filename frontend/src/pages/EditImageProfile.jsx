@@ -22,6 +22,7 @@ const EditImageProfile = () => {
                  .then(function (response) {
                      console.log(response);
                      navigate("/profile/get_profile_info/");
+                     window.location.reload()
                      message.success(response.data.response_message);
                  })
                  .catch(function (error) {

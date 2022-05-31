@@ -40,6 +40,7 @@ const UpdateThread = () => {
                 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
                 .then(response => {
                     fields = response.data.category.additional_fields
+
                      for (var element in fields) {
                          elem_list.push(length_fields)
                          const elements = document.getElementById("new-fields");
