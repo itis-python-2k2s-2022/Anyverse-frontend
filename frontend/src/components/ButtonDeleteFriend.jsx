@@ -6,7 +6,7 @@ const ButtonDeleteFriend = (props) => {
 
      const del_friend = async e => {
         axios
-            .delete("http://127.0.0.1:8000/user_app/friendlist/delete_friend",
+            .delete(`${process.env.REACT_APP_API_URL}/user_app/friendlist/delete_friend`,
                 { data: {
                         requester: localStorage.getItem('token'),
                         delete: props.nickname

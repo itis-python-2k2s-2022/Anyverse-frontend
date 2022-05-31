@@ -9,7 +9,7 @@ const UpdateComment = (props) => {
         const form = document.forms.comm;
         const name_category = form.elements.comment.value;
          axios
-            .put("http://127.0.0.1:8000/category_app/comment/update_comment",
+            .put(`${process.env.REACT_APP_API_URL}/category_app/comment/update_comment`,
                 {comment_id: props.id, text: name_category})
             .then(function (response) {
                 console.log(response);

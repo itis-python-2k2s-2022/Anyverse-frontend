@@ -6,7 +6,7 @@ import CategoryElement from "../components/CategoryElement";
 
 const CreatedCategories = () => {
 
-  axios.get("http://127.0.0.1:8000/category_app/category/get_created_categories",
+  axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_created_categories`,
         {headers:
                 {token: localStorage.getItem('token')}
         })

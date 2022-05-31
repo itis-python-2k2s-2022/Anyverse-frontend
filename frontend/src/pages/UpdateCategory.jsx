@@ -20,7 +20,7 @@ const UpdateCategory = () => {
 
     const [file, setFile] = useState(null);
 
-    axios.get("http://127.0.0.1:8000/category_app/category/get_category_settings",
+    axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_category_settings`,
 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
         .then(response => {
             let length_fields = 0;
@@ -71,7 +71,7 @@ const UpdateCategory = () => {
             }
         });
 
-         axios.put("http://127.0.0.1:8000/category_app/category/update_category",
+         axios.put(`${process.env.REACT_APP_API_URL}/category_app/category/update_category`,
         {
             category_id: id_category,
             name: name_category,

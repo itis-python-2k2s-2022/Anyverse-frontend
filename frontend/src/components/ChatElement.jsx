@@ -8,8 +8,7 @@ const ChatElement = (props) => {
     return (
         <a href={"/chat/open_chat/" + props.item.nickname}>
             <div className="post" id={props.key}>
-                {console.log(';;;;;')}
-                <Avatar shape="square" size={64} src={"http://127.0.0.1:8000/" + props.item.image} />
+                <Avatar shape="square" size={64} src={`${process.env.REACT_APP_API_URL}/` + props.item.image} />
                 <div className="post__content">
                     <div>
                         {props.item.nickname}

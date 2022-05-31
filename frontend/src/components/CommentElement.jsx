@@ -18,7 +18,7 @@ const CommentElement = (props) => {
 
     const del_comment = async e => {
         axios
-            .delete("http://127.0.0.1:8000/category_app/comment/delete_comment",
+            .delete(`${process.env.REACT_APP_API_URL}/category_app/comment/delete_comment`,
                 { data: {comment_id: props.id, creator: localStorage.getItem('token')}})
             .then(function (response) {
                 console.log(response);
@@ -40,7 +40,7 @@ const CommentElement = (props) => {
                 title={
                     <Space onClick={goToUser}>
                         <Avatar
-                          src={"http://127.0.0.1:8000/" + props.user.image}
+                          src={`${process.env.REACT_APP_API_URL}/` + props.user.image}
                           size={50}
                           onClick={goToUser}
                         />

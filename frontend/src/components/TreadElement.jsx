@@ -17,7 +17,7 @@ const TreadElement = (props) => {
 
     const del_thread = async e => {
         axios
-            .delete("http://127.0.0.1:8000/category_app/thread/delete_thread",
+            .delete(`${process.env.REACT_APP_API_URL}/category_app/thread/delete_thread`,
                 { data: {thread_id: props.item._id, creator: localStorage.getItem('token')}})
             .then(function (response) {
                 console.log(response);
@@ -51,7 +51,7 @@ const TreadElement = (props) => {
             <div onClick={move}>
                 <div className={"row"}>
                     <div className={"col-3"}>
-                        <Avatar shape="square" size={200} src={"http://127.0.0.1:8000/" + props.item.image} />
+                        <Avatar shape="square" size={200} src={`${process.env.REACT_APP_API_URL}/` + props.item.image} />
                     </div>
                     <div className={"col-9"}>
                         <div>

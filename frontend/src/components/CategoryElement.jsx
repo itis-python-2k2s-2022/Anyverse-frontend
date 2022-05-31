@@ -12,7 +12,7 @@ const CategoryElement = (props) => {
                     <Avatar
                         shape="square"
                         size={64}
-                        src={"http://127.0.0.1:8000/" + props.item.image}
+                        src={`${process.env.REACT_APP_API_URL}/` + props.item.image}
                     />
                     </div>
                     <div className={"col-10"}>

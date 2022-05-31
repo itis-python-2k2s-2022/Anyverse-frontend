@@ -25,7 +25,7 @@ const UpdateThread = () => {
 
     const [file, setFile] = useState(null);
 
-    axios.get("http://127.0.0.1:8000/category_app/thread/get_thread",
+    axios.get(`${process.env.REACT_APP_API_URL}/category_app/thread/get_thread`,
         {headers: { token: localStorage.getItem('token'),
                           thread_id: thread_id}})
         .then(response => {
@@ -36,7 +36,7 @@ const UpdateThread = () => {
             // console.log(additional_fields)
             document.getElementById("thread_name").defaultValue = response.data.thread.name;
             document.getElementById("thread_description").defaultValue = response.data.thread.description;
-            axios.get("http://127.0.0.1:8000/category_app/category/get_category_settings",
+            axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_category_settings`,
                 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
                 .then(response => {
                     fields = response.data.category.additional_fields
@@ -87,7 +87,7 @@ const UpdateThread = () => {
                     })
             }
          axios
-             .put("http://127.0.0.1:8000/category_app/thread/update_thread",
+             .put(`${process.env.REACT_APP_API_URL}/category_app/thread/update_thread`,
             {
                 thread_id: thread_id,
                 creator_id: localStorage.getItem('token'),

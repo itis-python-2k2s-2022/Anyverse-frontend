@@ -10,7 +10,7 @@ const GetAuth = () => {
     token = token.split('&')[0]
     console.log(token)
 
-    axios.get("http://127.0.0.1:8000/auth/oauth",
+    axios.get( `${process.env.REACT_APP_API_URL}/auth/oauth`,
         {params: {access_token: token}})
         .then(response => {
             if (response.data.token) {

@@ -6,7 +6,7 @@ import FriendlistElement from "../components/FriendlistElement"
 
 const Friendlist = () => {
 
-    axios.get("http://127.0.0.1:8000/user_app/friendlist/get_friends", {headers:
+    axios.get(`${process.env.REACT_APP_API_URL}/user_app/friendlist/get_friends`, {headers:
             {token: localStorage.getItem('token')}
     })
         .then(response => {
@@ -33,7 +33,7 @@ const Friendlist = () => {
         .finally(response => {
         });
 
-    axios.get("http://127.0.0.1:8000/user_app/friendlist/get_requests", {headers:
+    axios.get(`${process.env.REACT_APP_API_URL}/user_app/friendlist/get_requests`, {headers:
             {token: localStorage.getItem('token')}
        })
         .then(response => {

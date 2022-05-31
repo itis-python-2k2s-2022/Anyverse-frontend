@@ -20,7 +20,7 @@ export default function ProfileEdit() {
     const [formErrors, setFormErrors] = useState("");
     const [file, setFile] = useState(null);
 
-     axios.get("http://127.0.0.1:8000/profile/get_profile_info/", {params:
+     axios.get(`${process.env.REACT_APP_API_URL}/profile/get_profile_info/`, {params:
             {token: localStorage.getItem('token')}
     })
         .then(response => {

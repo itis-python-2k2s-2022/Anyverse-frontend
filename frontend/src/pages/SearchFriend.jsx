@@ -14,7 +14,7 @@ const SearchFriend = () => {
         const query = form.elements.search.value;
         const el_common = document.createElement("div");
         el_common.setAttribute('id', "people_list");
-        axios.get("http://127.0.0.1:8000/user_app/friendlist/get_searched_users",
+        axios.get(`${process.env.REACT_APP_API_URL}/user_app/friendlist/get_searched_users`,
          {params: {query: query}
          })
             .then(response => {

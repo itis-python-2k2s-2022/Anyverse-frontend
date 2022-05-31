@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import CategoryElement from "../components/CategoryElement";
 
 const RecommCategory = () => {
-axios.get("http://127.0.0.1:8000/category_app/category/get_recommended_categories",
+axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_recommended_categories`,
         {headers:
                 {token: localStorage.getItem('token')}
         })

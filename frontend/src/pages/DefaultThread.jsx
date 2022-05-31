@@ -31,7 +31,7 @@ const DefaultThread = () => {
         console.log(value)
         setCurrentValue(value)
    axios
-       .put("http://127.0.0.1:8000/category_app/rating/update_rating",
+       .put(`${process.env.REACT_APP_API_URL}/category_app/rating/update_rating`,
                 {
                     thread: thread_id,
                     creator: localStorage.getItem('token'),
@@ -46,17 +46,17 @@ const DefaultThread = () => {
             });
     }
 
-         axios.get("http://127.0.0.1:8000/category_app/thread/get_thread",
+         axios.get(`${process.env.REACT_APP_API_URL}/category_app/thread/get_thread`,
         {headers: { token: localStorage.getItem('token'),
                           thread_id: thread_id}})
         .then(response => {
-            document.getElementById("thread_photo").src = "http://127.0.0.1:8000/" + response.data.thread.image;
+            document.getElementById("thread_photo").src = `${process.env.REACT_APP_API_URL}/` + response.data.thread.image;
             document.getElementById("thread_name").innerText  = response.data.thread.name
             document.getElementById("thread_description").innerText  = response.data.thread.description
             category_id = response.data.thread.category
             const additional = JSON.stringify(response.data.thread)
             additional_fields = JSON.parse(additional);
-            axios.get("http://127.0.0.1:8000/category_app/category/get_category_settings",
+            axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_category_settings`,
                 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
                 .then(response => {
                     var myNode = document.getElementById("fields");
@@ -84,7 +84,6 @@ const DefaultThread = () => {
                     </a>,
                     document.getElementById("return_button")
                 )
-                    // fields.map((element) =>
                 .catch(function (error) {console.log(error, "error");});
         })
         .catch(function (error) {
@@ -95,7 +94,7 @@ const DefaultThread = () => {
               const form = document.forms.fields;
               const message = form.elements.comment.value;
               axios
-            .post("http://127.0.0.1:8000/category_app/comment/create_comment", {
+            .post(`${process.env.REACT_APP_API_URL}/category_app/comment/create_comment`, {
                 thread: thread_id,
                 creator: localStorage.getItem('token'),
                 text: message,
@@ -110,7 +109,7 @@ const DefaultThread = () => {
             });
           }
 
-          axios.get("http://127.0.0.1:8000/category_app/comment/get_thread_comments",
+          axios.get(`${process.env.REACT_APP_API_URL}/category_app/comment/get_thread_comments`,
         {headers: { token: localStorage.getItem('token'), thread_id: thread_id}})
         .then(response => {
             console.log(response.data.comments);

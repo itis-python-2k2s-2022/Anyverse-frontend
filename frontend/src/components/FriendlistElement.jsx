@@ -10,7 +10,7 @@ const FriendlistElement = (props) => {
      const be_friend = async e => {
 
         axios
-            .post("http://127.0.0.1:8000/auth/login", {headers:
+            .post(`${process.env.REACT_APP_API_URL}/auth/login`, {headers:
             {token: localStorage.getItem('token')}
             })
             .then(function (response) {
@@ -30,10 +30,9 @@ const FriendlistElement = (props) => {
                 <div id={props.key}>
                     <a href={"../default_profile/get_profile_info/" + props.item.nickname}>
                             <div className="post">
-                                {console.log(';;;;;')}
                                 <div className="post__content">
                                     <strong> </strong>
-                                    <img src={"http://127.0.0.1:8000/" + props.item.image}/>
+                                    <img src={`${process.env.REACT_APP_API_URL}/` + props.item.image}/>
                                     <div>
                                         {props.item.nickname}
                                     </div>
@@ -46,10 +45,9 @@ const FriendlistElement = (props) => {
                 <div>
                      <a href={"../default_profile/get_profile_info/" + props.item.nickname}>
                             <div className="post" id={props.key}>
-                                {console.log(';;;;;')}
                                 <div className="post__content">
                                     <strong> </strong>
-                                     <img src={"http://127.0.0.1:8000/" + props.item.image}/>
+                                     <img src={`${process.env.REACT_APP_API_URL}/` + props.item.image}/>
                                     <div>
                                         {props.item.nickname}
                                     </div>

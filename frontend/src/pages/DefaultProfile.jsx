@@ -24,7 +24,7 @@ function DefaultProfile() {
   };
 
     console.log(localStorage.getItem('token'))
-    axios.get("http://127.0.0.1:8000/profile/get_profile_info/" + user_nickname,
+    axios.get(`${process.env.REACT_APP_API_URL}/profile/get_profile_info/` + user_nickname,
         {headers:
                 {token: localStorage.getItem('token')}
         })

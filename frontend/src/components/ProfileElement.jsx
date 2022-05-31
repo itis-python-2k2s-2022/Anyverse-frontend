@@ -28,7 +28,7 @@ export const Profile_  = () => {
         navigate("/update_profile_image/" + nick);
     }
 
-    axios.get("http://127.0.0.1:8000/profile/get_profile_info/", {params:
+    axios.get(`${process.env.REACT_APP_API_URL}/profile/get_profile_info/`, {params:
             {token: localStorage.getItem('token')}
     })
         .then(response => {
@@ -53,11 +53,11 @@ export const Profile_  = () => {
                           size={300}
                           shape={"square"}
                           id={"user_image"}
-                          src={"http://127.0.0.1:8000/" + user.url}
+                          src={`${process.env.REACT_APP_API_URL}/` + user.url}
                         />,
                 document.getElementById("display")
             )
-            // document.getElementById("user_image").src = "http://127.0.0.1:8000/" + user.url;
+            // document.getElementById("user_image").src = `${process.env.REACT_APP_API_URL}/` + user.url;
         })
           .catch(function (error) {
                 console.log(error, "error");

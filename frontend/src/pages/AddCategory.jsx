@@ -55,7 +55,7 @@ const AddCategory = () => {
          //    console.log(additional_fields);
          // }
         axios
-            .post("http://127.0.0.1:8000/category_app/category/create_category", {
+            .post(`${process.env.REACT_APP_API_URL}/category_app/category/create_category`, {
                 name: name_category,
                 description: description,
                 creator: localStorage.getItem('token'),

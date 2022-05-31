@@ -6,7 +6,7 @@ import ChatElement from "../components/ChatElement";
 
 function Chats() {;
 
-    axios.get("http://127.0.0.1:8000/user_app/chat/get_chats", {headers:
+    axios.get(`${process.env.REACT_APP_API_URL}/user_app/chat/get_chats`, {headers:
             {token: localStorage.getItem('token')}
     })
         .then(response => {
@@ -42,7 +42,8 @@ function Chats() {;
     return (
         <div>
             <h1>Чаты</h1>
-            <div id="chats"></div>
+            <div id="chats">
+            </div>
         </div>
     );
 }

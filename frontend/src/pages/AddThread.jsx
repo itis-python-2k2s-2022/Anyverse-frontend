@@ -24,7 +24,7 @@ const AddThread = () => {
 
     const [file, setFile] = useState(null);
 
-    axios.get("http://127.0.0.1:8000/category_app/category/get_category_settings",
+    axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_category_settings`,
 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
         .then(response => {
             fields = response.data.category.additional_fields
@@ -58,7 +58,7 @@ const AddThread = () => {
             }
         })}
         axios
-            .post("http://127.0.0.1:8000/category_app/thread/create_thread", {
+            .post(`${process.env.REACT_APP_API_URL}/category_app/thread/create_thread`, {
                 name: name_category,
                 description: description,
                 creator: localStorage.getItem('token'),

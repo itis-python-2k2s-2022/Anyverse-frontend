@@ -20,7 +20,7 @@ export default function Login() {
 
         // make api call to our backend. we'll leave thisfor later
         axios
-            .post("http://127.0.0.1:8000/auth/login", {
+            .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
                 email: email,
                 password: password,
             })

@@ -13,7 +13,7 @@ const SearchCategory = () => {
         }
         const form = document.forms.form_search;
         const query = form.elements.search.value;
-     axios.get("http://127.0.0.1:8000/category_app/category/get_searched_categories",
+     axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_searched_categories`,
         {params: {query: query}
         })
         .then(response => {

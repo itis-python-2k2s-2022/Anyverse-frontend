@@ -5,7 +5,7 @@ import CategoryElement from "./CategoryElement";
 
 
 const ThreadList = (props) => {
-      axios.get("http://127.0.0.1:8000/tread/get_category_threads",
+      axios.get(`${process.env.REACT_APP_API_URL}/tread/get_category_threads`,
         {headers:
                 {token: localStorage.getItem('token')}, params:{category_id: props.id_category}
         })

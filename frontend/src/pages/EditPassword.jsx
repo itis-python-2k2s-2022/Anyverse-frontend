@@ -19,7 +19,7 @@ export default function EditPassword() {
               block.innerHTML = 'pppp'
 
           axios
-            .put("http://127.0.0.1:8000/profile/update_password_info", {
+            .put(`${process.env.REACT_APP_API_URL}/profile/update_password_info`, {
                 password: password,
                 password_check: password_repeat,
                 token: localStorage.getItem('token')

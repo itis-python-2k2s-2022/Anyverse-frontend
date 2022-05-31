@@ -9,7 +9,7 @@ const OpenChat = () => {
      const params = useParams();
     const nickname = params.nickname;
 
-    axios.get("http://127.0.0.1:8000/user_app/chat/open_chat/" + nickname,
+    axios.get(`${process.env.REACT_APP_API_URL}/user_app/chat/open_chat/` + nickname,
         {headers:
                 {token: localStorage.getItem('token')}
         })

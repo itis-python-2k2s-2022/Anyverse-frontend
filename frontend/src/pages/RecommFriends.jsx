@@ -5,7 +5,7 @@ import FriendElement from "../components/FriendElement";
 import {Button, Form, Input} from "antd";
 
 const RecommFriends = () => {
-        axios.get("http://127.0.0.1:8000/user_app/friendlist/get_recommended_friends",
+        axios.get(`${process.env.REACT_APP_API_URL}/user_app/friendlist/get_recommended_friends`,
          {headers: {token: localStorage.getItem('token')}
          })
             .then(response => {

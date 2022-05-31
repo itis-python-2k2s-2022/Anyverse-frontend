@@ -26,7 +26,7 @@ const DefaultCategory = () => {
     }
 
     const deleteCategory = () => {
-        axios.delete("http://127.0.0.1:8000/category_app/category/delete_category/", { data:{
+        axios.delete(`${process.env.REACT_APP_API_URL}/category_app/category/delete_category/`, { data:{
             creator: localStorage.getItem('token'),
             id: category_id,
         }})
@@ -42,7 +42,7 @@ const DefaultCategory = () => {
 
     const subscribe= () => {
         setMark(true);
-        axios.post("http://127.0.0.1:8000/category_app/category/subscribe_to_category",
+        axios.post(`${process.env.REACT_APP_API_URL}/category_app/category/subscribe_to_category`,
         {
             id: category_id,
             subscriber: localStorage.getItem('token')
@@ -59,7 +59,7 @@ const DefaultCategory = () => {
 
     const unsubscribe= () => {
         setMark(false);
-        axios.delete("http://127.0.0.1:8000/category_app/category/unsubscribe_from_category", { data:{
+        axios.delete(`${process.env.REACT_APP_API_URL}/category_app/category/unsubscribe_from_category`, { data:{
             id: category_id,
             unsub: localStorage.getItem('token')
         }})
@@ -73,7 +73,7 @@ const DefaultCategory = () => {
     };
 
 
-    axios.get("http://127.0.0.1:8000/category_app/category/get_category/",
+    axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_category/`,
         {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
 
         .then(response => {
@@ -90,15 +90,21 @@ const DefaultCategory = () => {
             block1.innerText = category_info.description
             const block2 = document.getElementById("category_subscriptions")
             block2.innerText = category_info.subscriptions
-            const block3 = document.getElementById("category_photo")
-            block3.src = "http://127.0.0.1:8000/" + category_info.image
+            ReactDOM.hydrate(
+                <Avatar
+                    size={300}
+                    shape={"square"}
+                    id={"category_photo"}
+                    src = {`${process.env.REACT_APP_API_URL}/` + category_info.image}/>,
+                 document.getElementById("photo_category")
+            )
 
         })
           .catch(function (error) {
                 console.log(error, "error");
             });
 
-        axios.get("http://127.0.0.1:8000/category_app/thread/get_category_threads",
+        axios.get(`${process.env.REACT_APP_API_URL}/category_app/thread/get_category_threads`,
         {headers: { token: localStorage.getItem('token')}, params: {category_id: category_id}})
         .then(response => {
             console.log(response);
@@ -140,7 +146,7 @@ const DefaultCategory = () => {
                     ]}
                 >
                     <div className={"row"}>
-                        <div className={"col-4"}>
+                        <div id="photo_category" className={"col-4"}>
                             <Avatar
                               size={300}
                               shape={"square"}

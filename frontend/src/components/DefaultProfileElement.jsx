@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const DefaultProfileElement  = () => {
 
-    axios.get("http://127.0.0.1:8000/profile/get_profile_info/")
+    axios.get(`${process.env.REACT_APP_API_URL}/profile/get_profile_info/`)
       // axios
       //       .post("/profile/get_profile_info/", {
       //           token: localStorage.getItem('token')

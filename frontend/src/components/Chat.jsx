@@ -11,7 +11,7 @@ const Chat = (props) => {
   const [data, setData] = useState(props.messages);
 
     const post_message = async (message) => {
-        axios.post("http://127.0.0.1:8000/user_app/chat/send_message",
+        axios.post(`${process.env.REACT_APP_API_URL}/user_app/chat/send_message`,
             {
                 sender: localStorage.getItem('token'),
                 receiver: props.nickname,
