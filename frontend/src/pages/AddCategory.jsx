@@ -48,7 +48,7 @@ const AddCategory = () => {
                 })
             }
             axios
-                .post("http://127.0.0.1:8000/category_app/category/create_category", {
+                .post(`${process.env.REACT_APP_API_URL}/category_app/category/create_category`, {
                     name: name_category,
                     description: description,
                     creator: localStorage.getItem('token'),
@@ -59,7 +59,7 @@ const AddCategory = () => {
                     console.log(response.data.category_id)
                     const category = response.data.category_id
                     axios
-                        .put("http://localhost:8000/category_app/category/update_category_image/" + category, formData)
+                        .put(`${process.env.REACT_APP_API_URL}/category_app/category/update_category_image/` + category, formData)
                         .then(function (response) {
                             console.log(response);
                             navigate("/category/subscriptions");

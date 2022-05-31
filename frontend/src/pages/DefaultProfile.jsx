@@ -47,7 +47,7 @@ function DefaultProfile() {
             const block2 = document.getElementById("user_surname")
             block2.innerText = user.surname
             const block3 = document.getElementById("user_image")
-            block3.src = "http://127.0.0.1:8000/" + user.image
+            block3.src = `${process.env.REACT_APP_API_URL}/` + user.image
             ReactDOM.hydrate(
                      <ButtonForAnotherUser user_nickname={user.nickname}
                      status={status}/>,

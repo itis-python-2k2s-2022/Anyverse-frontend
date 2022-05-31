@@ -29,7 +29,7 @@ export default function ProfileEdit() {
     const save = () => {
         const form = document.forms.edit_form;
           axios
-            .put("http://localhost:8000/profile/update_profile_info", {
+            .put(`${process.env.REACT_APP_API_URL}/profile/update_profile_info`, {
                 name: form.elements.profile_name.value,
                 surname: form.elements.profile_surname.value,
                 nickname: form.elements.profile_nickname.value,
