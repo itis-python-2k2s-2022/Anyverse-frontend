@@ -26,6 +26,8 @@ export default function NavbarElement() {
                       <NavDropdown.Item href={"/chat/get_chats"}>Чаты</NavDropdown.Item>
                       <NavDropdown.Item href={"/category/subscriptions"}>Категории</NavDropdown.Item>
                       <NavDropdown.Item href={"/friendlist/get_friends"}>Друзья</NavDropdown.Item>
+                      <NavDropdown.Item href={"/search_friend"}>Найти друзей</NavDropdown.Item>
+                      <NavDropdown.Item href={"/recommended_friends"}>Возможные друзья</NavDropdown.Item>
                       <NavDropdown.Divider />
                       <NavDropdown.Item onClick={signOut}>Выйти</NavDropdown.Item>
                   </NavDropdown>

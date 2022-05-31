@@ -41,6 +41,7 @@ article h1 {
   margin-top: 15px;
   justify-content: space-between;
   align-items: center;
+  text-decoration: none;
 }
 
 .link {

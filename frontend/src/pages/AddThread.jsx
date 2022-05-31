@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Form, Input, Space, Upload} from "antd";
+import {Button, Form, Input, message, Space, Upload} from "antd";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router";
 import axios from "axios";
@@ -81,6 +81,7 @@ const AddThread = () => {
                         });
                 }
                 navigate("/category/" + category_id);
+                message.success(response.data.response_message);
             })
             .catch(function (error) {
                 console.log(error, "error");

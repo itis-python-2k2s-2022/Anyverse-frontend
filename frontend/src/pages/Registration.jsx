@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import {Button, Form, Input, message} from "antd";
 import { useNavigate } from "react-router";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -50,6 +50,7 @@ export default function Registration() {
               // if (response.data.token) {
               //   setToken(response.data.token);
                 navigate("/auth/login");
+                message.success(response.data.response_message);
               // }
             })
             .catch(function (error) {
