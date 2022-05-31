@@ -58,6 +58,10 @@ const DefaultThread = () => {
             axios.get("http://127.0.0.1:8000/category_app/category/get_category_settings",
                 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
                 .then(response => {
+                    var myNode = document.getElementById("fields");
+                         while (myNode.firstChild) {
+                             myNode.removeChild(myNode.firstChild);
+                         }
                     fields = response.data.category.additional_fields
                      for (var element in fields) {
                          elem_list.push(length_fields)

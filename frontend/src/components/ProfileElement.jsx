@@ -23,6 +23,9 @@ export const Profile_  = () => {
     navigate("/update_profile_info/" + nick);
   };
 
+    const image_edit=() => {
+        navigate("/update_profile_image/" + nick);
+    }
 
     axios.get("http://127.0.0.1:8000/profile/get_profile_info/", {params:
             {token: localStorage.getItem('token')}
@@ -57,6 +60,7 @@ export const Profile_  = () => {
                 actions={[
                     <div onClick={profile_edit}>Изменить данные</div>,
                     <div onClick={password_edit}>Изменить пароль</div>,
+                    <div onClick={image_edit}>Изменить фотографию</div>,
                     <div onClick={signOut}>Выйти</div>,
                 ]}
               >

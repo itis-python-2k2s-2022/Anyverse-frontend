@@ -32,6 +32,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RecommFriends from "./pages/RecommFriends";
 import OpenChat from "./pages/OpenChat";
 import Comment from "./pages/Comment";
+import EditImageProfile from "./pages/EditImageProfile";
+import EditThreadImage from "./components/EditThreadImage";
 
 
 function App() {
@@ -47,7 +49,10 @@ function App() {
               <Route path="/profile/get_profile_info" element = {<Profile />}/>
               <Route path="/update_password_info" element = {<EditPassword />}/>
               <Route path="/update_profile_info" element = {<ProfileEdit />}>
-                  <Route path=":nickname" element={<ProfileEdit/>}/>
+                  <Route path=":nickname" element={<ProfileEdit />}/>
+              </Route>
+              <Route path="/update_profile_image" element = {<EditImageProfile />}>
+                  <Route path=":nickname" element={<EditImageProfile />}/>
               </Route>
               <Route path="/auth/register" element = {<Registration />}/>
               <Route path="/auth/oauth" element={<GetAuth/>}/>

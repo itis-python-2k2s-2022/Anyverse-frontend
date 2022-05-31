@@ -62,8 +62,8 @@ const UpdateCategory = () => {
 
     const update = () => {
          const form = document.forms.fields;
-         const name_category = form.elements.name.value;
-         const description = form.elements.description.value;
+         const name_category = form.elements.category_name.value;
+         const description = form.elements.category_description.value;
          elem_list.map((element) => {
             const el_value = form.elements.namedItem("a" + element).value
             if (el_value !== ""){
@@ -79,7 +79,7 @@ const UpdateCategory = () => {
             additional_fields:  result_list
         })
         .then(response => {
-            console.log(response);
+            console.log(file);
             if (file) {
                 const formData = new FormData();
                 formData.append('file', file.fileList[0].originFileObj)
