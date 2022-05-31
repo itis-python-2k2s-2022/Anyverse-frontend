@@ -2,7 +2,6 @@ import React, {Component, useEffect, useState} from "react";
 import {Button, Form, Input, List, Avatar, Skeleton, Divider } from "antd";
 import axios from "axios";
 import VirtualList from 'rc-virtual-list';
-import MessageElement from "../components/MessageElement";
 import ReactDOM from "react-dom";
 import CategoryElement from "../components/CategoryElement";
 import {Link} from "react-router-dom";

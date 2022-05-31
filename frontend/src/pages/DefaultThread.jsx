@@ -104,6 +104,7 @@ const DefaultThread = () => {
                 console.log(response);
                 form.elements.comment.value = ""
                 window.location.reload()
+                message.success(response.data.response_message);
             })
             .catch(function (error) {
                 console.log(error, "error");
@@ -126,7 +127,6 @@ const DefaultThread = () => {
                      thread_list,
                      document.getElementById("comment_list")
                  )
-            message.success(response.data.response_message);
         })
           .catch(function (error) {
                 console.log(error, "error");

@@ -1,12 +1,17 @@
 import React from 'react';
-import {Space, Avatar} from "antd";
+import {Space, Avatar, Card} from "antd";
 import {UserOutlined, TeamOutlined } from "@ant-design/icons";
 
 
 const CategoryElement = (props) => {
       return (
-        <a href={"/category/" + props.item._id}>
-            <div className="post" id={props.item.name}>
+        <a
+            href={"/category/" + props.item._id}
+        >
+            <Card
+                id={props.item._id}
+                style={{marginTop: 8}}
+            >
                 <div className={"row"} style={{width: "100%"}}>
                     <div className={"col-1"}>
                     <Avatar
@@ -22,7 +27,7 @@ const CategoryElement = (props) => {
                         <TeamOutlined /> {props.item.subscriptions}
                     </div>
                 </div>
-            </div>
+            </Card>
         </a>
     );
 };
