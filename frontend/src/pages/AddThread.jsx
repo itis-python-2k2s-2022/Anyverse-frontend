@@ -6,6 +6,8 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import ThreadFieldElement from "../components/ThreadFieldElement";
 import {UploadOutlined} from "@ant-design/icons";
+import EditThreadImage from "../components/EditThreadImage";
+import AddImage from "../components/AddImage";
 
 
 let count = 0;

@@ -40,7 +40,7 @@ const CommentElement = (props) => {
                 title={
                     <Space onClick={goToUser}>
                         <Avatar
-                          src={props.user.image}
+                          src={"http://127.0.0.1:8000/" + props.user.image}
                           size={50}
                           onClick={goToUser}
                         />

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ReactDOM from 'react-dom'
 import { useNavigate } from "react-router";
 // import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
 import {Card, Avatar, Space} from "antd";
@@ -47,7 +48,16 @@ export const Profile_  = () => {
             block1.innerText = response.data.user.nickname
             const block2 = document.getElementById("user_surname")
             block2.innerText = response.data.user.surname;
-            document.getElementById("user_image").src = "http://127.0.0.1:8000/" + user.url;
+            ReactDOM.hydrate(
+                 <Avatar
+                          size={300}
+                          shape={"square"}
+                          id={"user_image"}
+                          src={"http://127.0.0.1:8000/" + user.url}
+                        />,
+                document.getElementById("display")
+            )
+            // document.getElementById("user_image").src = "http://127.0.0.1:8000/" + user.url;
         })
           .catch(function (error) {
                 console.log(error, "error");
@@ -65,7 +75,7 @@ export const Profile_  = () => {
                 ]}
               >
                 <div className={"row"}>
-                    <div className={"col-4"}>
+                    <div id="display" className={"col-4"}>
                         <Avatar
                           size={300}
                           shape={"square"}

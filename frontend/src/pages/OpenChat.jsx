@@ -17,10 +17,12 @@ const OpenChat = () => {
             console.log(response.data);
             console.log(response.data.chat_id)
             const data_me = []
+            const datas = response.data.messages
+
             for (const element in response.data.messages){
                 console.log( response.data.messages[element])
                 data_me.push(response.data.messages[element])
-            }
+            }console.log(datas)
             console.log(data_me)
             ReactDOM.render(
                 <DefaultChat user_nickname={response.data.user_nickname} nickname={nickname} chat_id={response.data.chat_id} messages={data_me}/>,

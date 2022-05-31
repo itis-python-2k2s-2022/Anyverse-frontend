@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import ThreadFieldElement from "../components/ThreadFieldElement";
 import {useNavigate} from "react-router";
 import {UploadOutlined} from "@ant-design/icons";
+import EditThreadImage from "../components/EditThreadImage";
 
 const { TextArea } = Input;
 let count = 0;
@@ -64,6 +65,7 @@ const UpdateThread = () => {
             const form = document.forms.fields;
             const name_thread  = form.elements.name.value;
             const description = form.elements.description.value;
+            console.log(elem_list)
             for (var element in elem_list) {
                 const el_value = form.elements.namedItem("answer" + element).value
                 if (el_value !== ""){
@@ -149,33 +151,15 @@ const UpdateThread = () => {
                     />
                 </Form.Item>
                 <div id={"new-fields"} />
-                <Form.Item
-                    name={"fileinfo"}
-                    label={"Фото:"}
-                    valuePropName={"fileList"}
-                    getValueFromEvent={setFile}
-                  >
-                    <Upload
-                        id={"upload_file"}
-                        name="file"
-                        listType="picture"
-                        maxCount={1}
-                        accept="image/png, image/jpg, image/jpeg"
-                        beforeUpload={() => false}
-                    >
-                      <Button icon={<UploadOutlined />}>
-                          Нажмите, чтобы загрузить файл
-                      </Button>
-                    </Upload>
-                </Form.Item>
                 <Button
                     type='primary'
                     htmlType='submit'
                     className='rounded-md bg-blue-300'
                 >
-                    Сохранить изменения
+                    Сохранить изменения тектовое
                 </Button>
             </Form>
+             <EditThreadImage />
         </div>
     );
 };

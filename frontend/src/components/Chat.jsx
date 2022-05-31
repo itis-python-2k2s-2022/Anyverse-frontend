@@ -1,84 +1,94 @@
-import React, { Component } from 'react'
-import ChatInput from './ChatInput'
-import ChatMessage from './ChatMessage'
+import React, {useState, useEffect} from 'react';
+import axios from "axios";
+import {Button, Form, Input, List} from "antd";
+import VirtualList from "rc-virtual-list";
 
-const URL = "ws://127.0.0.1:8000/user_app/chat/send_message";
+let count = 0;
+const ContainerHeight = 500;
 
+const Chat = (props) => {
+  const [me, setMe] = useState(false)
+  const [data, setData] = useState(props.messages);
 
-class Chat extends Component {
-  state = {
-    name: 'Ichlas',
-    messages: [],
-  }
-
-  ws = new WebSocket(URL)
-
-  componentDidMount() {
-    this.ws.onopen = () => {
-      console.log('connected')
-      this.ws.send('я есть грут')
+    const post_message = async (message) => {
+        axios.post("http://127.0.0.1:8000/user_app/chat/send_message",
+            {
+                sender: localStorage.getItem('token'),
+                receiver: props.nickname,
+                message: message
+            })
+            .then(response => {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error, "error");
+            });
     }
 
-    this.ws.onmessage = evt => {
-      console.log(`[message] Данные получены с сервера: ${evt.data}`);
-      // const message = JSON.parse(evt.data)
-      this.addMessage(evt.data)
+    props.ws.onmessage = function (event) {
+        setMe(false)
+        setData(data.concat({_id: count, message: event.data, from_user: me}))
+    };
+
+    props.ws.addEventListener('close', (event) => {
+  console.log('The connection has been closed successfully.');
+});
+
+    function sendMessage(e) {
+        var input = document.getElementById("messageText")
+        setMe(true)
+        post_message(input.value)
+        count += 1;
+        props.ws.send(input.value)
+        input.value = ''
+        e.preventDefault()
     }
 
-    this.ws.onclose = () => {
-      console.log('disconnected')
-      this.setState({
-        ws: new WebSocket(URL),
-      })
-    }
-  }
+     const onScroll = (e) => {
+    if (e.currentTarget.scrollHeight - e.currentTarget.scrollTop === ContainerHeight) {
 
-  addMessage = message =>
-    this.setState(state => ({ messages: [message, ...state.messages] }))
+    }}
 
-  submitMessage = messageString => {
-    const message = { name: this.state.name, message: messageString }
-    this.ws.send(JSON.stringify(message))
-    this.addMessage(message)
-  }
-
-  render() {
     return (
-      <div>
-        <div class="fixed-chat">
-          <div class="panel-chat">
-            <div class="header-chat">
-              <label htmlFor="name">
-                Name:&nbsp;
-                <input
-                  type="text"
-                  id={'name'}
-                  placeholder={'Enter your name...'}
-                  value={this.state.name}
-                  onChange={e => this.setState({ name: e.target.value })}
-                />
-              </label>
+        <div>
+            <List>
+      <VirtualList
+          scrollToIndex={0}
+          scrollToAlignment='bottom'
+          id="message_list"
+        data={data}
+        height={500}
+        itemHeight={10}
+        itemKey="_id"
+          onScroll={onScroll}
+      >
+        {element => (
+          <List.Item id={element._id} key={element._id}>
+              {element.from_user ? (
+                <List.Item.Meta
+              title={props.user_nickname}
+              description={element.message}/>
+                ) : (
+                    <List.Item.Meta
+              title={props.nickname}
+              description={element.message}
+            />
+                )}
+          </List.Item>
+        )}
+      </VirtualList>
+    </List>
+            <p/>
+            <Form action="" className="flex-end">
+                <Input type="text" id="messageText" autoComplete="off"/>
+                <Button onClick={sendMessage}>Send</Button>
+            </Form>
+            {/*<ul id='messages'>*/}
+            {/*</ul>*/}
+            <div id='messages'>
             </div>
-            <div class="body-chat">
-              {this.state.messages.map((message, index) =>
-                <ChatMessage
-                  key={index}
-                  message={message.message}
-                  name={message.name}
-                />,
-              )}
-            </div>
-            <div class="message-chat">
-              <ChatInput
-                ws={this.ws}
-                onSubmitMessage={messageString => this.submitMessage(messageString)}
-              />
-            </div>
-          </div>
         </div>
-      </div>
-    )
-  }
-}
+    );
+};
 
-export default Chat
+export default Chat;
