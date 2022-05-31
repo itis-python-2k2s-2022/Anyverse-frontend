@@ -78,7 +78,7 @@ const UpdateThread = () => {
                 const formData = new FormData();
                 formData.append('file', file.fileList[0].originFileObj)
                 axios
-                    .put("http://localhost:8000/category_app/thread/update_thread_image/" + thread_id, formData)
+                    .put(`${process.env.REACT_APP_API_URL}/category_app/thread/update_thread_image/` + thread_id, formData)
                     .then(function (response) {
                         console.log(response);
                     })

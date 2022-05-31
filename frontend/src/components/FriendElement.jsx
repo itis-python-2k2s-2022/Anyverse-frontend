@@ -20,7 +20,7 @@ const FriendElement = (props) => {
                                   size={90}
                                   shape={"square"}
                                   id={"user_image"}
-                                  src={"http://127.0.0.1:8000/" + props.item.image}
+                                  src={`${process.env.REACT_APP_API_URL}/` + props.item.image}
                                 />
                             ) : (
                                 <Avatar

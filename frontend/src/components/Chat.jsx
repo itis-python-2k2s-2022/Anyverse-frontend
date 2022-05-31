@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
-import {Button, Form, Input, List} from "antd";
+import {Button, Form, Input, List, message} from "antd";
 import VirtualList from "rc-virtual-list";
 
 let count = 0;
@@ -9,6 +9,9 @@ const ContainerHeight = 500;
 const Chat = (props) => {
   const [me, setMe] = useState(false)
   const [data, setData] = useState(props.messages);
+  const error = () => {
+  message.error('Пустое сообщение нельзя отправить(');
+};
 
     const post_message = async (message) => {
         axios.post(`${process.env.REACT_APP_API_URL}/user_app/chat/send_message`,
@@ -36,12 +39,17 @@ const Chat = (props) => {
 
     function sendMessage(e) {
         var input = document.getElementById("messageText")
-        setMe(true)
-        post_message(input.value)
-        count += 1;
-        props.ws.send(input.value)
-        input.value = ''
-        e.preventDefault()
+        if (input.value.replace(/\s/g, '') === ""){
+            error()
+        } else {
+            setMe(true)
+            post_message(input.value)
+            count += 1;
+            props.ws.send(input.value)
+            input.value = ''
+            e.preventDefault()
+        }
+
     }
 
      const onScroll = (e) => {

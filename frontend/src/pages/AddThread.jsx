@@ -64,7 +64,7 @@ const AddThread = () => {
                 })
             }
             axios
-                .post("http://127.0.0.1:8000/category_app/thread/create_thread", {
+                .post(`${process.env.REACT_APP_API_URL}/category_app/thread/create_thread`, {
                     name: name_category,
                     description: description,
                     creator: localStorage.getItem('token'),
@@ -76,7 +76,7 @@ const AddThread = () => {
                     const thread = response.data.thread_id
                     formData.append('file', file.fileList[0].originFileObj)
                     axios
-                        .put("http://localhost:8000/category_app/thread/update_thread_image/" + thread, formData)
+                        .put(`${process.env.REACT_APP_API_URL}/category_app/thread/update_thread_image/` + thread, formData)
                         .then(function (response) {
                             console.log(response);
                         })

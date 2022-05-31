@@ -1,18 +1,30 @@
 # AnyVerse
 
--Установите Node 16.x: <https://nodejs.org/en/download/>
+- Установите Node 16.x: <https://nodejs.org/en/download/>
 
--Установите зависимости
+- Создать виртуальное окружение 
+```bash
+python3 -m venv .venv
+```
+
+- Bойти в виртуальное окружение
+```bash
+source .venv/bin/activate 
+```
+
+- Перейдите в директорию frontend
+
+- Установите зависимости
 ```bash
 npm install
 ```
 
--Перейдите в frontend, создайте .env и добавьте строку
+- Создайте .env и добавьте строку
 ```bash
 REACT_APP_API_URL=http://127.0.0.1:8000
 ```
 
--Запустите проект
+- Запустите проект
 ```bash
 npm start
 ```

@@ -85,7 +85,7 @@ const UpdateCategory = () => {
                 formData.append('file', file.fileList[0].originFileObj)
                 const category = response.data.category_id
             axios
-             .put("http://localhost:8000/category_app/category/update_category_image/" + category,  formData)
+                 .put(`${process.env.REACT_APP_API_URL}/category_app/category/update_category_image/` + category,  formData)
             .then(function (response) {
               console.log(response);
             })

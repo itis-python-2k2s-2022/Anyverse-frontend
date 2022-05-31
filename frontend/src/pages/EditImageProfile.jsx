@@ -18,7 +18,7 @@ const EditImageProfile = () => {
              formData.append('file', file.fileList[0].originFileObj)
              console.log(nick + "lll")
              axios
-                 .put("http://localhost:8000/profile/update_image_info/" + nick, formData)
+                 .put(`${process.env.REACT_APP_API_URL}/profile/update_image_info/` + nick, formData)
                  .then(function (response) {
                      console.log(response);
                      navigate("/profile/get_profile_info/");
