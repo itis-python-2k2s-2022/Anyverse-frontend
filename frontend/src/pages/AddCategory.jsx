@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Form, Input, Upload} from "antd";
+import {Button, Form, Input, message, Upload} from "antd";
 import CategoryField from "../components/CategoryField";
 import ReactDOM from "react-dom";
 import axios from "axios";
@@ -70,6 +70,7 @@ const AddCategory = () => {
             .then(function (response) {
               console.log(response);
               navigate("/category/subscriptions");
+              message.success(response.data.response_message);
             })
             .catch(function (error) {
               console.log(error, "error");

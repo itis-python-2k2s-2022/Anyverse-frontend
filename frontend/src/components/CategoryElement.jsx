@@ -7,19 +7,21 @@ const CategoryElement = (props) => {
       return (
         <a href={"/category/" + props.item._id}>
             <div className="post" id={props.item.name}>
-                <Space>
+                <div className={"row"} style={{width: "100%"}}>
+                    <div className={"col-1"}>
                     <Avatar
                         shape="square"
                         size={64}
                         src={"http://127.0.0.1:8000/" + props.item.image}
                     />
-                    <div>
+                    </div>
+                    <div className={"col-10"}>
                         {props.item.name}
                     </div>
-                    <div>
+                    <div className={"col-1"}>
                         <TeamOutlined /> {props.item.subscriptions}
                     </div>
-                </Space>
+                </div>
             </div>
         </a>
     );

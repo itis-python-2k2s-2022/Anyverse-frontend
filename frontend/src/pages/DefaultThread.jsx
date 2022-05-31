@@ -4,7 +4,7 @@ import TreadElement from "../components/TreadElement";
 import ReactDOM from "react-dom";
 import {useParams} from "react-router-dom";
 import ThreadFieldElement from "../components/ThreadFieldElement";
-import {Avatar, Button, Card, Col, Form, Input, Rate, Row, Space} from "antd";
+import {Avatar, Button, Card, Col, Form, Input, message, Rate, Row, Space} from "antd";
 import TreadOpenElement from "../components/TreadOpenElement";
 import CommentElement from "../components/CommentElement";
 import data from "bootstrap/js/src/dom/data";
@@ -39,6 +39,7 @@ const DefaultThread = () => {
                 })
             .then(function (response) {
                 console.log(response);
+                message.success(response.data.response_message);
             })
             .catch(function (error) {
                 console.log(error, "error");
@@ -121,6 +122,7 @@ const DefaultThread = () => {
                      thread_list,
                      document.getElementById("comment_list")
                  )
+            message.success(response.data.response_message);
         })
           .catch(function (error) {
                 console.log(error, "error");

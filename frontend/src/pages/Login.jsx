@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import axios from "axios";
 import { fetchToken } from "../components/Auth";
-import { Button, Form, Input } from "antd";
+import {Button, Form, Input, message} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import AuthButton from "../components/AuthButton";
 import {Container} from "react-bootstrap";
@@ -29,6 +29,7 @@ export default function Login() {
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token)
                     navigate("/profile/get_profile_info");
+                    message.success(response.data.response_message);
                 }
             })
             .catch((error) => {
