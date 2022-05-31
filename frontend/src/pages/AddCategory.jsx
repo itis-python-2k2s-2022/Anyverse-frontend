@@ -10,11 +10,13 @@ import {PlusOutlined, UploadOutlined} from "@ant-design/icons"
 let count = 0;
 let elem_list = [];
 let additional_fields = [];
+const { TextArea } = Input;
 
 const AddCategory = () => {
     const navigate = useNavigate();
 
     const [file, setFile] = useState(null);
+    const [formErrors, setFormErrors] = useState("");
 
     function add(e) {
         const elements = document.getElementById("new-fields");
@@ -31,55 +33,56 @@ const AddCategory = () => {
 
     function create(e) {
         const formData = new FormData();
-        console.log(formData);
-        formData.append('file', file.fileList[0].originFileObj)
-        const form = document.forms.addCategoryForm;
-        console.log(form);
-        const name_category = form.elements.name.value;
-        const description = form.elements.description.value;
-         // const additional_fields = elem_list.map((element) =>
-         //     form.elements.namedItem("a" + element).value
-         // );
-        console.log(elem_list);
-        {elem_list && elem_list.map((element) => {
-            const el_value = form.elements.namedItem("a" + element).value
-            if (el_value !== ""){
-                additional_fields.push(el_value)
+        if (file && file.fileList.length !== 0) {
+            formData.append('file', file.fileList[0].originFileObj)
+            const form = document.forms.addCategoryForm;
+            const name_category = form.elements.name.value;
+            const description = form.elements.description.value;
+
+            if (elem_list && elem_list[0] !== '0') {
+                elem_list.map((element) => {
+                    const el_value = form.elements.namedItem("a" + element).value
+                    if (el_value !== "") {
+                        additional_fields.push(el_value)
+                    }
+                })
             }
-        })}
-        console.log(additional_fields)
-         // for (let step = 0; step < count; step++) {
-         //    const val = "a" +  String(step)
-         //    const comp = form.elements.namedItem(val).value
-         //    additional_fields.push(comp);
-         //    console.log(additional_fields);
-         // }
-        axios
-            .post(`${process.env.REACT_APP_API_URL}/category_app/category/create_category`, {
-                name: name_category,
-                description: description,
-                creator: localStorage.getItem('token'),
-                additional_fields:  additional_fields
-            })
-            .then(function (response) {
-                console.log(response);
-                console.log(response.data.category_id)
-                const category = response.data.category_id
-                  axios
-            .put("http://localhost:8000/category_app/category/update_category_image/" + category,  formData)
-            .then(function (response) {
-              console.log(response);
-              navigate("/category/subscriptions");
-              message.success(response.data.response_message);
-            })
-            .catch(function (error) {
-              console.log(error, "error");
-            });
-            })
-            .catch(function (error) {
-                console.log(error, "error");
-            });
-         additional_fields=[]
+            axios
+                .post("http://127.0.0.1:8000/category_app/category/create_category", {
+                    name: name_category,
+                    description: description,
+                    creator: localStorage.getItem('token'),
+                    additional_fields: additional_fields
+                })
+                .then(function (response) {
+                    console.log(response);
+                    console.log(response.data.category_id)
+                    const category = response.data.category_id
+                    axios
+                        .put("http://localhost:8000/category_app/category/update_category_image/" + category, formData)
+                        .then(function (response) {
+                            console.log(response);
+                            navigate("/category/subscriptions");
+                            message.success(response.data.response_message);
+                        })
+                        .catch(function (error) {
+                            console.log(error, "error");
+                            if (error) {
+                                setFormErrors(error.response.data.response_message);
+                            }
+                        });
+                })
+                .catch(function (error) {
+                    console.log(error, "error");
+                    if (error) {
+                        setFormErrors(error.response.data.response_message);
+                    }
+                });
+            additional_fields = []
+        }
+        else {
+            setFormErrors("Пожалуйста, загрузите фотографию!")
+        }
      }
 
     return (
@@ -108,7 +111,7 @@ const AddCategory = () => {
                         {required: true, message: 'Пожалуйста, заполните это поле!'},
                       ]}
                 >
-                    <Input name="description"/>
+                    <TextArea autoSize={{ minRows: 3, maxRows: 5 }} name="description" />
                 </Form.Item>
                 <Form.Item
                     name={"fileinfo"}
@@ -135,6 +138,11 @@ const AddCategory = () => {
                         Добавить поле
                     </Button>
                 </Form.Item>
+                {formErrors && (
+                        <p className='pb-2' style={{ color: 'red' }}>
+                          {formErrors}
+                        </p>
+                      )}
                 <Form.Item>
                     <Button
                         type='primary'

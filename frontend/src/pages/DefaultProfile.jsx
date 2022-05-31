@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router";
-import {Button} from "antd";
+import {Avatar, Button, Card, Space} from "antd";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import ButtonBeFriend from "../components/ButtonBeFriend";
@@ -46,6 +46,8 @@ function DefaultProfile() {
             block1.innerText = user.nickname
             const block2 = document.getElementById("user_surname")
             block2.innerText = user.surname
+            const block3 = document.getElementById("user_image")
+            block3.src = "http://127.0.0.1:8000/" + user.image
             ReactDOM.hydrate(
                      <ButtonForAnotherUser user_nickname={user.nickname}
                      status={status}/>,
@@ -57,15 +59,45 @@ function DefaultProfile() {
             });
 
   return (
-      <><h1>ИМЯ:</h1>
-            <div id="user_name">
-            </div>
-          <h1>НИКНЕЙМ:</h1>
-             <div id="user_nickname">
-             </div>
-          <h1>ФАМИЛИЯ:</h1>
-             <div id="user_surname">
-             </div>
+      <>
+          <Card
+                id={"profile_card"}
+                // actions={[
+                //     <div onClick={profile_edit}>Изменить данные</div>,
+                //     <div onClick={password_edit}>Изменить пароль</div>,
+                //     <div onClick={signOut}>Выйти</div>,
+                // ]}
+              >
+                <div className={"row"}>
+                    <div className={"col-4"}>
+                        <Avatar
+                          size={300}
+                          shape={"square"}
+                          id={"user_image"}
+                        />
+                    </div>
+                    <div className={"col-8"}>
+                        <div>
+                            <Space>
+                                <p className={"fs-4"}>Никнейм: </p>
+                                <p className={"fs-5"} id={"user_nickname"}/>
+                            </Space>
+                        </div>
+                        <div>
+                            <Space>
+                                <p className={"fs-4"}>Имя: </p>
+                                <p className={"fs-5"} id={"user_name"}/>
+                            </Space>
+                        </div>
+                        <div>
+                            <Space>
+                                <p className={"fs-4"}>Фамилия: </p>
+                                <p className={"fs-5"} id={"user_surname"}/>
+                            </Space>
+                        </div>
+                    </div>
+                </div>
+            </Card>
           <div id="buttons">
           </div>
       </>

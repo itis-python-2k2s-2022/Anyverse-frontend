@@ -23,6 +23,7 @@ const AddThread = () => {
     const category_id = params.category;
 
     const [file, setFile] = useState(null);
+    const [formErrors, setFormErrors] = useState("");
 
     axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_category_settings`,
 {headers: { token: localStorage.getItem('token')}, params: {category: category_id}})
@@ -48,45 +49,57 @@ const AddThread = () => {
         });
 
     function create(e) {
-        const form = document.forms.fields;
-        const name_category = form.elements.name.value;
-        const description = form.elements.description.value;
-        {elem_list && elem_list.map((element) => {
-            const el_answer = form.elements.namedItem("answer" + element).value
-            if (el_answer !== ""){
-                additional_fields[fields[element]] =  el_answer
+        const formData = new FormData();
+        console.log(file)
+        if (file && file.fileList.length !== 0) {
+            const form = document.forms.fields;
+            const name_category = form.elements.name.value;
+            const description = form.elements.description.value;
+            {
+                elem_list && elem_list.map((element) => {
+                    const el_answer = form.elements.namedItem("answer" + element).value
+                    if (el_answer !== "") {
+                        additional_fields[fields[element]] = el_answer
+                    }
+                })
             }
-        })}
-        axios
-            .post(`${process.env.REACT_APP_API_URL}/category_app/thread/create_thread`, {
-                name: name_category,
-                description: description,
-                creator: localStorage.getItem('token'),
-                category: category_id,
-                additional_fields:  additional_fields
-            })
-            .then(function (response) {
-                console.log(response);
-                const thread = response.data.thread_id
-                if (file) {
-                    const formData = new FormData();
+            axios
+                .post("http://127.0.0.1:8000/category_app/thread/create_thread", {
+                    name: name_category,
+                    description: description,
+                    creator: localStorage.getItem('token'),
+                    category: category_id,
+                    additional_fields: additional_fields
+                })
+                .then(function (response) {
+                    console.log(response);
+                    const thread = response.data.thread_id
                     formData.append('file', file.fileList[0].originFileObj)
                     axios
-                        .put("http://localhost:8000/category_app/thread/update_thread_image/" + thread,  formData)
+                        .put("http://localhost:8000/category_app/thread/update_thread_image/" + thread, formData)
                         .then(function (response) {
-                          console.log(response);
+                            console.log(response);
                         })
                         .catch(function (error) {
-                          console.log(error, "error");
+                            console.log(error, "error");
+                            if (error) {
+                                setFormErrors(error.response.data.response_message);
+                            }
                         });
-                }
-                navigate("/category/" + category_id);
-                message.success(response.data.response_message);
-            })
-            .catch(function (error) {
-                console.log(error, "error");
-            });
-        additional_fields = {}
+                    navigate("/category/" + category_id);
+                    message.success(response.data.response_message);
+                })
+                .catch(function (error) {
+                    console.log(error, "error");
+                    if (error) {
+                        setFormErrors(error.response.data.response_message);
+                    }
+                });
+            additional_fields = {}
+        }
+        else {
+            setFormErrors("Пожалуйста, загрузите фотографию!")
+        }
      }
 
     return (
@@ -129,7 +142,7 @@ const AddThread = () => {
                     getValueFromEvent={setFile}
                   >
                     <Upload
-                        id={"upload_file"}
+                        id={"thread_img"}
                         name="file"
                         listType="picture"
                         maxCount={1}
@@ -141,13 +154,20 @@ const AddThread = () => {
                       </Button>
                     </Upload>
                 </Form.Item>
-                <Button
-                    type='primary'
-                    htmlType='submit'
-                    className='rounded-md bg-blue-300'
-                >
-                    Создать пост
-                </Button>
+                {formErrors && (
+                        <p className='pb-2' style={{ color: 'red' }}>
+                          {formErrors}
+                        </p>
+                      )}
+                <Form.Item>
+                    <Button
+                        type='primary'
+                        htmlType='submit'
+                        className='rounded-md bg-blue-300'
+                    >
+                        Создать пост
+                    </Button>
+                </Form.Item>
             </Form>
         </div>
     );
