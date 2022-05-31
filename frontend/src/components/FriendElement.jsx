@@ -1,6 +1,7 @@
 import React from 'react';
 import "../styles/App.css";
 import {Avatar, Card, Space} from "antd";
+import {SmileOutlined} from "@ant-design/icons";
 
 const FriendElement = (props) => {
     return (
@@ -14,15 +15,25 @@ const FriendElement = (props) => {
                 >
                     <div className={"row"}>
                         <div className={"col-1"}>
-                            <Avatar
-                              size={90}
-                              shape={"square"}
-                              id={"user_image"}
-                              src={"http://127.0.0.1:8000/" + props.item.image}
-                            />
+                            {props.item.image ? (
+                                <Avatar
+                                  size={90}
+                                  shape={"square"}
+                                  id={"user_image"}
+                                  src={"http://127.0.0.1:8000/" + props.item.image}
+                                />
+                            ) : (
+                                <Avatar
+                                  size={90}
+                                  shape={"square"}
+                                  id={"user_image"}
+                                  icon={<SmileOutlined />}
+                                />
+                            )}
+
                         </div>
                         <div className={"col"}>
-                            <p className={"fs-4 center"}>{props.item.nickname}</p>
+                            <p className={"fs-4"}>{props.item.nickname}</p>
                             <div>
                                 <Space>
                                     <p className={"fs-5"}>{props.item.name}</p>

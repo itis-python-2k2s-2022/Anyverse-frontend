@@ -1,14 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from "react-router";
 import {Avatar, Button, Card, Space} from "antd";
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import ButtonBeFriend from "../components/ButtonBeFriend";
-import {fetchToken} from "../components/Auth";
-import {Profile_} from "../components/ProfileElement";
 import ReactDOM from "react-dom";
-import CategoryElement from "../components/CategoryElement";
 import ButtonForAnotherUser from "../components/ButtonForAnotherUser";
+import {SmileOutlined} from "@ant-design/icons";
 
 let status = 0;
 
@@ -18,6 +15,7 @@ function DefaultProfile() {
     // const useParams = ReactRouterDOM.useParams;
     const params = useParams();
     const user_nickname = params.nickname;
+    const [srcImage, setSrcImage] = useState(null)
 
     const send_message= () => {
     navigate("/chat/open_chat/" + user_nickname);
@@ -38,7 +36,8 @@ function DefaultProfile() {
             const user = {
                 name: response.data.user.name,
                 nickname: response.data.user.nickname,
-                surname: response.data.user.surname
+                surname: response.data.user.surname,
+                image: response.data.user.image
             }
             const block = document.getElementById("user_name")
             block.innerText = user.name
@@ -46,8 +45,7 @@ function DefaultProfile() {
             block1.innerText = user.nickname
             const block2 = document.getElementById("user_surname")
             block2.innerText = user.surname
-            const block3 = document.getElementById("user_image")
-            block3.src = "http://127.0.0.1:8000/" + user.image
+            setSrcImage(user.image);
             ReactDOM.hydrate(
                      <ButtonForAnotherUser user_nickname={user.nickname}
                      status={status}/>,
@@ -70,11 +68,21 @@ function DefaultProfile() {
               >
                 <div className={"row"}>
                     <div className={"col-4"}>
-                        <Avatar
-                          size={300}
-                          shape={"square"}
-                          id={"user_image"}
-                        />
+                        {srcImage ? (
+                            <Avatar
+                              size={300}
+                              shape={"square"}
+                              id={"user_image"}
+                              src={"http://127.0.0.1:8000/" + srcImage}
+                            />
+                        ) : (
+                            <Avatar
+                              size={300}
+                              shape={"square"}
+                              id={"user_image"}
+                              icon={<SmileOutlined />}
+                            />
+                        )}
                     </div>
                     <div className={"col-8"}>
                         <div>

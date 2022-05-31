@@ -14,6 +14,8 @@ const DefaultCategory = () => {
 
     const [mark, setMark] = useState(false)
     const [flags, setFlags] = useState(false)
+    const [srcImage, setSrcImage] = useState(null)
+
 
     const navigate = useNavigate();
 
@@ -90,14 +92,7 @@ const DefaultCategory = () => {
             block1.innerText = category_info.description
             const block2 = document.getElementById("category_subscriptions")
             block2.innerText = category_info.subscriptions
-            ReactDOM.hydrate(
-                <Avatar
-                    size={300}
-                    shape={"square"}
-                    id={"category_photo"}
-                    src = {`${process.env.REACT_APP_API_URL}/` + category_info.image}/>,
-                 document.getElementById("photo_category")
-            )
+            setSrcImage(`${process.env.REACT_APP_API_URL}` + category_info.image);
 
         })
           .catch(function (error) {
@@ -151,6 +146,7 @@ const DefaultCategory = () => {
                               size={300}
                               shape={"square"}
                               id={"category_photo"}
+                              src={srcImage}
                             />
                         </div>
                         <div className={"col-8"}>

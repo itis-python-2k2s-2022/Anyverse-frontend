@@ -36,8 +36,14 @@ export default function NavbarElement() {
                 </>
             ) : (
                 <>
-                <Nav.Link href="/auth/login">Вход</Nav.Link>
-                <Nav.Link href="/auth/register">Регистрация</Nav.Link>
+                    <Nav>
+                      <NavDropdown id={'nav-dropdown-menu'} title={'Меню'}>
+                          <NavDropdown.Item href={"/category/search"}>Поиск категорий</NavDropdown.Item>
+                          <NavDropdown.Item href={"/search_friend"}>Поиск людей</NavDropdown.Item>
+                      </NavDropdown>
+                    </Nav>
+                    <Nav.Link href="/auth/login">Вход</Nav.Link>
+                    <Nav.Link href="/auth/register">Регистрация</Nav.Link>
                 </>
                 )}
           </Nav>

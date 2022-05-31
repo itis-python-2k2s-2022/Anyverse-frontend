@@ -26,10 +26,11 @@ const ButtonRequest = (props) => {
     return (
         <div>
             <Button
-                type='primary'
                 htmlType='submit'
-                className='rounded-md bg-blue-300 p-1'
-                onClick={be_friend}>
+                className='rounded-md bg-blue-300'
+                onClick={be_friend}
+                style={{margin : 2}}
+            >
                 {props.title}
             </Button>
         </div>

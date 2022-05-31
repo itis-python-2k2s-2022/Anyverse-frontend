@@ -63,9 +63,10 @@ const Friendlist = () => {
 
     return (
         <div>
-            <h1>мои друзья</h1>
+            <p className={"fs-4 text-center"}>Мои друзья</p>
             <div id="friends"></div>
-            <h1>Хотят со мной дружить</h1>
+            <hr style={{marginTop: 30, marginBottom: 30}}/>
+            <p className={"fs-4 text-center"}>Хотят со мной дружить</p>
             <div id="requests"></div>
         </div>
     );

@@ -22,6 +22,7 @@ const DefaultThread = () => {
     const thread_id = params.thread;
 
     const [currentValue, setCurrentValue] = useState(0)
+    const [srcImage, setSrcImage] = useState(null)
 
     const returnBack = (e) => {
 
@@ -50,7 +51,7 @@ const DefaultThread = () => {
         {headers: { token: localStorage.getItem('token'),
                           thread_id: thread_id}})
         .then(response => {
-            document.getElementById("thread_photo").src = `${process.env.REACT_APP_API_URL}/` + response.data.thread.image;
+            setSrcImage(`${process.env.REACT_APP_API_URL}` + response.data.thread.image);
             document.getElementById("thread_name").innerText  = response.data.thread.name
             document.getElementById("thread_description").innerText  = response.data.thread.description
             category_id = response.data.thread.category
@@ -142,6 +143,7 @@ const DefaultThread = () => {
                           size={300}
                           shape={"square"}
                           id={"thread_photo"}
+                          src={srcImage}
                         />
                     </div>
                     <div className={"col-8"}>

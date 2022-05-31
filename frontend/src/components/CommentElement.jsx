@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import UpdateComment from "./UpdateComment";
 import {Card, Button, Avatar, Space} from "antd";
 import axios from "axios";
+import {SmileOutlined} from "@ant-design/icons";
 
 const CommentElement = (props) => {
     const goToUser = () => {
@@ -39,11 +40,19 @@ const CommentElement = (props) => {
                 style={{marginTop: 16}}
                 title={
                     <Space onClick={goToUser}>
-                        <Avatar
-                          src={`${process.env.REACT_APP_API_URL}/` + props.user.image}
-                          size={50}
-                          onClick={goToUser}
-                        />
+                        {props.user.image ? (
+                            <Avatar
+                              src={`${process.env.REACT_APP_API_URL}/` + props.user.image}
+                              size={50}
+                              onClick={goToUser}
+                            />
+                        ) : (
+                            <Avatar
+                              icon={<SmileOutlined />}
+                              size={50}
+                              onClick={goToUser}
+                            />
+                        )}
                         <p className={"fs-5"}>{props.user.nickname}</p>
                     </Space>
                 }

@@ -25,10 +25,10 @@ const ButtonDeleteFriend = (props) => {
     return (
         <div>
             <Button
-                type='primary'
                 htmlType='submit'
-                className='rounded-md bg-blue-300 p-1'
-                onClick={del_friend}>
+                className='rounded-md bg-blue-300'
+                onClick={del_friend}
+            >
                 Удалить из друзей
             </Button>
         </div>

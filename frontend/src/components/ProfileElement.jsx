@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom'
 import { useNavigate } from "react-router";
-// import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
+import {SmileOutlined} from "@ant-design/icons";
 import {Card, Avatar, Space} from "antd";
 
 
@@ -10,6 +10,7 @@ let nick = ""
 
 export const Profile_  = () => {
     const navigate = useNavigate();
+    const [srcImage, setSrcImage] = useState(null)
 
     const signOut = () => {
     localStorage.removeItem("token");
@@ -48,16 +49,17 @@ export const Profile_  = () => {
             block1.innerText = response.data.user.nickname
             const block2 = document.getElementById("user_surname")
             block2.innerText = response.data.user.surname;
-            ReactDOM.hydrate(
-                 <Avatar
-                          size={300}
-                          shape={"square"}
-                          id={"user_image"}
-                          src={`${process.env.REACT_APP_API_URL}/` + user.url}
-                        />,
-                document.getElementById("display")
-            )
-            // document.getElementById("user_image").src = `${process.env.REACT_APP_API_URL}/` + user.url;
+            setSrcImage(response.data.user.url);
+            // ReactDOM.hydrate(
+            //      <Avatar
+            //               size={300}
+            //               shape={"square"}
+            //               id={"user_image"}
+            //               src={"http://127.0.0.1:8000/" + user.url}
+            //             />,
+            //     document.getElementById("display")
+            // )
+            // document.getElementById("user_image").src = "http://127.0.0.1:8000/" + user.url;
         })
           .catch(function (error) {
                 console.log(error, "error");
@@ -76,11 +78,21 @@ export const Profile_  = () => {
               >
                 <div className={"row"}>
                     <div id="display" className={"col-4"}>
-                        <Avatar
-                          size={300}
-                          shape={"square"}
-                          id={"user_image"}
-                        />
+                        {srcImage ? (
+                            <Avatar
+                              size={300}
+                              shape={"square"}
+                              id={"user_image"}
+                              src={`${process.env.REACT_APP_API_URL}/` + srcImage}
+                            />
+                        ) : (
+                            <Avatar
+                              size={300}
+                              shape={"square"}
+                              id={"user_image"}
+                              icon={<SmileOutlined />}
+                            />
+                        )}
                     </div>
                     <div className={"col-8"}>
                         <div>

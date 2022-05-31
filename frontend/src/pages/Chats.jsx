@@ -22,6 +22,7 @@ function Chats() {;
                  }
              );
              console.log(listItems)
+            console.log(response.data.chats)
 
              response.data.chats.map((item) =>
                  ReactDOM.hydrate(
