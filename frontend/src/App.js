@@ -50,6 +50,7 @@ function App() {
                 <Route path="/auth/register" element = {<Registration />}/>
                 <Route path="/auth/oauth" element={<GetAuth/>}/>
                 <Route path="*" element={<NoPage />} />
+                <Route path="/profile/get_profile_info" element = {<Profile />}/>
                 {fetchToken() ? (
                     <>
                         <Route path="default_profile/get_profile_info/" element={<DefaultProfile/>}>
@@ -63,7 +64,6 @@ function App() {
                         <Route path="/thread/" element={<DefaultThread/>}>
                             <Route path=":thread" element={<DefaultThread/>}/>
                         </Route>
-                        <Route path="/profile/get_profile_info" element = {<Profile />}/>
                         <Route path="/update_password_info" element = {<EditPassword />}/>
                         <Route path="/update_profile_info" element = {<ProfileEdit />}>
                             <Route path=":nickname" element={<ProfileEdit />}/>
