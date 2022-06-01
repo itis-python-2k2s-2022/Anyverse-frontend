@@ -18,12 +18,12 @@ let additional_fields = {}
 const { TextArea } = Input;
 
 const AddThread = () => {
+    const [exist, setExist] = useState(true)
     const navigate = useNavigate();
     const params = useParams();
     const category_id = params.category;
 
     const [file, setFile] = useState(null);
-    const [exist, setExist] = useState(true)
     const [formErrors, setFormErrors] = useState("");
 
     axios.get(`${process.env.REACT_APP_API_URL}/category_app/category/get_category_settings`,
