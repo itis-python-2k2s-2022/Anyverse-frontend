@@ -93,7 +93,8 @@ const DefaultCategory = () => {
             block1.innerText = category_info.description
             const block2 = document.getElementById("category_subscriptions")
             block2.innerText = category_info.subscriptions
-            setSrcImage(`${process.env.REACT_APP_API_URL}` + category_info.image);
+            setSrcImage(`${process.env.REACT_APP_API_URL}/` + category_info.image);
+            console.log(srcImage)
 
         })
           .catch(function (error) {
