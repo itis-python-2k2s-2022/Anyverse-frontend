@@ -84,7 +84,8 @@ const DefaultCategory = () => {
             const category_info = {
                 name: response.data.category.name,
                 description: response.data.category.description,
-                subscriptions: response.data.category.subscriptions
+                subscriptions: response.data.category.subscriptions,
+                image: response.data.category.image,
             }
             const block = document.getElementById("category_name")
             block.innerText = category_info.name
