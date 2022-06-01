@@ -22,10 +22,11 @@ const AddCategory = () => {
         const elements = document.getElementById("new-fields");
         const member_chat = document.createElement("div");
         elem_list.push(String(count));
+        console.log(elem_list)
         member_chat.setAttribute('id', String(count) + "div");
         elements.append(member_chat);
         ReactDOM.hydrate(
-            <CategoryField id={String(count)} defaultValue={""}/>,
+            <CategoryField id={String(count)} defaultValue={""} list={elem_list}/>,
             document.getElementById(String(count)+"div")
         );
         count += 1
@@ -38,8 +39,10 @@ const AddCategory = () => {
             const form = document.forms.addCategoryForm;
             const name_category = form.elements.name.value;
             const description = form.elements.description.value;
+            console.log(elem_list)
 
-            if (elem_list && elem_list[0] !== '0') {
+            if (elem_list) {
+                console.log(111, elem_list)
                 elem_list.map((element) => {
                     const el_value = form.elements.namedItem("a" + element).value
                     if (el_value !== "") {
