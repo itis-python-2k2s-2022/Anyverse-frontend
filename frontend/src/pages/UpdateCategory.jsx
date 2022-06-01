@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import CategoryField from "../components/CategoryField";
 import {useNavigate} from "react-router";
 import {PlusOutlined, UploadOutlined} from "@ant-design/icons";
+import EditCategoryImage from "../components/EditCategoryImage";
 
 let count = 0;
 let elem_list = [];
@@ -80,19 +81,6 @@ const UpdateCategory = () => {
         })
         .then(response => {
             console.log(file);
-            if (file) {
-                const formData = new FormData();
-                formData.append('file', file.fileList[0].originFileObj)
-                const category = response.data.category_id
-            axios
-                 .put(`${process.env.REACT_APP_API_URL}/category_app/category/update_category_image/` + category,  formData)
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error, "error");
-            });
-            }
             navigate("/category/subscriptions");
             message.success(response.data.response_message);
         })
@@ -138,25 +126,6 @@ const UpdateCategory = () => {
                         type={"text"}
                     />
                 </Form.Item>
-                <Form.Item
-                    name={"fileinfo"}
-                    label={"Фото:"}
-                    valuePropName={"fileList"}
-                    getValueFromEvent={setFile}
-                  >
-                    <Upload
-                        id={"category_img"}
-                        name="file"
-                        listType="picture"
-                        maxCount={1}
-                        accept="image/png, image/jpg, image/jpeg"
-                        beforeUpload={() => false}
-                    >
-                      <Button icon={<UploadOutlined />}>
-                          Нажмите, чтобы загрузить файл
-                      </Button>
-                    </Upload>
-                </Form.Item>
                 <div id={"new-fields"} />
                 <Form.Item>
                     <Button type="dashed" onClick={add} block icon={<PlusOutlined />}>
@@ -173,6 +142,7 @@ const UpdateCategory = () => {
                     </Button>
                 </Form.Item>
             </Form>
+            <EditCategoryImage />
         </div>
     );
 };

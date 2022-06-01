@@ -5,10 +5,10 @@ import {useParams} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {UploadOutlined} from "@ant-design/icons";
 
-const EditThreadImage = () => {
+const EditCategoryImage = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const thread_id = params.thread;
+    const category_id = params.category;
 
     const [file, setFile] = useState(null);
 
@@ -18,9 +18,10 @@ const EditThreadImage = () => {
                 const formData = new FormData();
                 formData.append('file', file.fileList[0].originFileObj)
                 axios
-                    .put(`${process.env.REACT_APP_API_URL}/category_app/thread/update_thread_image/` + thread_id, formData)
+                    .put(`${process.env.REACT_APP_API_URL}/category_app/category/update_category_image/` + category_id, formData)
                     .then(function (response) {
                         console.log(response);
+                        navigate("/category/subscriptions");
                         message.success(response.data.response_message);
                     })
                     .catch(function (error) {
@@ -74,4 +75,4 @@ const EditThreadImage = () => {
     );
 };
 
-export default EditThreadImage;
+export default EditCategoryImage;

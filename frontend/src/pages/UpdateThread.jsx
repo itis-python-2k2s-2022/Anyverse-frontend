@@ -50,7 +50,8 @@ const UpdateThread = () => {
                            ReactDOM.hydrate(
                              <ThreadFieldElement id={element}
                                                  label={fields[element]}
-                                                 defaultValue={additional_fields[fields[element]]}/>,
+                                                 defaultValue={additional_fields[fields[element]]}
+                             />,
                              document.getElementById(String(length_fields) + "div"));
                            document.getElementById(String(length_fields)).value = additional_fields[fields[element]];
                            length_fields += 1;
