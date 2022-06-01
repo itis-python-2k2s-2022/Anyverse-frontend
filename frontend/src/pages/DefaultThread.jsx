@@ -51,7 +51,7 @@ const DefaultThread = () => {
         {headers: { token: localStorage.getItem('token'),
                           thread_id: thread_id}})
         .then(response => {
-            setSrcImage(`${process.env.REACT_APP_API_URL}` + response.data.thread.image);
+            setSrcImage(`${process.env.REACT_APP_API_URL}/` + response.data.thread.image);
             document.getElementById("thread_name").innerText  = response.data.thread.name
             document.getElementById("thread_description").innerText  = response.data.thread.description
             category_id = response.data.thread.category
